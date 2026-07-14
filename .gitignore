@@ -1,0 +1,2 @@
+# Locally-downloaded MSP430-GCC toolchain - too large for git, reproducible via fw/setup_toolchain.sh
+fw/toolchain/
