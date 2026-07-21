@@ -2856,7 +2856,7 @@
 		(uuid "a66b2860-8ce4-4d84-a585-c82b57dffef6")
 		(at 74.1 74.33)
 		(tags "SKQUCAA010 ")
-		(property "Reference" "J2"
+		(property "Reference" "SW3"
 			(at 4.15305 -3.33 0)
 			(unlocked yes)
 			(layer "F.SilkS")
