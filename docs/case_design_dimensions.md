@@ -1,6 +1,6 @@
 # Case Design Dimensions
 
-Pulled from the current PCB (`hw/solitaire/solitaire.kicad_pcb`, commit `6e86350`) and the datasheets in this `docs/` folder. Anything I couldn't verify from a real source is marked **TBD** rather than guessed — don't use unverified numbers for a case cutout.
+Pulled from the current PCB (`hw/solitaire/solitaire.kicad_pcb`, commit `1d405bf`) and the datasheets in this `docs/` folder. Anything I couldn't verify from a real source is marked **TBD** rather than guessed — don't use unverified numbers for a case cutout.
 
 All coordinates below are **relative to the board's bottom-left corner** (i.e. the board's own min-X/min-Y edge = (0,0)), not KiCad's internal sheet coordinates.
 
@@ -21,7 +21,7 @@ All coordinates below are **relative to the board's bottom-left corner** (i.e. t
 | L1 | Inductor, 2.2 µH | Regulator inductor | 3.0 | 49.5 | — | Footprint is `IND_DFE2016_MUR`; datasheet's recommended part is a Murata DFE252012 (2.5×2×1.2mm) — slightly different case size than the DFE2016 footprint name implies. Worth double-checking the actual part matches the footprint before you finalize BOM, but either way height is ~1.0–1.2 mm, not case-critical. |
 | SW1 | ALPS/SKRPACE010 | "DEAL" tact button | 35.0 | 9.425 | 0° | **No local datasheet for SKRPACE010** — I don't have a verified height. Pull the ALPS SKRPACE010 mechanical drawing before sizing the case cutout/actuator. |
 | SW2 | ALPS/SKRPACE010 | "UNDO" tact button | 35.0 | 50.575 | 0° | Same part as SW1, same caveat. |
-| J1 | Molex 51441-1093 | FPC connector to LCD | 46.27 | 30.0 | 90° | This is the LCD's recommended FPC connector (confirmed against the Sharp datasheet, see below) — low profile, bottom-contact type. I don't have Molex's own mechanical drawing for exact height; the schematic shows pins numbered up to 12 while the LCD only needs 10 signals — worth a quick check that the physical part ordered is the correct 10-position variant before you lock the connector's footprint/height into the case. |
+| J1 | GCT FFC2B35-10-T | FPC connector to LCD | 46.27 | 30.0 | 90° | Replaces the originally-specced Molex 51441-1093, which is obsolete/EOL — same mechanical family (bottom-contact, front-flip ZIF), same footprint position/rotation. Pins 11/12 are the connector's mechanical/shield pads (not LCD signals) and are tied to GND, not a leftover mismatch. I don't have GCT's own mechanical drawing for exact height — pull it before locking the connector's footprint/height into the case. |
 | J3 | Generic 1×4, 2.54mm pin header, vertical | SBW programming header | 3.19 | 3.0 | 90° | Standard break-away header. Typical total pin height above the board is ~8.5 mm (insulator + pins) for this style — verify against whatever specific header you use if it needs a case opening; if it's for occasional reprogramming only, you may not need a cutout at all. |
 | J4 | JST PH S2B-PH-K, 2-pin | Battery input (+BATT/GND) | 3.5 | 37.5 | 90° | Side-entry (horizontal) 2mm-pitch JST PH housing. In-plane footprint envelope ~6.9 × 8.6 mm. I don't have a verified mated height from a local datasheet — pull JST's PH-series drawing before finalizing the battery-wire exit/cutout. |
 
@@ -62,7 +62,7 @@ From the Sharp `LS013B7DH03` datasheet (`sharp_ls013b7dh03_memory_lcd_datasheet.
 - **Module outline**: 26.60 × 30.30 mm (±0.2mm)
 - **Active/viewing area**: 23.04 × 23.04 mm (128×128 pixels, 1.28" diagonal)
 - **Module thickness**: ~1.6mm panel, up to ~3.63mm total including the stiffener/FPC connector area at the bottom edge
-- **FPC connector recommendation**: Molex 51441-1093 (bottom contact) — matches what's specced for `J1` on the board
+- **FPC connector recommendation**: Molex 51441-1093 (bottom contact) — the board's `J1` now uses the GCT FFC2B35-10-T instead (Molex part went obsolete), a mechanically-equivalent bottom-contact/front-flip substitute, not Sharp's own recommended part
 - **FPC bend**: minimum bend radius 0.45mm inner diameter, bend zone 0.8–6.0mm from the glass edge, don't bend backward (toward polarizer side), max 3 bend cycles
 
 This module isn't part of the PCB — it sits wherever you place it in the case, connected back to `J1` by the FPC tail. You'll want a case cutout matching (or slightly larger than) the 23.04×23.04mm active area, with a ledge/bezel covering the ~1.78mm border out to the 26.60×30.30mm module edge.
@@ -80,7 +80,7 @@ This module isn't part of the PCB — it sits wherever you place it in the case,
 ## Open items before you finalize the case
 
 1. **Add mounting holes to the PCB** if the case will screw to the board — none exist yet, and case screw-boss positions should be locked to real PCB holes, not guessed.
-2. **Get real mechanical drawings** for: SKRPACE010 (SW1/SW2), Molex 51441-1093 (J1), JST PH S2B-PH-K (J4) — I didn't have local datasheets for these three.
+2. **Get real mechanical drawings** for: SKRPACE010 (SW1/SW2), GCT FFC2B35-10-T (J1), JST PH S2B-PH-K (J4) — I didn't have local datasheets for these three.
 3. **Confirm L1's actual part number** matches the footprint (DFE2016 footprint vs. DFE252012 in the datasheet's recommended BOM) — minor, but worth resolving before you lock a Z-height budget.
 4. ~~**Decide on battery form factor**~~ Resolved 2026-07-21 — Adafruit #4194, see the Battery holder section above. Still need to verify cable polarity against `J4` pin 1 before first connection (see note above).
 5. **Nav switch knob (SW3)** — no off-the-shelf ALPS accessory fits the SKQU stem (ALPS' SK2AA cap line is for the mechanically different SKHC/SKHH/SKQE families, not SKQU); being modeled from scratch in FreeCAD using the stem dimensions above. Once a height is chosen, redo the case-cutout clearance calc in the section above with the real number.
