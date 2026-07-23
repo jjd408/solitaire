@@ -5,4 +5,5 @@
   (lib (name "SKQUCAA010")(type "KiCad")(uri "${KIPRJMOD}/symbols-footprints/ul_SKQUCAA010/KiCADv6/footprints.pretty")(options "")(descr ""))
   (lib (name "SKRPACE010")(type "KiCad")(uri "${KIPRJMOD}/symbols-footprints/ul_SKRPACE010/KiCADv6/footprints.pretty")(options "")(descr ""))
   (lib (name "514411093")(type "KiCad")(uri "${KIPRJMOD}/symbols-footprints/ul_514411093/KiCADv6/footprints.pretty")(options "")(descr ""))
+  (lib (name "disp")(type "KiCad")(uri "${KIPRJMOD}/symbols-footprints/FFC2B35_10_T/KiCADv6/footprints.pretty")(options "")(descr ""))
 )
