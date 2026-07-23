@@ -1,6 +1,6 @@
 # Fab + Assembly Checklist (JLCPCB/LCSC)
 
-Status as of 2026-07-20: DRC clean (0 violations, 0 unconnected items), GND pour on B.Cu, courtyard fix committed. Design rules (0.15mm/0.15mm track/space, 0.45mm min via) are within JLCPCB's standard 2-layer capability. No LCSC/MPN part numbers are in the schematic yet — that's the biggest open gap.
+Status as of 2026-07-22 (commit `295d532`): DRC clean (0 violations, 0 unconnected items), GND zone on B.Cu actually filled (it existed since 2026-07-20 but sat unfilled through the J1 connector revert/redo until this session). Design rules (0.15mm/0.15mm track/space, 0.45mm min via) are within JLCPCB's standard 2-layer capability. No LCSC/MPN part numbers are in the schematic yet — that's the biggest open gap.
 
 ## Fab outputs (PCB)
 - Gerbers (all copper/mask/silk layers) + Excellon drill files (PTH/NPTH split) — `File → Fabrication Outputs` in Pcbnew, or `kicad-cli pcb export gerbers` / `export drill`
@@ -20,5 +20,5 @@ Status as of 2026-07-20: DRC clean (0 violations, 0 unconnected items), GND pour
 - Copper-to-edge clearance is currently 0.3mm — right at JLCPCB's typical minimum, worth double-checking near J1–J4 by the board edge
 
 ## Before ordering
-- Full DRC + ERC clean (DRC clean as of the courtyard fix commit `6e86350`; ERC on the schematic still to be run)
+- Full DRC + ERC clean (DRC clean as of commit `295d532`; ERC has a stable 32-warning baseline, all expected "unspecified pintype" nags from imported connector symbols, no genuine errors)
 - One more full render/visual pass now that routing is complete
