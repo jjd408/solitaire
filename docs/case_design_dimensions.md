@@ -18,10 +18,10 @@ All coordinates below are **relative to the board's bottom-left corner** (i.e. t
 | SW3 | ALPS SKQUCAA010 | 5-way nav switch (up/down/left/right/select) | 25.6 | 26.83 | 0° | **Tallest component on the board.** See below — this drives your minimum internal case height. Reference was `J2` in earlier revisions of this doc; renamed to `SW3` on the schematic/PCB to match the SW1/SW2 naming convention. |
 | U2 | MSP430FR2355TDBTR | MCU, TSSOP-38 | 23.15 | 10.5 | 180° | Body 9.65–9.75 × 4.35–4.45 mm, 1.2 mm max height. Low profile, not case-critical. |
 | U1 | TPS63900 | Buck-boost regulator, WSON-10 | 7.71 | 49.5 | 180° | Body 2.5 × 2.5 mm, 0.8 mm max height. Negligible. |
-| L1 | Murata DFE201612E-2R2M(-P2), 2.2 µH | Regulator inductor | 3.0 | 49.5 | — | Footprint `IND_DFE2016_MUR` matches — this exact part is listed in the TPS63900 datasheet's Table 8-2 "List of Recommended Inductors" (2.0×1.6×1.2mm, 2.4A sat., 116mΩ DCR). Height ~1.2mm, not case-critical. |
+| L1 | Inductor, 2.2 µH | Regulator inductor | 3.0 | 49.5 | — | Footprint is `IND_DFE2016_MUR`; datasheet's recommended part is a Murata DFE252012 (2.5×2×1.2mm) — slightly different case size than the DFE2016 footprint name implies. Worth double-checking the actual part matches the footprint before you finalize BOM, but either way height is ~1.0–1.2 mm, not case-critical. |
 | SW1 | ALPS/SKRPACE010 | "DEAL" tact button | 35.0 | 9.425 | 0° | **No local datasheet for SKRPACE010** — I don't have a verified height. Pull the ALPS SKRPACE010 mechanical drawing before sizing the case cutout/actuator. |
 | SW2 | ALPS/SKRPACE010 | "UNDO" tact button | 35.0 | 50.575 | 0° | Same part as SW1, same caveat. |
-| J1 | **GCT FFC2B35-10-T** (was Molex 51441-1093, now obsolete) | FPC connector to LCD | 46.27 | 30.0 | 90° | Swapped 2026-07-21 — see the LCD module section below for the full story. Mated height 2.0mm. Position unchanged from the old Molex placement; rotation re-verified by render (cable-entry edge still faces the LCD outline rectangle, same as before). |
+| J1 | Molex 51441-1093 | FPC connector to LCD | 46.27 | 30.0 | 90° | This is the LCD's recommended FPC connector (confirmed against the Sharp datasheet, see below) — low profile, bottom-contact type. I don't have Molex's own mechanical drawing for exact height; the schematic shows pins numbered up to 12 while the LCD only needs 10 signals — worth a quick check that the physical part ordered is the correct 10-position variant before you lock the connector's footprint/height into the case. |
 | J3 | Generic 1×4, 2.54mm pin header, vertical | SBW programming header | 3.19 | 3.0 | 90° | Standard break-away header. Typical total pin height above the board is ~8.5 mm (insulator + pins) for this style — verify against whatever specific header you use if it needs a case opening; if it's for occasional reprogramming only, you may not need a cutout at all. |
 | J4 | JST PH S2B-PH-K, 2-pin | Battery input (+BATT/GND) | 3.5 | 37.5 | 90° | Side-entry (horizontal) 2mm-pitch JST PH housing. In-plane footprint envelope ~6.9 × 8.6 mm. I don't have a verified mated height from a local datasheet — pull JST's PH-series drawing before finalizing the battery-wire exit/cutout. |
 
@@ -62,21 +62,10 @@ From the Sharp `LS013B7DH03` datasheet (`sharp_ls013b7dh03_memory_lcd_datasheet.
 - **Module outline**: 26.60 × 30.30 mm (±0.2mm)
 - **Active/viewing area**: 23.04 × 23.04 mm (128×128 pixels, 1.28" diagonal)
 - **Module thickness**: ~1.6mm panel, up to ~3.63mm total including the stiffener/FPC connector area at the bottom edge
-- **FPC connector recommendation**: Sharp's datasheet calls out Molex 51441-1093 (bottom contact) — **now obsolete, see replacement below**.
+- **FPC connector recommendation**: Molex 51441-1093 (bottom contact) — matches what's specced for `J1` on the board
 - **FPC bend**: minimum bend radius 0.45mm inner diameter, bend zone 0.8–6.0mm from the glass edge, don't bend backward (toward polarizer side), max 3 bend cycles
 
 This module isn't part of the PCB — it sits wherever you place it in the case, connected back to `J1` by the FPC tail. You'll want a case cutout matching (or slightly larger than) the 23.04×23.04mm active area, with a ledge/bezel covering the ~1.78mm border out to the 26.60×30.30mm module edge.
-
-### J1 connector replacement: Molex 51441-1093 is obsolete (found 2026-07-21, swapped same day)
-
-Checked DigiKey: Molex 0514411093 is listed **"Obsolete and no longer manufactured."** DigiKey's cross-reference suggested two replacements, both 0.5mm-pitch/10-position/bottom-contact:
-
-- **GCT FFC2B35-10-T (chosen)** — its datasheet keywords describe it as "0.5mm Pitch Side Entry, Bottom Contact, SMT, Height=2.0mm, Front Flip," which matches the Molex Easy-On mechanism (same front-flip ZIF actuator, same bottom-contact side-entry style) rather than just matching on pitch/position count alone. For the 10-contact variant: body length 9.4mm, **mated height 2.0mm**. Also directly stocked at JLCPCB (part C6947499), which lines up with `docs/lcsc_jlcpcb_fab_assembly_checklist.md`.
-- Hirose FH34SRJ-10S-0.5SH(50) — also 0.5mm/10-position, but it's a "back actuator" part built for high-speed signal work (USB3.1/PCIe/eDP) — different flip mechanism than what's already assumed in the layout, more connector than a slow SPI display link needs. Not used.
-
-**Swap done 2026-07-21.** User downloaded GCT's real symbol/footprint (`hw/solitaire/symbols-footprints/FFC2B35_10_T/`, registered in `fp-lib-table`/`sym-lib-table`) rather than having me hand-derive a footprint. On the schematic side, `J1`'s pin-to-net wiring already matched the Sharp datasheet's real terminal numbers 1:1 (pin1=SCLK...pin10=VSSA, verified against `solitaire.net`), so that didn't need to change — but the GCT symbol's pin *graphics* are laid out differently from the old Molex symbol (one column of 10 vs. two columns of 6), which broke the existing wires for pins 6-10 until rewired: pins 6-8 (VCC) and 9-10 (GND, via a new `#PWR019` symbol) got new short wire chains to match the new pin positions; pins 11/12 (the connector's 2 mechanical/shield pads, tied to GND) needed 2 extra pins added to the symbol definition since GCT's stock symbol only exposed 1-10. Confirmed via `kicad-cli sch erc` (back to the same 31 baseline violations, no new errors) and a render.
-
-On the PCB side, the footprint was fully replaced with GCT's real pad geometry (10× 0.5mm-pitch signal pads + 2 mechanical pads, same net assignments as before) at the same position/rotation as the old Molex part. Checked via `kicad-cli pcb drc` (no new violation categories beyond what's inherent to any 0.5mm-pitch part on an unrouted board) and a render confirming the connector's cable-entry edge still faces the LCD outline rectangle, same physical orientation as the old part had.
 
 ## Battery holder (not on this PCB — connects via J4)
 
@@ -91,8 +80,7 @@ On the PCB side, the footprint was fully replaced with GCT's real pad geometry (
 ## Open items before you finalize the case
 
 1. **Add mounting holes to the PCB** if the case will screw to the board — none exist yet, and case screw-boss positions should be locked to real PCB holes, not guessed.
-2. **Get real mechanical drawings** for: SKRPACE010 (SW1/SW2), JST PH S2B-PH-K (J4) — I didn't have local datasheets for these two. (J1's Molex part turned out to be obsolete — see item 6.)
-3. ~~**Confirm L1's actual part number** matches the footprint~~ Resolved — I'd misread the datasheet: DFE201612E-2R2M is directly listed in TPS63900's Table 8-2 (List of Recommended Inductors) and matches the `IND_DFE2016_MUR` footprint. I'd confused it with Table 8-5, a separate BOM for TI's own 3.3V characterization board that happens to use a different Murata part (DFE252012F-2R2M) — that's not "the" recommended part, just what one eval board used.
+2. **Get real mechanical drawings** for: SKRPACE010 (SW1/SW2), Molex 51441-1093 (J1), JST PH S2B-PH-K (J4) — I didn't have local datasheets for these three.
+3. **Confirm L1's actual part number** matches the footprint (DFE2016 footprint vs. DFE252012 in the datasheet's recommended BOM) — minor, but worth resolving before you lock a Z-height budget.
 4. ~~**Decide on battery form factor**~~ Resolved 2026-07-21 — Adafruit #4194, see the Battery holder section above. Still need to verify cable polarity against `J4` pin 1 before first connection (see note above).
 5. **Nav switch knob (SW3)** — no off-the-shelf ALPS accessory fits the SKQU stem (ALPS' SK2AA cap line is for the mechanically different SKHC/SKHH/SKQE families, not SKQU); being modeled from scratch in FreeCAD using the stem dimensions above. Once a height is chosen, redo the case-cutout clearance calc in the section above with the real number.
-6. ~~**Swap J1's footprint**~~ Resolved 2026-07-21 — GCT FFC2B35-10-T, see the LCD module section above.
