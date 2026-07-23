@@ -8,7 +8,16 @@ All coordinates below are **relative to the board's bottom-left corner** (i.e. t
 
 - **Outline**: 100.0 mm × 60.0 mm rectangle (simple rect, no cutouts/notches yet)
 - **Thickness**: 1.6 mm (KiCad default — no custom stackup is defined in the project, so confirm this is actually what you want before fab)
-- **Mounting holes**: **none placed yet.** There are currently zero `MountingHole` footprints or NPTH holes on the board. If the case needs screw bosses / standoffs, those holes need to be added to the PCB first so the case and board agree on hole position — worth doing before you lock case dimensions.
+- **Mounting holes**: 4× `MountingHole_2.7mm_M2.5` (2.7mm NPTH, no copper) added 2026-07-22, sized for M2.5 self-tapping screws into FDM case bosses. Positions (board-relative, same frame as the component table below):
+
+  | Ref | X (mm) | Y (mm) | Notes |
+  |---|---|---|---|
+  | H1 | 86.53 | 7.53 | Top-right corner area — fully clear region, no component nearby. |
+  | H2 | 86.53 | 52.53 | Bottom-right corner area — same clear region as H1. |
+  | H3 | 6.53 | 20.53 | Substitutes for top-left — the true corner is blocked by J3 (SBW header, flush with the left edge) and U2 (MCU); shifted into the clear pocket between U2's bottom edge and J4. |
+  | H4 | 20.53 | 53.53 | Substitutes for bottom-left — the true corner is blocked by the L1/U1/C1/C2/R1/R2 cluster; shifted right into the gap between R2 and SW2. |
+
+  H3/H4 aren't at literal corners because of existing part placement, but land close enough to the left edge/top/bottom to still give reasonable 4-point support. Boss pilot hole (in the FDM case) should target the self-tapping spec for M2.5 into whatever plastic you're printing in — the 2.7mm PCB hole is just clearance, the case boss does the actual threading.
 - **All components are on the top side only (F.Cu)** — nothing is placed on the bottom copper layer, so the case's bottom shell only needs to clear solder joints (~0.3–0.5 mm), not components.
 
 ## Component positions (X, Y from board bottom-left corner) and mechanical notes
@@ -79,7 +88,7 @@ This module isn't part of the PCB — it sits wherever you place it in the case,
 
 ## Open items before you finalize the case
 
-1. **Add mounting holes to the PCB** if the case will screw to the board — none exist yet, and case screw-boss positions should be locked to real PCB holes, not guessed.
+1. ~~**Add mounting holes to the PCB**~~ Resolved 2026-07-22 — 4× M2.5 NPTH added (H1-H4), see the Board section above for positions.
 2. **Get real mechanical drawings** for: SKRPACE010 (SW1/SW2), GCT FFC2B35-10-T (J1), JST PH S2B-PH-K (J4) — I didn't have local datasheets for these three.
 3. **Confirm L1's actual part number** matches the footprint (DFE2016 footprint vs. DFE252012 in the datasheet's recommended BOM) — minor, but worth resolving before you lock a Z-height budget.
 4. ~~**Decide on battery form factor**~~ Resolved 2026-07-21 — Adafruit #4194, see the Battery holder section above. Still need to verify cable polarity against `J4` pin 1 before first connection (see note above).
