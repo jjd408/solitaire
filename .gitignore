@@ -1,0 +1,13 @@
+# The PICSimLab simulator is its own repository: github.com/jjd408/picsimlab-msp430
+sim/picsimlab-msp430/
+
+# KiCad local state and backups
+*-backups/
+fp-info-cache
+*.kicad_prl
+*.lck
+~*
+
+# Generated or temporary
+__pycache__/
+*.FCBak

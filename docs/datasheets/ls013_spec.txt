@@ -1,0 +1,1366 @@
+   Global LCD Panel Exchange Center           www.panelook.com
+
+
+
+
+                                                                        No.           LCP-2111042
+                                                                       Date        Oct, 19th 2011
+
+
+
+
+                                 Technical Literature
+                                                       For
+                                     TFT-LCD Module
+
+
+                       Model No.㩷 LS013B7DH03
+
+
+                                                   Notice
+                        The technical Literature is subject to change without any
+                         prior notice for the purpose of product improvement.
+                        Please contact Sharp or its representative before designing
+                         your product based on this literature.
+
+
+
+
+                            Display Device Business Group
+                               Display Device Division I
+                               SHARP CORPORATION
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center           www.panelook.com
+
+
+
+
+                                          RECORDS OF REVISION
+
+
+                                 REF.PAGE
+                                                     REVISED
+            DATE                PARAGRAPH                                      SUMMARY
+                                                        No.
+                               DRAWING No.
+
+      Oct, 19th 2011                                     A                     First issue
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                    www.panelook.com
+
+
+
+                                                      SPEC   No.          MODEL      No.                  PAGE
+
+                                                      LCP-2111042               LS013B7DH03                         1
+
+
+                                                              NOTICE
+   <<Precautions>>
+       ż These specification sheets are the proprietary product of SHARP CORPORATION ("SHARP") and include
+       materials protected under copyright of SHARP. Do not reproduce or cause any third party to reproduce them in any
+       form or by any means, electronic or mechanical, for any purpose, in whole or in part, without the express written
+       permission of SHARP.
+       ż The application examples in these specification sheets are provided to explain the representative applications of
+       the device and are not intended to guarantee any industrial property right or other rights or license you to use them.
+       SHARP assumes no responsibility for any problems related to any industrial property right of a third party resulting
+       from the use of the device.
+       ż SHARP reserves the right to make changes in the specifications, characteristics, data, materials, structures and
+         other contents described herein at any time without notice in order to improve design or reliability. Contact SHARP
+         in order to obtain the latest specification sheets before using any SHARP's device. Manufacturing locations are
+         also subject to change without notice.
+         Observe the following points when in using any device in this publication. SHARP takes no responsibility
+         for damage caused by improper use of the devices.
+         The devices in this publication are designed for use in general electronic equipment designs, such as:
+         ࡮Personal computers         ࡮Office automation        ࡮Telecommunication equipment
+         ࡮Test and measurement equipment                       ࡮Industrial control
+         ࡮Audio visual and multimedia equipment                ࡮Consumer electronics
+
+
+         The appropriate design measures should be taken to ensure reliability and safety when SHARP's devices are used
+       for equipment such as:
+         ࡮Transportation control and safety equipment(i.e.,aircraft,trains,automobiles,etc.)
+         ࡮Traffic signals       ࡮Gas leakage sensor breakers
+         ࡮Alarm equipment          ࡮Various safety devices etc.
+
+
+         ż SHARP's devices shall not be used for equipment that requires extremely high level of reliability, such as:
+         ࡮Military and space applications         ࡮Nuclear power control equipment
+         ࡮Medical equipment for life support
+
+
+       ż SHARP assumes no responsibility for any damage resulting from the use of the device which does not comply with
+       the instructions and the precautions specified in these specification sheets.
+       ż Contact and consult with a SHARP sales representative for any questions about this device.
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                    www.panelook.com
+
+
+
+                                                      SPEC   No.           MODEL   No.                     PAGE
+
+                                                      LCP-2111042                 LS013B7DH03                       2
+
+
+                                              [For handling and system design]
+       (1) Handle with care as glass is used in this LCD panel. Dropping or contact against hard object may cause cracks
+       or chips.
+       (2) Be careful to handle this LCD panel in order to avoid injury yourself by panel`s edge as this panel is made of
+       glass and might be a sharp edge.
+       (3) Do not scratch the surface of the polarizer as it is easily damaged.
+       (4) Water droplets on the polarizer must be wiped off immediately as they may cause color changes, or other defects
+       if remained for a long time.
+       (5)Do not leave the LCD panel in direct sun or under ultraviolet ray.
+       (6) To clean LCD panel surface, wipe clean with absorbent cotton or soft cloth. If further cleaning is needed, use
+       IPA (isopropyl alcohol) and wipe clean lightly on surface only. Do not use organic solvents as it may damage the
+       LCD panel terminal area which uses organic material. Also, do not directly touch with finger. When the terminals
+       cleaning are needed, those should be wiped by a soft cloth or a cotton swab without directly touching by hand.
+       (7) Do not expose gate driver, etc. on the panel (circuit area outside panel display area) to light as it may not operate
+       properly. Design that shields gate driver, etc. from light is required when mounting the LCD module.
+       (8) To avoid circuit failure, do not touch panel terminal area.
+       (9) Support for the LCD panel should be carefully designed to avoid stress that exceeds specification on glass
+       surface.
+       (10) When handling LCD module and assembling them into cabinets, be noted that storage in the environment of
+       oxidization or deoxidization gas and the use of such materials as reagent, solvent, adhesive, resin, and etc. which
+       generate these gasses, may cause corrosion and discoloration of LCD modules.
+       (11)To avoid picture uniformity failure, do not put a seal or an adhesive material on the panel surface.
+       (12) Do not use chloroprene rubber as it generates chlorine gas and affects reliability in LCD panel connective
+       area.
+       (13) Protective film is attached to the surface of polarizer on LCD panel to prevent scratches or other damages.
+       Remove this protective film before use. In addition, do not attach the protective film which is removed from LCD
+       module again. When the LCD panel which has the reattached protective film is needed to storage for a long time,
+       the polarizer might have a damage with picture quality failure.
+       (14) Panel is susceptible to mechanical stress and such stress may affect the display. Place the panel on flat
+       surface to avoid stress caused by twist, bend, etc.
+       (15) When transporting LCD panels, secure them in LCD panel tray to avoid mechanical stress. The tray should
+       be conductive to protect LCD panels from static charge.
+       Material used in set or epoxy resin (amine type hardening agent) from packaging, and silicon adhesive
+       (dealcoholized or oxime) all release gas which may affect quality of polarizer. Do confirm compatibility with user
+       materials.
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                   www.panelook.com
+
+
+
+                                                     SPEC    No.           MODEL    No.                     PAGE
+
+                                                     LCP-2111042                LS013B7DH03                          3
+
+
+       (16) As this LCD module is composed electronic circuits, it is sensitive to electrostatic discharge of 200V or more.
+       Handle with care using cautions for the followings:
+           z    Operators
+                Operators must wear anti-static wears to prevent electrostatic charge up to and discharge from human
+                body.
+           z    Equipment and containers
+                Process equipment such as conveyer, soldering iron, working bench and containers may possibly
+                generate electrostatic charge up and discharge. Equipment must be grounded through 100Mohms
+                resistance. Use ion blower.
+           z    Floor
+                Floor plays an important role in leaking static electricity generated in human body or equipment. If the
+                floor is made of insulated material (such as polymer or rubber material), such static electricity may charge.
+                Proper measure should be taken to avoid static electricity charge (electrostatic earth: 100Mohms).There
+                is a possibility that the static electricity is charged to them without leakage in case of insulating floor, so
+                the electrostatic earth:1×108ȍ should be made.
+           z    Humidity
+                Humidity in work area relates to surface resistance of the persons or objects that generate
+                electrostatics, and it can be manipulated to prevent electrostatic charge. Humidity of 40% or
+                lower increases electrostatic earth resistance and promotes electrostatic charging. Therefore,
+                the humidity in the work area should be kept above 40%. Specifically for film peeling process
+                or processes that require human hands, humidity should be kept above 50% and use
+                electricity removal blower.
+           z    Transportation/Storage
+                Containers and styroform used in transporation and storage may charge electrostatic (from friction and
+                peeling) or electrostatic charge from human body, etc. may cause containers and styroform to have
+                induced charge. Proper electrostatic measure should be taken for containers and storage material.
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                      www.panelook.com
+
+
+
+                                                        SPEC   No.             MODEL    No.                     PAGE
+
+                                                        LCP-2111042                  LS013B7DH03                          4
+
+
+                                                 [For operating LCD module]
+       (1) Do not operate the LCD panel under outside of electrical specification. Otherwise LCD panel may be damaged.
+       (2) Do not use the LCD panel under outside of specified driving timing chart. Otherwise LCD panel may not have
+       proper picture quality.
+       (3) A still image should be displayed less than two hours, if it is necessary to display still image longer than two
+       hour, display image data must be refreshed in order to avoid sticking image on LCD panel.
+       (4) If LCD module takes a static electricity, as the display image which is written into pixel memory might not be
+       displayed, Data update should be executed frequently.
+       (5) It is neither a breakdown nor a defective indication though very slight change in black level might be periodically
+       seen in a black part on the black display image according to the source of light (angle of the luminance and the
+       source of㩷 light).
+
+
+                                                   [Precautions for Storage]
+       (1) After opening the package, do not leave the LCD panel in direct sun or under strong ultraviolet ray. Store in
+       dark place.
+       (2) In temperature lower than specified rating, liquid crystal material will coagulate. In temperature higher than
+       specified rating, it isotropically liquifies. In either condition, the liquid crystal may not recover its original condition.
+       Store the LCD panel in at or around room temperature as much as possible.
+       Also, storing the LCD panel in high humidity will damage the polarizer. Store in normal room temperature as
+       much as possible.
+       (3) Keeping Method
+          a. Don't keeping under the direct sunlight.                b. Keeping in the tray under the dark place.
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                   www.panelook.com
+
+
+
+                                                     SPEC   No.           MODEL   No.                    PAGE
+
+                                                     LCP-2111042                LS013B7DH03                        5
+
+
+                                                        [Other Notice]
+       (1) Operation outside specified environmental conditions cannot be guaranteed.
+       (2) As power supply (VDD-GND䇮VDDA-GND) impedance is lowered during use, bus controller should be inserted
+           near LCD module as much as possible.
+       (3) Polarizer is applied over LCD panel surface. Liquid crystal inside LCD panel deteriorates with ultraviolet ray.
+           The panel should not be left in direct sun or under strong ultraviolet ray for prolonged period of time even with
+           the polarizer.
+       (4) Disassembling the LCD module will cause permanent damage to the module.                Do not disassemble the
+           module.
+       (5) If LCD panel is broken, do not ingest the liquid crystal from the broken panel. If hand, leg, or clothes come in
+           contact with liquid crystal, wash off immediately with soap.
+       (6) ODS (specific chlorofuorocarbon, specific halon, 1-1-1 trichloroethane, carbon tetrachloride) are not used or
+           contained in material or all production processes of this product.
+       (7) Observe all other precautionary requirements in handling general electronic components.
+
+
+
+
+                                            Discarding liquid crystal modules
+
+
+       LCD Panel        : Dispose of as glass waste. This LCD module contains no harmful substances.
+                               The liquid crystal panel contains no dangerous or harmful substances.
+                               This liquid crystal panel contains only an extremely small amount of liquid
+                               crystal (approximately 100mg) and therefore it will not leak even if the panel
+                               should break.
+                               Its median lethal dose (LD50) is greater than 2,000 mg/kg and a mutagenetic
+                               (Aims test: negative) material is used.
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                            www.panelook.com
+
+
+
+                                                             SPEC     No.               MODEL     No.                          PAGE
+
+                                                             LCP-2111042                      LS013B7DH03                                  6
+
+
+                                                                     Contents
+
+
+            1䋮Scope of application ·········································································································· 7
+            2䋮Outline ····························································································································· 7
+            3䋮Features··························································································································· 7
+            4䋮Mechanical specification ···································································································· 7
+            5䋮Structure ·························································································································· 8
+                 5-1 Makeup ····················································································································· 8
+                 5-2 LCD-FPC performance ································································································· 8
+            6䋮Input pin specification········································································································ 9
+            7. Absolute maximum rating ································································································· 11
+            8䋮Electrical characteristics ·································································································· 11
+                 8-1 Recommended operation range ···················································································· 11
+                 8-2 DC electrical characteristics ························································································· 11
+                 8-3 Operation characteristics····························································································· 12
+                 8-4 Input signal characteristics··························································································· 12
+            9䋮Recommended sequence ································································································· 14
+                 9-1 Power source sequence······························································································ 14
+                 9-2 Timing chart ············································································································· 15
+            10. Example of external circuit ······························································································ 19
+            11䋮Optical specification ······································································································ 20
+                 11-1 Optical characterstics································································································ 20
+                 11-2 Measurement method ······························································································· 20
+            12䋮Packaging····················································································································· 22
+                 12-1 Lot number display ··································································································· 22
+                 12-2 Carton storage conditions ·························································································· 23
+                 12-3 Packing ················································································································· 23
+            13. Reliability test conditions································································································ 24
+            14䋮TFT-LCD module handling ······························································································ 25
+                 14-1 Inserting and removing the FPC ·················································································· 25
+                 14-2 FPC handling ·········································································································· 25
+                 14-3 Module handling ······································································································ 25
+            15䋮Other ··························································································································· 25
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                    www.panelook.com
+
+
+
+                                                     SPEC   No.               MODEL      No.             PAGE
+
+                                                     LCP-2111042                    LS013B7DH03                  7
+
+
+
+   1䋮Scope of application
+            This specification applies to TFT-LCD module LS013B7DH03.
+
+
+
+
+   2䋮Outline
+      This TFT-LCD module is an active matrix LC display (LCD: liquid crystal display) module with CG silicon (CG-Si:
+       Continuous Grain-Silicon) and thin film transistors (TFT:Thin Film Transistor). This TFT-LCD module is such
+       that black and white 2 value display is possible in a 128x128 dot panel.
+
+
+   3䋮Features
+    ࡮Active matrix drive system
+    ࡮Transflective panel of white and black
+    ࡮Arbitrary line data renewable.
+    ࡮1bit internal memory for data storage within the panel.
+    ࡮All reflective black and white 2 value display with 1.28” screen. (128x128 dot structure)
+    ࡮Low power consumption using pixel memory panel (normally white).
+    ࡮The interface system uses serial interface (3 wire system).
+    ࡮Super low power consumption TFT panel.
+    ࡮Lightweight, thin and compact.
+
+
+
+
+   4䋮Mechanical specification
+            Table 4-1㩷 Module mechanical specification table
+                             Item                                        Specification                    Unit
+             Screen size䋨diagonal䋩               3.259䌛1.28”䌝                                      cm
+             Active display area                 23.04(H) x 23.04(V)                               mm
+             Dot structure                       128䋨H䋩 x 128䋨V䋩                                   dot
+             Dot pitch                           0.18(H) x 0.18(V)                                 mm
+             Pixel array                         Square                                            䋭
+             Module outline dimensions
+                                                 26.6(W)×30.3(H)×0.746(D)                          mm
+
+             Mass                                TBD                                               g
+             Surface hardness                    At least 3H (initial)                             Pencil
+                                                                                                   hardness
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                 www.panelook.com
+
+
+
+                                                   SPEC   No.          MODEL   No.                 PAGE
+
+                                                   LCP-2111042              LS013B7DH03                    8
+
+
+   5䋮Structure
+   5-1 Makeup
+        This LCD module is made up of an LCD panel, polarizer, LCD-FPC, shatterproof film.
+       The outline dimensions are shown in Figure 5-1.
+
+
+
+
+                                             Figure 5-1 Outline dimension
+
+   5-2 LCD-FPC performance
+        㽲Suitable connector
+           SMK FP12 Series: CFP-4610-0150F(Bottom side contact) / FP12 series : CFP-4510-0150F (Top side contact)
+           Molex: 51441-1093(Bottom side contact)
+
+        㽳FPC flex resistance
+             When bending FPC, bend where specified in Condition (1) and the bend R should be more than R specified in
+             Condition (2). FPC is not to contact glass edge, and there should be no stress to connective area between
+             panel and FPC.
+         Condition (1) FPC bend recommended area: 0.8mm – 6.0mm from glass edge.
+         Condition (2) Minimum bend R: Inner diameter R0.45
+
+
+
+
+                                                    Figure㩷 5-2㩷 FPC bending
+         䇼Remark 5-1䇽㩷 Do not bend backward (toward polarizer film side)
+         䇼Remark 5-2䇽 Bend frequency: 3 times or less (Repeat bend condition: 180㫦䌾㩷 0㫦)
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                www.panelook.com
+
+
+
+                                                  SPEC      No.              MODEL      No.            PAGE
+
+                                                  LCP-2111042                     LS013B7DH03                   9
+
+
+
+   6䋮Input pin specification
+         Table 6-1 Input pin names
+              No.         Code          I/O     Voltage                        Signal name                 Remark
+               1          SCLK           I      0/3.0 (V)         Serial clock signal
+               2            SI           I      0/3.0 (V)         Serial input signal
+               3          SCS            I      0/3.0 (V)         Chip selet signal
+               4       EXTCOMIN          I      0/3.0 (V)         COM inversion polarity input pin
+               5          DISP           I      0/3.0 (V)         Display ON/OFF switching signal    6-2
+               6          VDDA           I       3.0(V)           Power source for logic
+               7          VDD            I       3.0(V)           Power source for analogue
+               8       EXTMODE           I      0/3.0 (V)         COM inversion mode switch terminal 6-1
+               9          VSS            I        0(V)            Logic ground
+               10         VSSA           I        0(V)            Analogue ground
+     䇼Remark 6-1䇽 “H”=EXTCOMIN singal enabled, “L”=Serial input flag enabled.
+          When “H”, connect EXTMODE to VDD and when “L” to VSS.
+     䇼Remark 6-2䇽 ON/OFF for LCD display only. Memory data is maintained.
+          When “H”, displays with memory data, and when “L”, displays all white with memory data maintained.
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center           www.panelook.com
+
+
+
+                                              SPEC   No.       MODEL       No.              PAGE
+
+                                              LCP-2111042           LS013B7DH03                    10
+
+       Recommended Circuit
+                 COM signal serial input                      External COM signal input
+                       EXTMODE=”L”                                  EXTMODE=”H”
+
+                           1         SCLK                              1          SCLK
+                           2          SI                               2            SI
+                           3         SCS                               3           SCS
+                           4       EXTCOMIN                            4         EXTCOMIN
+                           5         DISP                              5           DISP
+                           6         VDDA                              6          VDDA
+                           7         VDD                               7           VDD
+                           8       EXTMODE                             8         EXTMODE
+                           9         VSS                               9           VSS
+                           10        VSSA                              10         VSSA
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                     www.panelook.com
+
+
+
+                                                       SPEC     No.            MODEL    No.                  PAGE
+
+                                                       LCP-2111042                  LS013B7DH03                         11
+
+
+
+
+   7. Absolute maximum rating
+         Table 7-1㩷 Module input absolute maximum ratings
+                     Item                Symbol                         Rating                     Unit             Notes
+
+            Supply voltage for logic       VDD                        -0.3 䌾 +3.6                      V
+              Input signal voltage         VIN                        -0.3 䌾 VDD                       V     (*2)
+            Operation temperature
+                                           Topr                       -10 䌾 +60                       㷄      (*1)
+             䋨panel temperature䋩
+             Storage temperature           䌔stg                       -20 䌾 +70                       㷄      (*1)
+         㧔NB㧕VSS pin䋽0V unless otherwise indicated.
+            (*1) Do not allow condensation.
+            (*2) Applies to SCS, SCLK, SI, DISP and EXTCOMIN signals.
+
+
+
+
+   8䋮Electrical characteristics
+   8-1 Recommended operation range
+         Table 8-1㩷 Recommended operation range                                                 䋨Ta䋽-10䌾60㷄, VSS pin䋽0V䋩
+
+                     Item                 Code        Conditions        Min            Typ      Max        Unit        Notes
+           Power supply voltage for
+                                          VDD                            2.7           3.0       3.3        V
+                    driver
+             Input signal voltage
+                                          VINHI                       VDD-0.1          䋭        VDD         V           (*1)
+                    䋨High䋩
+             Input signal voltage
+                                          VINLO                         VSS            䋭      VSS+0.1       V           (*1)
+                    䋨Low䋩
+            (*1) Applies to SCS, SCLK, SI, DISP and EXTCOMIN signals.
+
+
+   8-2 DC electrical characteristics
+       Table 8-2-1㩷 DC electrical characteristics 䋱
+                                          䋨Ta=25㷄, SCS, SCLK, SI, DISP, EXTCOMIN=3.0V, VDD=3.0V, VSS pin=0V䋩
+                     Item                 Code          Drive           Min.        Typ        Max.        Unit        Notes
+
+            Current consumption 1         IVDD䋱          䋨*1䋩                          䋭       (20)        ȝA
+            Current consumption 2         IVDD䋲          䋨*2䋩                          䋭       (340)       ȝA
+
+            (*1) The display pattern is such that there is no image update with the all black display.
+                   SCS=SCLK=SI=L , EXTCOMIN=60Hz㩷 䇯
+            (*2)㩷 㩷 The display pattern is such that there is continuous image update with the vertical stripe (1 dot interval)
+                   display.
+                   SCLK=1.1MHz , EXTCOMIN=60Hz.
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                          www.panelook.com
+
+
+
+                                                            SPEC   No.             MODEL   No.                 PAGE
+
+                                                            LCP-2111042                   LS013B7DH03                     12
+
+
+   8-3 Operation characteristics
+       Table 8-3㩷 Operation signals
+                                               䋨Ta=25㷄, SCS, SCLK, SI, DISP, EXTCOMIN=3.0V, VDD=3.0V, VSS pin=0V䋩
+         Pin name                      Item          Code           Min            Typ.          Max    Unti          Notes
+           SCS              Frame frequency          fSCS                1                        60    Hz            (*1)
+           SCLK             Clock frequency          fSCLK               -         0.5           1.1    MHz
+
+               -             Vertical period           tV          16.67                         1000   msec
+
+               -             COM frequency           fCOM            0.5                          30    Hz
+
+        (*1) Please use a frame frequency in the range where there are no problems with the display quality.
+
+
+   8-4 Input signal characteristics
+       Table 8-4㩷 Input signals                䋨Ta=25㷄, SCS, SCLK, SI, DISP, EXTCOMIN=3.0V, VDD=3.0V, VSS pin=0V䋩
+        Pin name                      Item            Code                   Min    Typ.         Max    Unit          Notes
+                       SCS rise time                  trSCS                                      70     nsec
+                       SCS fall time                   tfSCS                                     70     nsec
+                                                                         153.45                         ȝsec    Data update mode
+                       SCS㩷 Highwidth                 twSCSH
+           SCS                                                           22.55                          ȝsec      Display mode
+
+                       SCS㩷 Low㩷 width                twSCSL                  2                         ȝsec
+                       SCS㩷 set up time                tsSCS                  6                         ȝsec
+                       SCS㩷 hold time                  thSCS                  2                         ȝsec
+                       SI rise time                     䌦rSI                                     50     nsec
+                       SI㩷 rise time                    trSI                                     50     nsec
+              SI
+                       SI set up time                  tsSCS                 227                        nsec
+                       SI㩷 hold time                    thSI                 525                        nsec
+                       SCLK㩷 rise time                䌴䌲SCLK                                     50     nsec
+                       SCLK fall time                 䌴䌦SCLK                                     50     nsec
+          SCLK
+                       SCLK㩷 High㩷 width             twSCLK䌈             404.55     950                 nsec
+                       SCLK㩷 Low㩷 width               twSCLKL            404.55     950                 nsec
+                       EXTCOMIN㩷 frequency          䌦EXTCOMIN                 1                  60      Hz             (*1)
+                       EXTCOMIN㩷 rise time          䌴䌲EXTCOMIN                                   70     nsec
+        EXTCOMIN
+                       EXTCOMIN㩷 fall time          䌴䌦EXTCOMIN                                   70     nsec
+                       EXTCOMIN㩷 High㩷 width        䌴䌷EXTCOMIN                2                         ȝsec
+                       DISP㩷 rise time                䌴䌲DISP                                     70     nsec
+           DISP
+                       DISP㩷 fall time                 䌴䌦DISP                                    70     nsec
+       (*1)        Please make the EXTCOMIN frequency less than the frame rate frequency.
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                    www.panelook.com
+
+
+
+                                                     SPEC   No.           MODEL    No.                PAGE
+
+                                                     LCP-2111042                LS013B7DH03                  13
+
+
+        Pin name     Item                     Symbol     Waveform                             Notes
+
+                     SCS rise time
+
+                     SCS fall time
+
+                     SCS high width
+
+                     SCS low width
+
+
+                     SCS set-up time
+
+
+
+
+                     SCS hold time
+
+
+
+
+                     SI rise time
+
+
+                     SI fall time
+
+                     SI set-up time
+
+
+
+                     SI hold time
+
+
+
+                     SCLK rise time
+
+                     SCLK fall time
+
+                     SCLK high width
+
+
+                     SCLK low width
+
+
+                     EXTCOMIN frequency
+
+                     EXTCOMIN rise time
+
+                     EXTCOMIN fall time
+                     EXTCOMIN High width
+
+                     DSIP rise time
+
+                     DISP fall time
+
+
+                                      Figure 8-4㩷 Input signal timing characteristics chart
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                       www.panelook.com
+
+
+
+                                                        SPEC     No.           MODEL        No.                          PAGE
+
+                                                        LCP-2111042                   LS013B7DH03                               14
+
+
+   9䋮Recommended sequence
+   9-1 Power source sequence
+
+                                                     On Sequence         Normal operation              Off sequence
+
+
+
+                                               㽲     㽳    㽴㶎1 㽵㶎1                                 㽶       㽷      㽸
+                                               T1    T2     T3     T4                             T5      T6      T7
+
+
+                    VDD/VDDA䋨3V䋩        GND                                                                            GND
+
+
+                    DISP                GND                                                                            GND
+
+
+                    EXTCOMIN            GND                             Normal operation                               GND
+
+
+                    SCS                 GND          㶎2                 Normal operation          㶎2                   GND
+
+
+                    SI, CLK             GND          㶎2                 Normal operation          㶎2                   GND
+
+
+
+
+                                               Figure 9-1㩷 Power source sequence
+               㶎 Refer to timing chart and AC timing characteristics for detail
+               㶎 1. (3) and (4) may be opposite (however, TCOM polarity inversion will not occur even with EXTCOMIN
+                   between DISP=”L”. Also, when DISP and EXTCOMIN are simultaneously started up, allow 30us or
+                   more before SCS starts up (It may be less than 60us).
+               㶎 2. Setting value for pixel memory initialization
+           SCS=Driving accordingly to clear pixel internal memory method (use all clear flag or write all screen white)
+           S1=M2 (all clear flag) = “H” or write white
+           SCLK: Normal Driving
+                 [ON Sequence]
+                 (1) 3V rise time (depends on IC)
+                 (2) Pixel memory initialisation
+                      Use M2 (all clear flag) to initialise (at least once).
+                      tsSCS + SCLK: at least 16ck + thSCS (refer to All Clear timing chart) Or
+                      Write whole screen white (at least 1 frame)
+                 (3) Release time for initialisation of TCOM latch        T3: 30us or more
+                    Time required to release COM related latch circuit initialisation which is initializing using DISP signals
+                 (4) TCOM polarity initialisation time       T4: 30us or more
+                    Time required initialising TCOM polarity accordingly to EXTCOMIN input
+                 [Normal Operation]
+                 Duration of normal driving
+                 [Off Sequence]
+                 (5) Pixel memory initialisation time       Contents same as (2)
+                 (6) VA, VB, VCOM initialisation time        T6: 30us or more
+                 (7) 3V falling time (Depends on IC)
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+                                                                                                                                                                                                                                                                                     SPEC   No.    MODEL   No.           PAGE
+
+                                                                                                                                                                                                                                                                                     LCP-2111042       LS013B7DH03              15
+
+                                                                                                                 9-2 Timing chart
+                                                                                                                  Data update mode (1 line)
+                                                                                                                       Updates data of only one specified line. (M0=”H”, M2䋽”L”)
+
+                                                                                                                                                                                       twSCSH                                                                                                                                   twSCSL
+
+                                                                                                                    SCS
+                                                                                                                               tsSCS                                                                                                                                                                             thSCS
+
+                                                                                                                                       M0   M1     M2 DMY DMY DMY DMY DMY AG0 AG1 AG2 AG3 AG4 AG5 AG6 AG7 D1           D2   D3     D4        D125 D126 D127 D128     DUMMY DATA(don't care)
+                                                                                                                    SI
+                                                                                                                               tsSI         thSI            twSCLKL          twSCLKH
+
+                                                                                                                    SCLK
+
+                                                                                                                                                     Mode selection period                Gate line address period               Data writing period               Data transfer period
+                                                                                                                                                       (3ck+5ckDMY)                               (8ck)                              (128ck)                             (16ck)
+
+
+                                                                                                                               M0: Mode flag. Set for “H”. Data update mode (Memory internal data update)
+                                                                                                                                                                                                                                                                                                                                         Global LCD Panel Exchange Center
+
+
+
+
+                                                                                                                                           When “L”, display mode (maintain memory internal data).
+                                                                                                                               M1: It can be “H” or “L”.
+                                                                                                                               M2: All clear flag.
+                                                                                                                                            All Clear Mode, set to “L”. Refer to ‘All clear timing chart’
+                                                                                                                               D1-D128: Image data. “L” = black display. “H” = white display.
+                                                                                                                               DUMMY DATA: Dummy data. It can be “H” or “L” (“L” is recommended.)
+                                                                                                                                                     ̪ Data write period
+                                                                                                                                                     Data is being stored in 1st latch block of binary driver on panel.
+                                                                                                                                                     ̪ Data transfer period
+                                                                                                                                                     Data written in 1st latch is being transferred (written) to pixel internal memory circuit.
+                                                                                                                 Gate line address selection table
+
+                                                                                                                  GL AG0 AG1 AG2 AG3 AG4 AG5 AG6 AG7
+                                                                                                                   1       1          0     0        0     0      0      0        0
+                                                                                                                   2       0          1     0        0     0      0      0        0
+                                                                                                                   3       1          1     0        0     0      0      0        0
+                                                                                                                                                                                                                                                                                                                                         www.panelook.com
+
+
+
+
+                                                                                                                   4       0          0     1        0     0      0      0        0
+                                                                                                                   5       1          0     1        0     0      0      0        0
+                                                                                                                   6       0          1     1        0     0      0      0        0
+                                                                                                                   7       1          1     1        0     0      0      0        0
+                                                                                                                   8       0          0     0        1     0      0      0        0
+                                                                                                                   :       :           :     :       :     :      :          :    :
+                                                                                                                 121       1          0     0        1     1      1      1        0
+                                                                                                                 122       0          1     0        1     1      1      1        0
+                                                                                                                 123       1          1     0        1     1      1      1        0
+                                                                                                                 124       0          0     1        1     1      1      1        0
+                                                                                                                 125       1          0     1        1     1      1      1        0
+                                                                                                                 126       0          1     1        1     1      1      1        0
+                                                                                                                 127       1          1     1        1     1      1      1        0
+                                                                                                                 128       0          0     0        0     0      0      0        1
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+                                                                                                                                                                                                                                                                                                    SPEC    No.                   MODEL   No.                  PAGE
+
+                                                                                                                                                                                                                                                                                                    LCP-2111042                          LS013B7DH03                      16
+
+                                                                                                                 Data Update Mode (Multiple Lines)
+                                                                                                                    Updates arbitrary multiple lines data. (M0=”H”, M2䋽”L”)
+
+
+                                                                                                                                                                                                   twSCSH
+
+                                                                                                                  SCS
+                                                                                                                              tsSCS
+
+                                                                                                                  SI                    M0    M1      M2     DMY     DMY   DMY   DMY   DMY   AG0   AG1    AG2   AG3     AG4   AG5   AG6   AG7   D1   D2   D3   D4           D125   D126 D127 D128    DUMMY DATA(don't care) AG0    AG1           AG6     AG7   D1    D2
+
+                                                                                                                               tsSI          thSI                    twSCLKL           twSCLKH
+                                                                                                                  SCLK
+
+                                                                                                                                                      Mode selection period                              Gate line address period                          Data writing period                                  Data transfer period                           Data writing period
+                                                                                                                                                                                                                                                                                                                                                                                     Global LCD Panel Exchange Center
+
+
+
+
+                                                                                                                                                        (3ck+5ckDMY)                                              (8ck)                                         (128ck)                                  (8ck(Dummy)+8ck(Address)=16ck)                             (128ck)
+                                                                                                                                                                                                                     GL1st line                                                                                                 GL2nd line
+
+
+
+
+                                                                                                                                                                                                   twSCSH                                                                                                                                       twSCSL
+
+
+
+                                                                                                                                                                                                                                                                                                                                  thSCS
+
+                                                                                                                          D127 D128     DUMMY DATA(don't care) AG0   AG1   AG2         AG5   AG6   AG7     D1   D2                  D127 D128                           DUMMY DATA(don't care)
+
+
+
+
+                                                                                                                                                          Data transfer period                                  Data writing period                                 Data transfer period
+                                                                                                                                                   (8ck(Dummy)+8ck(Address)=16ck)                                    (128ck)                                              (16ck)
+                                                                                                                                                                                                                                                                                                                                                                                     www.panelook.com
+
+
+
+
+                                                                                                                       GL(n-1)th line                                          GL(n)th line
+
+
+                                                                                                                           M0: Mode flag. Set for “H”. Data update mode (Memory internal data update)
+                                                                                                                                       When “L”, display mode (maintain memory internal data).
+                                                                                                                           M1: It can be “H” or “L”.
+                                                                                                                           M2: All clear flag.
+                                                                                                                                        All Clear Mode, set to “L”. Refer to ‘All clear timing chart’
+                                                                                                                           D1-D128: Image data. “L” = black display. “H” = white display.
+
+
+                                                                                                                                 ̪ Data write period
+                                                                                                                                    Data is being stored in 1st latch block of binary driver on panel.
+                                                                                                                                 ̪ Data transfer period
+                                                                                                                                    For example, during GL2 line data transfer period, GL 2nd line address is latched and GL 1st line data
+                                                                                                                                    is transferred from 1st latch to pixel internal memory circuit at the same time.
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+                                                                                                                                                                                                                                                                                                       SPEC   No.    MODEL   No.       PAGE
+
+                                                                                                                                                                                                                                                                                                       LCP-2111042       LS013B7DH03          17
+
+                                                                                                                  Display Mode
+                                                                                                                      Maintains memory internal data (maintains current display). (M0=”L”, M2䋽”L”)
+
+                                                                                                                                                                                      tV
+                                                                                                                                                              twSCSH                                                             twSCSL
+
+                                                                                                                 SCS
+                                                                                                                            tsSCS                                                                              thSCS
+
+                                                                                                                 SI                   M0      M1        M2           DUMMY DATA(don't care)                                                                    M0   M1   M2   DUMMY DATA(don't care)
+
+
+
+                                                                                                                              tsSI          thSI
+                                                                                                                 SCLK
+
+                                                                                                                                     Mode selection                  Data transfer period
+                                                                                                                                        period                        (More than 13ck)
+                                                                                                                                         (3ck)
+                                                                                                                                                                                                                                                                                                                                                   Global LCD Panel Exchange Center
+
+
+
+
+                                                                                                                            M0: Mode flag.
+                                                                                                                                        When “L”, display mode (maintain memory internal data).
+                                                                                                                                        Set for “H”. Data update mode (Memory internal data update)
+                                                                                                                            M1: It can be “H” or “L”.
+                                                                                                                            M2: All clear flag.
+                                                                                                                                         All Clear Mode, set to “L”.Refer to ‘All clear timing chart’
+                                                                                                                            DUMMY DATA: Dummy data. It can be “H” or “L” (“L” is recommended.)
+
+
+                                                                                                                  All Clear Mode
+                                                                                                                      Clears memory internal data and writes white. (M0=”L”䇮M2䋽”H”)
+                                                                                                                                                                             tV
+                                                                                                                                                             twSCSH                                   twSCSL
+
+                                                                                                                 SCS
+                                                                                                                            tsSCS                                                             thSCS
+
+                                                                                                                 SI                  M0     M1     M2        DUMMY DATA(don't care)                                    M0   M1   M2   DUMMY DATA(don't care)
+                                                                                                                                                                                                                                                                                                                                                   www.panelook.com
+
+
+
+
+                                                                                                                           tsSI            thSI
+                                                                                                                 SCLK
+
+                                                                                                                                     Mode selection      Data transfer period
+                                                                                                                                        period            (More than 13ck)
+                                                                                                                                         (3ck)
+
+
+
+                                                                                                                            M0: Mode flag.
+                                                                                                                                      Set it “L”.
+                                                                                                                            M1: It can be “H” or “L”.
+                                                                                                                            M2: All clear flag.
+                                                                                                                                         Set it “H”
+                                                                                                                            DUMMY DATA: Dummy data. It can be “H” or “L” (“L” is recommended.)
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+                                                                                                                                                                                                                                                SPEC   No.    MODEL   No.       PAGE
+
+                                                                                                                                                                                                                                                LCP-2111042       LS013B7DH03          18
+
+                                                                                                                 COM Inversion
+                                                                                                                       EXTCOMIN has 2 timing conditions:
+                                                                                                                       (1): The EXTCOMIN input during high period of the SCS signal
+
+
+                                                                                                                 SCS                                                            twEXTCOMINH
+                                                                                                                                          fEXTCOMIN
+                                                                                                                 EXTCOMIN
+
+
+
+                                                                                                                                                           㶎1                                      㶎1
+                                                                                                                 COM
+                                                                                                                                                                                  fCOM
+
+                                                                                                                                                      㶎2                                      㶎2
+                                                                                                                                                                                                                                                                                            Global LCD Panel Exchange Center
+
+
+
+
+                                                                                                                     㶎 1䋺 LC inversion polarity has been set by the falling edge of SCS signal.
+                                                                                                                     㶎 2: The period of EXTCOMIN should be constant.
+
+                                                                                                                 (2): the EXTCOMIN input during low period of the SCS signal
+
+
+                                                                                                                 SCS
+                                                                                                                                                                                         twEXTCOMINH
+                                                                                                                                                fEXTCOMIN
+                                                                                                                 EXTCOMIN
+
+
+                                                                                                                                                 㶎3                                         㶎3
+                                                                                                                 COM
+                                                                                                                                                                                       fCOM
+
+                                                                                                                                                       㶎4                                              㶎4
+                                                                                                                                                                                                                                                                                            www.panelook.com
+
+
+
+
+                                                                                                                    㶎 3䋺 LC inversion polarity has been set by the rising edge of EXTCOMIN.
+                                                                                                                    㶎 4䋺 The period of EXTCOMIN should be constant.
+
+
+
+                                                                                                                 COM Truth Tables
+                                                                                                                 ExtMode = “H”
+                                                                                                                 For (1) and (2) above
+                                                                                                                                                                   㪘㫊㩷㫀㫅㩷㩿㪈㪀㩷㪸㪹㫆㫍㪼㩷                         㪘㫊㩷㫀㫅㩷㩿㪉㪀㩷㪸㪹㫆㫍㪼㩷
+                                                                                                                 EXTCOMIN             COM
+                                                                                                                                                                      COMZ              COM                    COMZ              COM
+                                                                                                                                 Before    After
+                                                                                                                                                                                   Before    After                          Before    After
+                                                                                                                               inversion inversion
+                                                                                                                                                                                 inversion inversion                      inversion inversion
+                                                                                                                        L          L         L
+                                                                                                                                                                         L           H         L                   L          H         L
+                                                                                                                        L          H         H
+                                                                                                                                                                         H           L         H                  H           L         H
+                                                                                                                        H          L         H
+                                                                                                                        H          H         L                     㶎 Inverts at SCS falling edge            㶎 Inverts at EXTCOMIN rising edge
+                                                                                                                 㶎Inverts on EXTCOMIN rising edge
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                  www.panelook.com
+
+
+
+                                                    SPEC   No.          MODEL   No.                    PAGE
+
+                                                    LCP-2111042                LS013B7DH03                    19
+
+
+
+   10. Example of external circuit
+
+
+                                                                          1                 SCLK
+                                                                          2                   SI
+                                                                          3                  SCS
+                                                                          4                EXTCOMIN
+                                                                          5                  DISP
+                                                                          6                 VDDA
+                                                                          7                  VDD
+          C1         C2        C3
+                                                                          8                EXTMODE
+                                                                          9                  VSS
+                                                                          10                VSSA
+
+
+                                     Figure 10-1㩷 External circuit diagram (recommended)
+
+
+
+
+               䋼Recommended Capacitor䋾
+               C1: Between DISP-VSS, B characteristics 0.1uF ceramic capacitor
+               C2: Between VDDA-VSS, B characteristics 0.1uF or more cerac capacitor
+               C3: Between VDD-VSS, B characteristics 1uF or more ceramic capacitor
+
+
+                                      㶎 Above circuit and parts are only recommendation
+                       For actual use, please evaluate their conformity with your system and design.
+                      (Capacitor pressure resistance can be larger than resistance indicated above.)
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                     www.panelook.com
+
+
+
+                                                        SPEC   No.          MODEL    No.                  PAGE
+
+                                                        LCP-2111042                 LS013B7DH03                     20
+
+
+
+   11䋮Optical specification
+   11-1 Optical characterstics
+     䋨a䋩Reflection characteristics
+       Table 11-1: Reflection optical characteristics
+                                                                                                         䋨Ta = 25㷄䋩
+                 Item                Code         Conditions         Min    Typ        Max      Unit         Notes
+             Reflectance              R             ș=0°             14      18            䋭     %        11-2(b),(e )
+
+          Transmission Ratio          T             ș=0°                    (0.2)                %          11-2 (f)
+             Contrast ratio          CR             ș=0°             21      26            䋭     䋭        11-2(c),( e )
+                                     ș11                             50      60            䋭
+                                     ș12                             50      60            䋭
+            Viewing angle                           Co2                                       degrees    11-2(a),(d)
+                                     ș21                             50      60            䋭
+                                     ș22                             50      60            䋭
+                                     W䌸                              䋭      0.31           䋭
+        Chromaticity     White                      ș=0°                                          -        11-2( e )
+                                     W䌹                              䋭      0.33           䋭
+
+
+
+
+   11-2 Measurement method
+       (a) The viewing angle direction is defined as shown below.
+
+
+
+                                                  Ǎǰ22
+                                           Ǎǰ11                            Ǎǰ12
+                                                                             Ǎǰ21
+
+
+
+
+                                      6 o’clock direction
+
+                                 Figure 11-1 Definition of viewing angle direction
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                        www.panelook.com
+
+
+
+                                                          SPEC     No.           MODEL      No.           PAGE
+
+                                                          LCP-2111042                 LS013B7DH03                  21
+
+
+
+       (b) Reflectance is defined as shown below.
+
+
+                                              Reflected luminance of white display
+                    Reflectance =
+                                     Reflected luminance of calibrated diffuse white standard
+
+
+
+       (c) The reflection contrast ratio is defined with the following equation.
+
+
+                                                    Reflected luminance of white display
+                       Reflection contrast ratio䋽
+                                                     Reflected luminance of black display
+
+
+
+       (d) Reflection㩷 Viewing angle
+
+
+
+
+   .
+
+
+
+
+                                                           Scatterd
+                                                                   㩷
+                                                           Light
+
+
+
+
+                                                                                                  LCD
+
+                                                                              Measurement device䋺LCD5200
+                                 Figure 11-2㩷 Reflection mode viewing angle measurement method
+
+
+       (e)Reflection    Reflectance/contrast /chromaticity
+          Measured with Minolta spectrophotometer CM2002.
+          Based on light source (D65).
+
+
+       (f) Panel luminance calculation.
+          Backlight can be implemented underneath the panel, display can be shown with the luminance which is depended
+          on the Backlight luminance. The luminance can be calculated by the panel transimisivity "(0.2%)” multiply “Backlight
+          luminance”.
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                   www.panelook.com
+
+
+
+                                                      SPEC   No.         MODEL   No.                  PAGE
+
+                                                      LCP-2111042             LS013B7DH03                    22
+
+
+
+   12䋮Packaging
+   12-1 Lot number display
+           Displayed by printing. The display position is shown in Figure 13-1 outline dimension diagram.
+            Display contents
+                                                Model Number
+
+
+                                                  User
+
+                                LS013B7DH03
+                                0412Q00001A
+
+
+
+                                                (3)
+                                                (1)(2)
+
+
+
+
+                                                                      Printing Area
+
+
+
+            Serial number specification
+               (1)Last digit of the year
+               (2)Month and date of manufacture
+               (3)5 digit consecutive numbers
+
+
+
+
+                                           Figure 12-1 Lot number printing position
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                     www.panelook.com
+
+
+
+                                                    SPEC   No.           MODEL    No.                   PAGE
+
+                                                    LCP-2111042                  LS013B7DH03                     23
+
+
+
+   12-2 Carton storage conditions
+        (1) Max number stacked: TBD
+         Max number stored䋺 TBD
+        (2) Environment
+           䊶Temperature㩷 0䌾40qC
+            䊶Humidity㩷 Less than 60% RH䋨at 40qC䋩
+                    There should be no condensation at low temperatures even with high humidity.
+           䊶Atmosphere㩷 No toxic gases that significantly corrode the electronic parts and wiring material such as acid and
+            alkali should be detected.
+           䊶Period㩷 Around 3 months
+           䊶Unpacking㩷 In order to prevent electrostatic damage to TFT modules, room humidity should be made over
+            50% RH and take effective measure such as use of earth when opening the package.
+   12-3 Packing
+       The packing condition is shown in Figure 12-2.
+       The packaging is designed such that the module does not break during transit.
+
+
+
+
+                                                                                 Packageing size 䋺TBD
+                                                Figure 12-2: packing condition
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                       www.panelook.com
+
+
+
+                                                        SPEC     No.          MODEL    No.                   PAGE
+
+                                                        LCP-2111042                LS013B7DH03                       24
+
+
+   13. Reliability test conditions
+          Table 14-1 Reliability test items
+                         Test items                                    Test contents                         Notes
+
+            1    High temperature storage      Ta=80qC                      240h         㩷 䋨Non-operating䋩
+
+            2    Low temp. storage             Ta=-30qC                     240h         㩷 䋨Non-operating䋩
+
+                 High temp. high humidity      Tp=40qC /95%RH               240h
+            3
+                 operation
+            4    High temp. operation          Tp=70qC                      240h
+
+            5    Low temp. operation           Tp=-20qC                     240h
+
+                 Thermal shock                 Ta=-30qC (1h)䌾+80qC (1h)/cycle䋽5 cycles
+            6
+                                               (Non-operating䋩
+
+            7    Electrostatic resistance      ±200V䇮200pF(0ȍ) Once each pin
+
+                 䇼NB䇽Ta=ambient temperature䇮Tp=panel temperature
+         䋨Evaluation method䋩
+    In the standard condition, there shall be no practical problems that may affect the display function.
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+   Global LCD Panel Exchange Center                                 www.panelook.com
+
+
+
+                                                                   SPEC     No.          MODEL   No.         PAGE
+
+                                                                   LCP-2111042               LS013B7DH03               25
+
+
+
+   14䋮TFT-LCD module handling
+   14-1 Inserting and removing the FPC
+           When inserting the FPC in the connector and then when removing, be sure to turn the set side power OFF.
+
+
+   14-2 FPC handling
+          (1) The fold of the FPC (R) should be at least 0.6mm and R should be uniform.
+            Please do not fold the FPC towards the front polarizer side in the connection part with the LCD panel.
+          (2) Please do not hold the FPC and swing the LCD module or apply too much strength to the FPC.
+
+
+   14-3 Module handling
+         (1) When adhering the module to a device, contact with the driver or conductive part of the substrate can cause
+              electrical leakage.
+          (2) When attaching, please fix such that it is on the same level and make sure there is no stress such as warping
+              or twisting on the module. When pressing the LCD surface after embedding, please take care that excess
+              mechanical stress is not applied to the LC module.
+          (3) In a set design that has no protective sheet in the panel front part for reducing surface reflection, when static
+             electricity is applied to the panel, there is the risk of electrostatic damage of the module so please design such
+             that it is surrounded by the set cabinet up to the peripheral part of the polarizer and such that a conductive
+             sheet or the like grounded to the rear side thereof is adhered to absorb static electricity.
+
+
+                                    㪜㫃㪼㪺㫋㫉㫀㪺㩷㪺㫆㫅㪻㫌㪺㫋㫀㫆㫅㩷㫊㪿㪼㪼㫋
+
+
+
+
+                                                                㪧㫆㫃㪸㫉㫀㫊㪼㫉
+
+
+                                                                             㪣㪚㪛㩷㪧㪸㫅㪼㫃
+
+
+
+                                                                   Figure 14-1㩷 Design example
+
+
+
+
+   15䋮Other
+        If any problems occur with the Sharp specification items or any other items, efforts will be made to improve in
+       cooperation. When making any changes that are likely to have a significant effect on the quality and reliability,
+       advance contact will be made to gain approval.
+
+
+
+
+One step solution for LCD / PDP / OLED panel application: Datasheet, inventory and accessory! www.panelook.com
+

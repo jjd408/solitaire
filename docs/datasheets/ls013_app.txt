@@ -1,0 +1,1106 @@
+LCD Module Application Information                                              LS013B7DH03
+             Application Information for Sharp’s LS013B7DH03 Memory LCD
+                                       Sharp Microelectronics of the Americas
+
+INTRODUCTION
+    This Application Note provides additional design
+assistance for Sharp’s LS013B7DH03 Memory LCD.
+This module is a transflective, monolithic active-matrix
+liquid crystal module utilizing Sharp’s CG-silicon thin-
+film transistor process. Operating from a single 3 V
+supply, it offers high performance and power efficiency
+for compact display applications, with a serial interface
+for simple integration.
+  Subjects covered will be:
+• Mechanical Specifications, including dimension
+  drawings and connector specifications
+• Absolute Maximum Ratings
+• Optical Specifications, including view angles, reflec-
+  tivity, contrast, and risetime
+• Electrical Characteristics, including interfacing and
+  signal timing information
+• Design Notes
+• Manufacturing Information, including handling and
+  storage
+• Reliability Information
+   This Note is based on Sharp’s document number
+LCP-2111042 and is designed to provide supplemen-
+tary information for the Specifications for this part.
+  Always refer to the latest Specifications when
+designing with these devices.
+
+FEATURES
+• Transflective monochrome panel
+• Accepts a separate backlight for low-ambient situa-
+  tions
+• Normally White
+• Square aspect ratio (1:1)
+• 1.28-inch screen with 128 × 128 resolution
+• 3-wire serial interface
+• Screen data is arbitrarily renewable by line
+• Built-in, 1-bit internal memory in each pixel
+• Super low power consumption TFT panel
+• RoHS compliant
+
+
+
+
+Application Information                                                                   1
+LCD Modules                                                                                                                                                   LS013B7DH03 Application Information
+
+
+MECHANICAL SPECIFICATIONS
+                                     PARAMETER                                                                                     SPECIFICATION                                   UNIT
+Screen Size                                                                                                      1.28                                            Inch
+Viewing Area                                                                                                     23.04 (H) × 23.04 (V)                           mm
+Dot Configuration (Square panel)                                                                                 128 (H) × 128 (V)                               Dots
+Dot Pitch                                                                                                        0.18 (H) × 0.18 (V)                             mm
+Pixel Array                                                                                                      Square                                          -
+External Dimensions                                                                                              26.6 (W) × 30.3 (H) × 0.746 (D)                 mm
+Mass                                                                                                             3.6 (TYP.)                                      g
+Surface Hardness                                                                                                 3H                                              Pencil hardness
+
+
+External Dimensions
+
+                                                                                                          26.60 ±0.2
+                                                                                                                                           0.746 (Total)
+                                                                                               1.46                         1.46           0.25 (TFT Glass)
+                                                                                                      23.04 (Active Area)
+                                                                                                                                           0.15 (Top Glass)
+                                                                                                         25.60 ±0.15                                                       25.6
+                                                                                                                                           0.226 (Pol Top)
+                                                                                              13.30 ±0.15
+                                                                                                                                           0.12 (Pol Bot)                         0.5 ±0.3
+
+
+
+
+                                                                                                                                                                                             0.5 ±0.3
+                                                                                              DISPLAY SIDE                                                     BACK SIDE
+                                                                                 1.23
+                                      23.04 (Active Area)
+                      27.20 ±0.15
+
+
+
+
+                                                                                                                                                                                                        27.2 ±0.15
+         30.30 ±0.2
+
+
+
+
+                                                            17.23 ±0.15
+
+                                                                          3.39
+
+                                                                                        1.6
+                                    13.63
+
+
+
+
+                                                                                                  13.3
+                                                                                              8.565           5.5
+                                                                                                             9.47
+
+    NOTE: Units: mm
+                                                                                                                                                                                             LS013B7DH03-1
+
+
+
+
+2                                                                                                                                                                                       Application Note
+LS013B7DH03 Application Information                                                                                       LCD Modules
+
+
+Connector Specifications
+                                            Table 1. Input Terminals and Functions
+
+ TERMINAL            SYMBOL                    I/O                                      FUNCTION                                NOTES
+       1                SCLK                 INPUT           Serial clock signal
+       2                  SI                 INPUT           Serial Data input signal
+       3                SCS                  INPUT           Chip select signal
+       4            EXTCOMIN                 INPUT           External COM inversion signal input (H: enable)                        1
+       5                DISP                 INPUT           Display ON/OFF signal                                                  2
+       6               VDDA                 POWER            Power supply (Analog)
+       7                VDD                 POWER            Power supply (Digital)
+       8            EXTMODE                  INPUT           COM inversion select terminal                                          3
+       9                 VSS                POWER            GND (Digital)
+      10                VSSA                POWER            GND (Analog)
+NOTES:
+1. EXTCOMIN is HIGH enabled. When LOW, the serial input flag is enabled. See Figure 10 and Figure 11 for recommended circuits.
+2. DISP enables/disables the display. All pixels will revert to Normal mode (reflective) when LOW; pixel memory is retained. When DISP = H,
+   data in the pixel memories displays normally.
+3. EXTMODE pin must be connected to VDD for HIGH, and to VSS for LOW. See FIGURE in Interfacing and Signals.
+
+
+Absolute Maximum Ratings
+                    PARAMETER                               SYMBOL              MIN.           MAX.             UNIT           NOTES
+ Power Supply Voltage (Logic)                                  VDD               -0.3           +3.6              V
+ Input Signal Voltage                                           VIN              -0.3           VDD               V                1
+ Storage Temperature                                            Tstg             -10            +60              °C                2
+ Operation Temperature (panel surface)                         Topr              -20            +70              °C                2
+NOTES:
+1. Applies to SCLK, SI, SCS, DISP, EXTCOMIN.
+2. Maximum wet bulb temperature is 57°C or lower, non-condensing. Condensation will
+   cause electrical leakage and may cause the module to fail to meet this Specification.
+3. For contrast, response time, and other display quality determination, use Ta = + 25°C.
+
+
+
+
+Application Information                                                                                                                   3
+LCD Modules                                                                                 LS013B7DH03 Application Information
+
+
+OPTICAL SPECIFICATIONS
+                                                                                                                                Ta = 25°C
+               PARAMETER                           SYMBOL              MIN.       TYP.         MAX.             UNIT              NOTES
+                                         H         θ21, θ22            50           60                      ° (degrees)                1
+ Viewing Angle CR ≥ 5                                 θ11              50           60                      ° (degrees)                1
+                                         V
+                                                      θ12              50           60                      ° (degrees)                1
+ Contrast Ratio                                        CR              21           26                                                 2
+ Reflectivity Ratio                                     R              14           18                            %                    2
+ Transmissivity Ratio                                   T                          0.2                            %                    3
+                                                        x                          0.31                                                2
+ Chromaticity                        White
+                                                        y                          0.33                                                2
+NOTES:
+1. Viewing Angle is described as clock positions: θ12 = 12 o’clock, θ11 = 6 o’clock, θ21 = 3 o’clock, θ22 = 9 o’clock. See Figure 1.
+2. Contrast Ratio, Reflectivity Ratio, and Chromaticity are measured through the use of an integrating sphere. See Figure 2.
+3. When this panel is backlit, luminance can be calculated by multiplying transmissivity × backlight luminance.
+
+
+
+
+                                Normal
+                         Δθ22
+                                           Δθ21
+                                    Δθ12
+                           Δθ11
+
+
+                                                      12 o’clock
+
+
+
+
+             6 o’clock
+
+                                                      LS013B7DH03-24
+
+                 Figure 1. Viewing Angle
+
+
+
+
+4                                                                                                                        Application Note
+LS013B7DH03 Application Information                                                                                      LCD Modules
+
+
+
+
+                                                                 Normal Line
+
+
+                                                                            Photo Detector
+                                                                            (with Luminosity Correction System)
+
+                                Coated Surface
+                          (Optical Diffusion Treatment)
+
+
+
+
+                                                          Diffused          Diffused
+                                                           Light             Light
+
+
+                        Beam
+                  (Via Optical Fiber)
+
+                                                                                                            LCD Module
+
+
+
+
+                                                               Center of Display
+
+                                                                                                                          LS013B7DH03-25
+
+                          Figure 2. Setup for Contrast, Reflection Ratio, and Chromaticity
+
+ELECTRICAL SPECIFICATIONS
+   Here are the Recommended Operating Conditions
+for this module, with VSS (GND) = 0 V and Ta = 25°C.
+
+                  PARAMETER                               SYMBOL           MIN.         TYP.         MAX.         UNIT       NOTES
+ Driver Supply Voltage                                      VDD             2.7          3.0          3.3           V
+                                        HIGH                VINH         VDD-0.1                     VDD            V             1
+ Input Signal Voltage
+                                        LOW                 VINL           VSS                     VSS+0.1          V
+ Power Consumption 1                                       IVDD1                                       20           µA            2
+ Power Consumption 2                                       IVDD2                                      340           µA            3
+NOTES:
+1. Applies to SCLK, SI, SCS, DISP, EXTCOMIN.
+2. All-black display, no image updating.
+   SCS = SCLK = SI = L, EXTCOMIN = 60 Hz
+3. 1-dot-wide vertical stripes, continuous image updating, SCLK = 1.1MHz, EXTCOMIN= 60 Hz
+
+
+
+
+Application Information                                                                                                                5
+LCD Modules                                                                 LS013B7DH03 Application Information
+
+
+Power Consumption                                            Power Supply Sequencing
+   This module has the ability to shut down most of its         This device requires proper supply sequencing on
+logic circuits when in Static mode (not being updated).      both startup and shutdown to prevent latching of the
+It has two levels of power consumption: Static and           logic circuits. Refer to Figure 4.
+Dynamic Display.
+   Static Display: 20 µA (MAX.) All black display; fully     POWER-UP
+static, no display updates.                                     VDD and VDDA must rise together or VDD must rise
+                                                             faster than VDDA.
+• This includes a 1 Hz VCOM toggle, and VDD = 3 V,
+  SCS, SCLK, SI are all held LOW. ƒEXTCOMIN =                1. 3 V rises to nominal
+  60 Hz                                                      2. Initialize pixel memory: send M2 CLEAR ALL flag
+   Dynamic Display: 340 µA (MAX.) Vertical stripe dis-          or set the display to all-white (minimum once).
+play; updated at each clock transition.                          An alternate method requires at least 16
+• VDD = 3 V, ƒSCLK = 1.1 MHz, ƒEXTCOMIN = 60 Hz                  tsSCS + SCLK cycles (See CLEAR ALL under
+                                                                 Programming).
+   These numbers represent peak power usage when
+driving VCOM. Always allow for a margin in power sup-        3. Latch cancellation for TCOM; requires a period to
+ply design.                                                     cancel the COM latch circuit by DISP = HIGH
+                                                                (requires ≥ 30 µs)
+Decoupling Capacitors                                        4. TCOM polarity initialization     by   EXTCOMIN
+                                                                (requires ≥ 30 µs)
+   Use of a decoupling capacitor on VDD and VDDA is
+recommended, even when the two supplies are tied
+                                                             POWER-DOWN
+together. See Figure 3.
+                                                                VDD and VDDA must fall together or VDDA must fall
+    Values for these capacitors:
+                                                             faster than VDD.
+    C1: DISP to VSS: rank B, 0.1 µF Ceramic
+                                                             1. Initialize pixel memory: send M2 CLEAR ALL flag
+    C2: VDDA to VSS: rank B, 0.1 µF Ceramic                     or set the display to all-white (minimum once).
+    C3: VDD to VSS: rank B, 1 µF Ceramic                         An alternate method requires at least 16
+   These are recommended values; actual values                   tsSCS + SCLK cycles (See CLEAR ALL under
+should be determined by the final design. Always place           Programming).
+the decoupling capacitors as close as possible to the        2. Initialize VA, VB, and VCOM (requires ≥ 30 µs)
+part as the impedance of the VDD and VSS lines is low        3. 3 V falls
+when the module is operating.
+
+
+
+                                   1      SCLK
+                                   2       SI
+                                   3      SCS
+                                   4    EXTCOMIN
+                                   5      DISP
+                                   6      VDDA
+     C1
+            C2                     7      VDD
+                   C3
+                                   8    EXTMODE
+                                   9      VSS
+                                   10     VSSA
+
+                                            LS013B7DH03-23
+
+          Figure 3. Decoupling Capacitors
+
+
+
+
+6                                                                                               Application Note
+LS013B7DH03 Application Information                                                                        LCD Modules
+
+
+
+
+                                            Power-ON                 Normal Operation       Power-OFF
+
+                                      1      2        3      4                            5      6     7
+                                      T1    T2       T3     T4                           T5      T6   T7
+                                                    Note 1 Note 1
+
+           VDD/VDDA (3 V)     GND                                                                          GND
+
+
+                      DISP    GND                                                                          GND
+
+
+
+                EXTCOMIN      GND                                    Normal Operation                      GND
+
+
+
+                      SCS     GND          Note 2                    Normal Operation   Note 2             GND
+
+
+
+                   SI, CLK    GND          Note 2                    Normal Operation   Note 2             GND
+
+
+  NOTES:
+  1. The order of 3 and 4 can be reversed. VCOM polarity inversion
+     timing controlled by EXTCOMIN doesn’t work when DISP = ‘L’.
+     When DISP and EXTCOMIN go HIGH simultaneously,
+     allow >30 µs <60 µs before SCS goes HIGH.
+  2. Setup value to initialize pixel memory data.
+                                                                                                             LS013B7DH03-16
+
+
+                                           Figure 4. Power Supply Sequencing
+
+
+
+
+Application Information                                                                                                   7
+LCD Modules                                                                 LS013B7DH03 Application Information
+
+
+SIGNAL DESCRIPTIONS
+  Input signal characteristics are given in Table 4 and
+Table 5. All measurements are at VDDA = +5.0 V,
+VDD = +5.0 V, GND = 0 V, Ta = 25°C.
+
+                                              Table 4. Signal Frequencies
+
+    PARAMETER          DESCRIPTION                     MIN.         TYP.               MAX.              UNIT
+       ƒSCS          Frame frequency                    1             -                 60                Hz
+      ƒSCLK          Clock frequency                                 0.5               1.1               MHz
+         tV          Vertical Interval             16.67              -                1000               ms
+       ƒCOM          COM Frequency                     0.5            -                 30                Hz
+
+
+                                           Table 5. Signal Transition Times
+
+    PARAMETER              DESCRIPTION                       MIN.   TYP.        MAX.          UNIT        NOTES
+       trSCS         SCS Risetime                                                70            ns
+       tfSCS         SCS Falltime                                                70            ns
+                                                         153.45                                µs              1
+      twSCSH         SCS HIGH width
+                                                            22.55                              µs              2
+      twSCSL         SCS LOW width                            2                                µs
+       tsSCS         SCS setup time                           6                                µs
+       thSCS         SCS hold time                            2                                µs
+        trSI         SI Risetime                                                 50            ns
+        tfSI         SI Falltime                                                 50            ns
+        tsSI         SI setup time                           227                               ns
+       thSI          SI hold time                            525                               ns
+      trSCLK         SCLK Risetime                                               50            ns
+      tfSCLK         SCLK Falltime                                               50            ns
+     twSCLKH         SCLK HIGH width                     404.55     950                        ns
+     twSCLKL         SCLK LOW width                      404.55     950                        ns
+    ƒEXTCOMIN        EXTCOMIN frequency                       1                  60           Hz               3
+    trEXTCOMIN       EXTCOMIN Risetime                                           70            ns
+    tfEXTCOMIN       EXTCOMIN Falltime                                           70            ns
+    thlEXTCOMIN      EXTCOMIN HIGH width                      2                                µs
+      trDISP         DISP Risetime                                               70            ns
+      tfDISP         DISP Falltime                                               70            ns
+NOTES:
+1. Dynamic Mode (continuously updating display)
+2. Static Mode (no display updating)
+3. ƒEXTCOMIN must always be less than ƒSCS (Table 4)
+
+
+
+
+8                                                                                                   Application Note
+LS013B7DH03 Application Information                                                                                                LCD Modules
+
+
+Timing Diagrams
+        PIN NAME               ITEM           SYMBOL                                WAVEFORM
+
+        SCS                                                                         90%                          90%
+                     SCS risetime          trSCS
+                                                                      SCS
+                                                                                 10%                                   10%
+
+                     SCS falltime          tfSCS                                       trSCS                   tfSCS
+
+
+
+                     SCS HIGH width        twSCSH
+                                                            SCS            50%            50%               50%
+
+
+
+                     SCS LOW width         twSCSL                                  twSCSH         twSCSL
+
+
+
+                                                                 SI                             10%
+
+
+                     SCS setup time        tsSCS
+                                                                             90%
+                                                                 SCS
+                                                                                          tsSCS
+
+
+
+
+                                                                 SI                                   10%
+
+
+                     SCS hold time         thSCS                                                                             90%
+                                                                 SCS
+                                                                                                         thSCS
+
+
+
+        SI           SI risetime           trSI                                     90%                          90%
+                                                                      SI
+                                                                                 10%                                   10%
+
+                     SI falltime           tfSI                                        trSI                     tfSI
+
+
+
+                                                                             90%                                         90%
+                     SI setup time         tsSI             SI
+
+                                                                                   tsSI                 thSI
+
+
+                                                                                               90%
+                     SI hold time          thSI             SCLK
+                                                                                   10%
+
+
+
+        SCLK                                                                        90%                         90%
+                     SCLK risetime         trSCLK
+                                                                      SCLK
+                                                                                 10%                                   10%
+
+                     SCLK falltime         tfSCLK                                   trSCLK                     tfSCLK
+
+
+
+
+                     SCLK HIGH width       twSCLKH          SCLK           50%                    50%          50%
+
+
+
+                     SCLK LOW width        twSCLKL                                 twSCLKH twSCLKL
+
+
+        EXTCOMIN     EXTCOMIN frequency    ƒEXTCOMIN                                              ƒEXTCOMIN
+
+                     EXTCOMIN risetime     trEXTCOMIN                                    90%                90%
+                                                          EXTCOMIN
+                                                                             10%                                10%                10%
+                     EXTCOMIN falltime     tfEXTCOMIN
+                                                                       trEXTCOMIN twEXTCOMIN tfEXTCOMIN
+                     EXTCOMIN HIGH width   twEXTCOMINH
+        DISP                                                                        90%                         90%
+                     DISP risetime         trDISP
+                                                                      DISP
+                                                                                 10%                                   10%
+
+                     DISP falltime         tfDISP                                   trDISP                     tfDISP
+
+
+                                                                                                                              LS013B7DH03-6
+
+                          Figure 5. SCS, SI, SCLK, EXTCOMIN, and DISP Signals
+
+
+
+
+Application Information                                                                                                                       9
+LCD Modules                                                                    LS013B7DH03 Application Information
+
+
+PROGRAMMING                                                       When M2 is 'L' then all flags are cleared. When a full
+  For software commands, see the Application Note,                display clearing is required, set M0 and M2 = HIGH
+Programming Sharp’s Memory LCDs, by Ken Green.                    and set all display data to white. (Also see CLEAR
+                                                                  ALL under Static Mode.)
+  In all the following diagrams and descriptions, these
+conventions are used:                                           • D[1:128]: Display data
+                                                                  Setting D(n) = 'L' sets that pixel to black. Conversely,
+• M0: MODE                                                        Setting D(n) = 'H' sets that pixel to white.
+  When M0 is 'H', the module enters Dynamic Mode,
+  where pixel data will be updated.                             • DUMMY DATA: Dummy data
+  When M0 is 'L' the module remains in Static Mode,               Dummy data is typically ‘XX (don't care); however
+  where pixel data is retained.                                   Sharp recommends setting bits to 'L'.
+
+• M1: VCOM
+                                                                Data Addressing and Positions
+  This polarity-inversion flag enables a periodic polar-
+  ity inversion on the panel to keep a latent charge               This part uses mixed addressing for columns and
+  from building up within the Liquid Crystal cells. When        lines. Columns (X direction) are addressed using an
+  M1 is 'H' then VCOM = 'H' is output. If M1 is 'L' then        8-bit binary scheme, and lines (Y direction) are
+  VCOM = 'L' is output.                                         addressed directly as 128 bits. See Table 6. One line is
+  When EXTMODE = 'H', M1 value = XX (don’t care).               the minimum addressable unit in the display; even if
+  See COM Inversion and Signal Selection.                       only one pixel in the line is to be updated, the entire line
+                                                                must be sent.
+• M2: CLEAR ALL
+
+                                     Table 6. Column (X Direction) Addressing
+   LINE                                           COLUMN ADDRESS
+ ADDRESS          CA0          CA1          CA2            CA3           CA4           CA5           CA6           CA7
+      L1            H            L            L             L              L             L            L              L
+      L2            L            H            L             L              L             L            L              L
+      L3            H            H            L             L              L             L            L              L
+       :            :            :            :             :              :             :             :             :
+     L126           L            H            H            H               H            H             H              L
+     L127           H            H            H            H               H            H             H              L
+     L128           L            L            L             L              L             L            L             H
+
+
+
+
+10                                                                                                         Application Note
+LS013B7DH03 Application Information                                                                                                                                                                                        LCD Modules
+
+
+Dynamic Mode                                                                                                                     SINGLE LINE WRITE
+  For software commands, see the Programming                                                                                        Writing a single line of data is much the same as
+Sharp’s Memory LCDs application note.                                                                                            writing multiple lines. During the Data Write period,
+                                                                                                                                 data is stored in the panel’s binary latch. During Data
+MULTIPLE LINE WRITE                                                                                                              Transfer, the data from the latch is written to the panel
+   Dynamic Mode assumes the updating of at least one                                                                             memory, line-by-line. During the write to panel mem-
+line in the display. During the Data Write period, data is                                                                       ory, data for the next line is latched.
+stored in the panel’s binary latch. During Data Transfer,                                                                          Single Line Write requires the panel to be in
+the data from the latch is written to the panel memory,                                                                          Dynamic Mode.
+line-by-line. During the write to panel memory, data for                                                                           Dynamic Mode is entered the same way, by sending
+the next line is latched.                                                                                                        M0 = H and M2 = L.
+  Dynamic Mode is entered by sending M0 = H and                                                                                        Figure 7 shows an example of writing a single line.
+M2 = L.
+  Figure 6 shows an example of writing multiple lines.
+
+
+
+                                                                                                                            twSCSH
+
+  SCS
+               tsSCS
+
+    SI                    M0     M1    M2 DMY DMY DMY DMY DMY CA0 CA1 CA2 CA3 CA4 CA5 CA6 CA7 D1                            D2    D3      D4           D125 D126 D127 D128 DON’T CARE             CA0 CA1          CA6 CA7 D1       D2
+              tsSI                              twSCLKL
+                   thSI                          twSCLKH
+
+
+ SCLK
+
+                                      Mode Selection Period                      Column address select period                             Data Write Period                                  Data Transfer Period             Data Write Period
+                                        (3ck + 5ckDMY)                                     (8ck)                                               (128ck)                                (8ck(Dummy) + 8ck(address) = 16ck)           (128ck)
+
+                                                                                                  CA1                                                                                                  CA2
+
+
+                                                                                                         twSCSH                                                                                                        twSCSL
+
+
+                                                                                                                                                                                                      thSCS
+
+           D127 D128 DON’T CARE             CA0 CA1 CA2           CA5 CA6 CA7 D1           D2               D127 D128                      DUMMY DATA (don’t care)
+
+
+
+
+                                        Column address select period                        Data Writing Period                                     Data Transfer Period
+                               (8ck(Dummy) + 8ck(address) + 1ck(Dummy) = 16ck)                   (128ck)                                                   (16ck)
+
+
+        CA(n-1)th line                                           CA(n)th line
+
+
+                                                                                                                                                                                                                              LS013B7DH03-18
+
+                                                  Figure 6. Dynamic Mode Timing Diagram, Writing Multiple Lines
+
+
+                                                                                                                  twSCSH                                                                                                              twSCSL
+
+
+ SCS
+            tsSCS                                                                                                                                                                                                    thSCS
+
+   SI                     M0     M1     M2 DMY DMY DMY DMY DMY CA0 CA1 CA2 CA3 CA4 CA5 CA6 CA7                                       D1        D2      D3     D4           D125 D126 D127 D128            DON’T CARE
+
+            tsSI                                    twSCLKL
+                thSI                                twSCLKH
+ SCLK
+
+
+                                 Mode selection period (3ck+5ckDMY)                    Column address select period (8ck)                               Data writing period (128ck)                   Data transfer period (16ck)
+
+
+                                                                                                                                                                                                                              LS013B7DH03-17
+
+                                                   Figure 7. Dynamic Mode Timing Diagram, Writing a Single Line
+
+
+
+Application Information                                                                                                                                                                                                                           11
+LCD Modules                                                                                                           LS013B7DH03 Application Information
+
+
+Static Mode                                                                                           Static Mode is entered by sending M0 = L and
+   Static Mode is the module’s lowest-power mode,                                                   M2 = L.
+with data latches and other circuitry powered down.
+Static Mode can be held indefinitely; as long as the                                                CLEAR ALL
+panel has power and VCOM is toggled periodically.                                                     CLEAR ALL will clear all data from pixel memories
+                                                                                                    and the display will revert to its normal white color.
+   Sharp recommends keeping maximum time between
+VCOM toggles to no more than one second, and                                                          CLEAR ALL is invoked by sending M0 = L and
+refreshing data every two hours, to prevent stuck pixels.                                           M2 = H.
+
+
+
+                                                                                 tV
+
+                                                                 twSCSH                                      twSCSL
+
+
+          SCS
+
+                tsSCS                                                                           thSCS
+
+
+           SI              M0       M1      M2             Dummy Data (DON’T CARE)                                               M0    M1   M2     DON’T CARE
+
+
+                tsSI
+
+                   thSI
+
+
+         SCLK
+
+                               Mode Selection
+                                  Period                         Data Transfer Period
+                                   (3ck)                          (More than 13ck)
+
+
+                                                                                                                                                                     LS013B7DH03-19
+
+
+                                                                 Figure 8. Static Mode Timing Diagram
+
+
+
+                                                                                  tV
+
+                                                                  twSCSH                            twSCSL
+
+
+                        SCS
+
+                                    tsSCS                                               thSCS
+
+
+                          SI                     M0   M1    M2     Dummy Data                                         M0   M1   M2    DON’T CARE
+                                                                  (DON’T CARE)
+                                    tsSI
+
+                                         thSI
+
+
+                       SCLK
+
+                                                 Mode Selection
+                                                    Period      Data Transfer Period
+                                                     (3ck)       (More than 13ck)
+
+
+
+                                                                                                                                                                     LS013B7DH03-20
+
+
+                                                                 Figure 9. CLEAR ALL Timing Diagram
+
+
+
+
+12                                                                                                                                                              Application Note
+LS013B7DH03 Application Information                                                                                LCD Modules
+
+
+VCOM Inversion
+   Periodic VCOM (often known as just COM) inversion                                            1        SCLK
+impresses a periodic polarity inversion across the
+                                                                                                2          SI
+panel to keep a latent charge from building up within
+                                                                                                3         SCS
+the Liquid Crystal cell. It can be implemented either
+through software or through hardware. In either imple-                                          4     EXTCOMIN
+mentation, the positive and negative inversion intervals                                        5        DISP
+should be kept as equal as possible, and intervals                                              6        VDDA
+should not exceed one second.                                                                   7         VDD
+
+   To implement VCOM inversion in software, the M1 bit                                          8     EXTMODE
+is periodically toggled. When M1 is 'H' then VCOM = 'H'                                         9         VSS
+is output to the panel. If M1 is 'L' then VCOM = 'L' is out-                                    10       VSSA
+put to the panel. To set the panel for software toggling of
+                                                                                                                        LS013B7DH03-5
+M1, tie EXTMODE to VSS as shown in Figure 10.
+   When implementing a VCOM toggle through hard-                            Figure 11. VCOM Hardware Input
+ware, EXTMODE is set to 'H', and the M1 value becomes
+XX (don’t care). Hardware then toggles EXTCOMIN, and             IMPLEMENTATION
+the timing between toggles of this line sets the VCOM                The LC cell inversion polarity toggle is armed when
+inversion interval. Therefore, it’s important not to allow the   EXTCOMIN rises. Internal signal COMZ toggles with
+toggling interval of EXTCOMIN to exceed one second. To           each rise of EXTCOMIN, and latches the VCOM tran-
+set the panel for software toggling of M1, tie EXTMODE           sition. The VCOM transition takes place upon the next
+to VDD as shown in Figure 11.                                    clock transition of SCS. Again, keep the duty cycle of
+                                                                 EXTCOMIN at 50%. See Figure 12 and Figure 13.
+                                                                    These Truth Tables show how VCOM is imple-
+                                                                 mented in both hardware and software. COMZ is an
+                            1       SCLK                         internal signal which toggles the display bias upon SCS
+                            2         SI                         or EXTMODE state change.
+                            3        SCS
+                                                                 NOTE: COMZ is an internal signal, and is inverted with each rising of
+                            4    EXTCOMIN
+                                                                 EXTMODE.
+                            5       DISP
+                            6       VDDA
+                            7        VDD
+                            8     EXTMODE
+                            9        VSS
+                            10      VSSA
+
+                                                 LS013B7DH03-4
+
+
+           Figure 10. VCOM Software Input
+
+
+
+
+Application Information                                                                                                           13
+LCD Modules                                                                                         LS013B7DH03 Application Information
+
+
+
+
+                            SCS
+                                                                              twEXTCOMINH
+                                                           ƒEXTCOMIN
+
+                        EXTCOMIN
+
+                                                    See Note 1                                 See Note 1
+
+
+
+
+                            COM
+
+
+                                                                See Note 2                                  See Note 2
+
+                                                                                 ƒCOM
+
+    NOTES:
+    1. LC inversion polarity has been
+       latched by a falling edge on SCS.
+    2. EXTCOMIN period should be constant.                                                                                                LS013B7DH01-21
+
+                                           Figure 12. EXTMODE = L, Software VCOM Toggle
+
+
+
+
+          SCS
+
+                                                   ƒEXTCOMIN                 twEXTCOMINH
+
+      EXTCOMIN
+
+
+
+                              See Note 1                                          See Note 1
+          COM
+                                                   See Note 2                                                     See Note 2
+
+                                                                             ƒCOM
+
+
+ NOTES:
+ 1. LC inversion polarity has been latched
+    by the rising edge of EXTCOMIN.
+ 2. EXTCOMIN period should be constant.                                                                                                   LS027B7DH01-22
+
+
+                                           Figure 13. EXTMODE = H, Hardware VCOM Toggle
+
+
+                  Table 7. EXTMODE = L                                                        Table 8. EXTMODE = H,
+                                                                                        Relationship of COMZ to EXTCOMIN
+     EXTCOMIN                                COM
+                                                                                                                                   COMZ
+L                                                                                EXTCOMIN
+                                                                                                              Before Inversion After Inversion
+L
+                       Depends entirely on status of M1                      L                                                 L              L
+H (rising edge)
+H (rising edge)                                                              L                                                 H             H
+                                                                             H (rising edge)                                   L             H
+                                                                             H (rising edge)                                   H              L
+
+
+
+
+14                                                                                                                                   Application Note
+LS013B7DH03 Application Information                                                                   LCD Modules
+
+
+DESIGN NOTES                                                 3. In a design where the module face is ‘bare’ (no pro-
+   This device is static sensitive. Handle it only in a         tective or anti-reflective sheet), there can be a risk
+static-safe environment.                                        of electrostatic damage to the module. Ensure that
+                                                                the final design has a grounded, conductive sur-
+                                                                face that mates to the polarizer’s periphery. See
+Light Sensitivity
+                                                                Figure 14.
+1. Do not allow the finished design to expose the
+                                                             4. When displaying static images, Sharp recom-
+   driver electronics on this module to light. Exposing
+                                                                mends refreshing the image data every two hours
+   these circuits to light can cause improper operation.
+                                                                to prevent stuck pixels.
+2. When storing this module, keep it from long peri-
+                                                             5. Use of decoupling capacitors is recommended.
+   ods of exposure to direct sunlight or other sources
+   of ultraviolet light. Recommended storage is in a            See Electrical Specifications.
+   dark place.
+
+Surface Areas                                                       Conductive
+1. The polarizer surface is easily damaged. Take                      Sheet
+   precautions against scratching it, and do not allow
+   the finished design to put pressure or torquing
+   tensions on the glass exceeding that of the pub-
+   lished Specifications.
+2. Water droplets on the polarizer surface must be
+   wiped off immediately, as they may cause color                          Polarizer
+   changes or other permanent damage.                                                  LCD Panel
+3. Clean the polarizer surface by wiping it with absor-
+   bent cotton or other soft cloth. If further cleaning is                                               LS013B7DH03-30
+
+   necessary, use IPA (isopropyl alcohol) lightly on the             Figure 14. Bare Module Grounding
+   surface. Do not use organic solvents as they may
+   damage the terminal areas. If the terminal areas
+   need cleaning, they may be cleaned with a soft cot-       Environment
+   ton cloth or a cotton swab. Avoid directly touching       1. The liquid crystal material in this module will solid-
+   them with fingers.                                           ify if stored below the rated temperature, and will
+4. Keep fingerprints off the surface and the terminal           become an isotropic liquid if stored above the rated
+   areas of this module.                                        storage temperatures. After such storage, the
+5. Do not press on the surface of the module, and do            material may not return to its original properties.
+   not stack modules in such a way that pressure will        2. When handling this module in a production envi-
+   be applied to the surfaces or to the connector area.         ronment, do not store it in the presence of oxidation
+   The safest place for temporary storage of modules            or deoxidation gases or near reagents, solvents,
+   is in their shipping tray.                                   adhesives, resins, and materials which generate
+                                                                these gasses, as they may cause corrosion and
+Operation                                                       discoloration of these modules.
+1. When the final design will be used in areas of high       3. Materials used in setting or epoxy resins such as
+   static electricity, the image written to pixel memory        amine hardening agents from packaging and silicon
+   may not be properly displayed. More frequent data            adhesives (dealcoholized or oximes) all release
+   updates are recommended to counter this.When                 gasses which may affect the polarizer’s quality.
+   inserting and removing the FPC (flex connector)              Always confirm the compatibility of these materials.
+   always do so with the power OFF.                          4. To avoid picture uniformity failures, do not put a
+2. When inserting the module, make sure that                    seal or an adhesive material on the panel surface.
+   stresses are within published Specifications,             5. Do not use chloroprene rubber in the final design
+   evenly distributed, and are not applying warping or          as it generates chlorine gas and will affect this
+   torquing forces to the module. When embedding                module’s reliability.
+   the module in a substance, make sure that no
+   excess mechanical forces are applied to the mod-
+   ule’s surface.
+
+
+
+
+Application Information                                                                                             15
+LCD Modules                                                                LS013B7DH03 Application Information
+
+
+General                                                        2. Use within 3 months.
+1. This set of Specifications gives definite environ-          3. Open the package within an area that has proper
+   mental, electrical, and signal drive conditions for            static control precautions, and more than 50% RH.
+   the operation of this module. Operating it outside of       4. When storing this module, keep it from long peri-
+   these given limits can reduce image quality,                   ods of exposure to direct sunlight or other sources
+   shorten its life, or cause it to fail altogether.              of ultraviolet light. Recommended storage is in a
+2. The connector on this module is designed for a lim-            dark place.
+   ited number of insertions. Do not attempt to solder
+   directly to the connector.                                  Packaging
+3. It is not a defect nor a failure to have a slight visible     Figure 15 shows the serial number schema.
+   change in the displayed black level depending on the          Figure 16 shows the location where the serial num-
+   light source’s angle of illumination and type of source.    ber is printed.
+
+HANDLING, STORAGE, AND PACKAGING
+Handling
+                                                                                           Model Number
+1. When inserting and removing the FPC (flex con-
+   nector) always do so with the power OFF.
+                                                                    LS013B7DH03
+2. When inserting the module, make sure that stresses
+   are within published Specifications, evenly distrib-
+   uted, and are not applying warping or torquing                   0412Q00001A
+   forces to the module. When embedding the module
+   in a substance, make sure that no excess mechani-                                       Serial Number
+   cal forces are applied to the module’s surface.
+                                                                                           Day
+3. In a design where the module face is ‘bare’ (no pro-
+                                                                                           Month (1, 2 . . . 9, X, Y, Z)
+   tective or anti-reflective sheet), there can be a risk
+   of electrostatic damage to the module. Ensure that                                      Year (Single Number)
+   the final design has a grounded, conductive sur-
+                                                                                                               LS013B7DH03-26
+   face that mates to the polarizer’s periphery.
+4. This module is not made to be disassembled.                              Figure 15. Serial Number
+   Doing so may cause permanent damage.
+5. The liquid crystal material in this module is injurious
+   to humans. Do not allow it to get into the eyes or                       DISPLAY SIDE
+
+   mouth. If any liquid crystal material gets on skin or
+   clothing, immediately wash it out with soap and water.
+6. This module is RoHS compliant, and does not use
+   any ODS (1,1,1-Trichloroethane, CCL4) in its
+   materials or in its production processes.
+7. When discarding this module, dispose of it as glass
+   waste. This LCD module contains no harmful sub-
+   stances. The liquid crystal panel contains no dan-
+   gerous or harmful substances. The liquid crystal
+   cell contains an extremely small amount of liquid
+   crystal (approx.100 mg) and therefore will not leak;
+   even if the panel should break.
+8. The material used in this panel has a median lethal
+   dose (LD50) of greater than 2,000 mg/kg and tests                                                  Printed Area
+   negative (Aims test) for mutagenic properties.
+
+Storage                                                                                                        LS013B7DH03-27
+1. Store these devices at a temperature range                          Figure 16. Serial Number Location
+   between 0°C and 40°C, at 60% RH or less (non-
+   condensing).
+
+
+16                                                                                                    Application Note
+LS013B7DH03 Application Information                                            LCD Modules
+
+
+Packaging Diagrams
+  Stack no more than 12 cartons high. Product is
+packed in lots of 800.
+
+
+
+
+                                                                                 LS013B7DH03-29
+
+                                                       Figure 18. Package Labeling
+
+
+
+
+                                      LS013B7DH03-28
+
+          Figure 17. Packaging Format
+
+
+
+
+Application Information                                                                     17
+LCD Modules                                                                   LS013B7DH03 Application Information
+
+
+RELIABILITY                                                      Physical Reliability
+Environmental Reliability                                           The Panel surface stress specification parameter is
+                                                                 the stress force [N] before image failure.
+              Table 5. Test Item Reliability                       Load test: Minimum 120[N]; on an LCD panel with
+                                                                 UV protection film, fixed to a test stage.
+ NO.         TEST ITEM                TEST CONDITION
+                                                                   Pressure point is the center of the panel, with a
+  1
+        High temperature
+                                 Ta = 80°C, 240h
+                                                                 ϕ10 mm column, at 1 mm/minute.
+        storage test
+                                                                   Full pressure is held for 5 seconds after achieve-
+        Low temperature                                          ment, then released.
+  2     storage test             Ta = -30°C, 240h
+
+        High temperature
+  3     and high humidity        Tp = 40°C/95% RH, 240h
+        operating test
+        High temperature
+  4     operating test           Tp = 70°C, 240h
+
+        Low temperature op-
+  5     erating test        Tp = -20°C, 240h
+
+        Shock test               Ta = -30°C (1h) to +80°C (1h)
+  6     (non-operating)          / 5 cycles
+        Electrostatic            ±200 V, 200 pF (0 Ω) once
+  7     discharge test           per terminal
+
+NOTES:
+1. Ta = ambient temperature, Tp = panel temperature
+2. Check for any items which impair display function.
+
+
+
+
+18                                                                                                    Application Note
+LS013B7DH03 Application Information                                                                                  LCD Modules
+
+
+
+
+SPECIFICATIONS ARE SUBJECT TO CHANGE WITHOUT NOTICE.
+Suggested applications (if any) are for standard use; See Important Restrictions for limitations on special applications. See Limited
+Warranty for SHARP’s product warranty. The Limited Warranty is in lieu, and exclusive of, all other warranties, express or implied.
+ALL EXPRESS AND IMPLIED WARRANTIES, INCLUDING THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR USE AND
+FITNESS FOR A PARTICULAR PURPOSE, ARE SPECIFICALLY EXCLUDED. In no event will SHARP be liable, or in any way responsible,
+for any incidental or consequential economic or property damage.
+
+
+
+
+NORTH AMERICA                                  EUROPE                                          JAPAN
+SHARP Microelectronics of the Americas         SHARP Microelectronics Europe                   SHARP Corporation
+5700 NW Pacific Rim Blvd.                      Division of Sharp Electronics (Europe) GmbH     Electronic Components & Devices
+Camas, WA 98607, U.S.A.                        Sonninstrasse 3                                 22-22 Nagaike-cho, Abeno-Ku
+Phone: (1) 360-834-2500                        20097 Hamburg, Germany                          Osaka 545-8522, Japan
+Fax: (1) 360-834-8903                          Phone: (49) 40-2376-2286                        Phone: (81) 6-6621-1221
+www.sharpsma.com                               Fax: (49) 40-2376-2232                          Fax: (81) 6117-725300/6117-725301
+                                               www.sharpsme.com                                www.sharp-world.com
+
+
+TAIWAN                                         SINGAPORE                                       KOREA
+SHARP Electronic Components                    SHARP Electronics (Singapore) PTE., Ltd.        SHARP Electronic Components
+(Taiwan) Corporation                           438A, Alexandra Road, #05-01/02                 (Korea) Corporation
+8F-A, No. 16, Sec. 4, Nanking E. Rd.           Alexandra Technopark,                           RM 501 Geosung B/D, 541
+Taipei, Taiwan, Republic of China              Singapore 119967                                Dohwa-dong, Mapo-ku
+Phone: (886) 2-2577-7341                       Phone: (65) 271-3566                            Seoul 121-701, Korea
+Fax: (886) 2-2577-7326/2-2577-7328             Fax: (65) 271-3855                              Phone: (82) 2-711-5813 ~ 8
+                                                                                               Fax: (82) 2-711-5819
+
+
+CHINA                                          HONG KONG
+
+SHARP Microelectronics of China                SHARP-ROXY (Hong Kong) Ltd.
+(Shanghai) Co., Ltd.                           3rd Business Division,
+28 Xin Jin Qiao Road King Tower 16F            17/F, Admiralty Centre, Tower 1
+Pudong Shanghai, 201206 P.R. China             18 Harcourt Road, Hong Kong
+Phone: (86) 21-5854-7710/21-5834-6056          Phone: (852) 28229311
+Fax: (86) 21-5854-4340/21-5834-6057            Fax: (852) 28660779
+Head Office:                                   www.sharp.com.hk
+No. 360, Bashen Road,                          Shenzhen Representative Office:
+Xin Development Bldg. 22                       Room 13B1, Tower C,
+Waigaoqiao Free Trade Zone Shanghai            Electronics Science & Technology Building
+200131 P.R. China                              Shen Nan Zhong Road
+Email: smc@china.global.sharp.co.jp            Shenzhen, P.R. China
+                                               Phone: (86) 755-3273731
+                                               Fax: (86) 755-3273735
+
+©2012 by SHARP Corporation                                                                           Reference Code SMA12005
+

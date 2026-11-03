@@ -1,0 +1,979 @@
+                            RECORDS OF REVISION
+Model No. ： LS013B7DH05
+
+                           REVISED
+  SPEC No.      DATE                                          SUMMARY                        NOTE
+                             No    PAGE
+
+LCP-1113019A   2014/7/4       A           First edition
+                                          First edition (Because of the division in charge
+ LD-26912A     2014/9/10      A
+                                          change)
+                                                SPEC   No.               MODEL     No.                PAGE
+
+                                                    LD-26912A                 LS013B7DH05                       1
+
+                                                        NOTICE
+<<Precautions>>
+    ○ This technical literature is the proprietary product of SHARP CORPORATION ("SHARP") and include
+      materials protected under copyright of SHARP. Do not reproduce or cause any third party to reproduce them
+      in any form or by any means, electronic or mechanical, for any purpose, in whole or in part, without the
+      express written permission of SHARP.
+    ○ The application examples in this technical literature is provided to explain the representative applications of
+      the device and are not intended to guarantee any industrial property right or other rights or license you to use
+      them. SHARP assumes no responsibility for any problems related to any industrial property right of a third
+     party resulting from the use of the device.
+   ○ SHARP reserves the right to make changes in the specifications, characteristics, data, materials, structures
+     and other contents described herein at any time without notice in order to improve design or reliability. Contact
+     SHARP in order to obtain the latest technical literature before using any SHARP's device. Manufacturing
+     locations are also subject to change without notice.
+     Observe the following points when in using any device in this publication. SHARP takes no responsibility
+     for damage caused by improper use of the devices.
+     The devices in this publication are designed for use in general electronic equipment designs, such as:
+     ・Personal computers          ・Office automation         ・Telecommunication equipment
+     ・Test and measurement equipment                         ・Industrial control
+     ・Audio visual and multimedia equipment                  ・Consumer electronics
+
+
+      The appropriate design measures should be taken to ensure reliability and safety when SHARP's devices are
+     used for equipment such as:
+     ・Transportation control and safety equipment(i.e.,aircraft,trains,automobiles,etc.)
+     ・Traffic signals        ・Gas leakage sensor breakers
+     ・Alarm equipment           ・Various safety devices etc.
+
+
+     ○ SHARP's devices shall not be used for equipment that requires extremely high level of reliability, such as:
+     ・Military and space applications        ・Nuclear power control equipment
+     ・Medical equipment for life support
+
+
+    ○ SHARP assumes no responsibility for any damage resulting from the use of the device which does not
+      comply with the instructions and the precautions specified in this technical literature.
+    ○ Contact and consult with a SHARP sales representative for any questions about this device.
+                                             SPEC   No.             MODEL    No.                   PAGE
+
+                                                 LD-26912A                 LS013B7DH05                      2
+
+                                    [For handling and system design]
+(1) Handle with care as glass is used in this LCD panel. Dropping or contact against hard object may cause
+  cracks or chips.
+(2) Be careful to handle this LCD panel in order to avoid injury yourself by panel`s edge as this panel is made of
+  glass and might be a sharp edge.
+(3) Do not scratch the surface of the polarizer as it is easily damaged.
+(4) Water droplets on the polarizer must be wiped off immediately as they may cause color changes, or other
+  defects if remained for a long time.
+(5)Do not leave the LCD panel in direct sun or under ultraviolet ray.
+(6) To clean LCD panel surface, wipe clean with absorbent cotton or soft cloth. If further cleaning is needed,
+  use IPA (isopropyl alcohol) and wipe clean lightly on surface only. Do not use organic solvents as it may
+  damage the LCD panel terminal area which uses organic material. Also, do not directly touch with finger.
+  When the terminals cleaning are needed, those should be wiped by a soft cloth or a cotton swab without
+  directly touching by hand.
+(7) Do not expose gate driver, etc. on the panel (circuit area outside panel display area) to light as it may not
+  operate properly. Design that shields gate driver, etc. from light is required when mounting the LCD module.
+(8) To avoid circuit failure, do not touch panel terminal area.
+(9) Support for the LCD panel should be carefully designed to avoid stress that exceeds specification on glass
+   surface.
+(10) When handling LCD module and assembling them into cabinets, be noted that storage in the environment
+  of oxidization or deoxidization gas and the use of such materials as reagent, solvent, adhesive, resin, and etc.
+  which generate these gasses, may cause corrosion and discoloration of LCD modules.
+(11)To avoid picture uniformity failure, do not put a seal or an adhesive material on the panel surface.
+(12) Do not use chloroprene rubber as it generates chlorine gas and affects reliability in LCD panel
+connective area.
+(13) Protective film is attached to the surface of polarizer on LCD panel to prevent scratches or other
+  damages. Remove this protective film before use. In addition, do not attach the protective film which is
+  removed from LCD module again. When the LCD panel which has the reattached protective film is needed
+  to storage for a long time, the polarizer might have a damage with picture quality failure.
+(14) Panel is susceptible to mechanical stress and such stress may affect the display. Place the panel on flat
+  surface to avoid stress caused by twist, bend, etc.
+(15) When transporting LCD panels, secure them in LCD panel tray to avoid mechanical stress. The tray
+  should be conductive to protect LCD panels from static charge.
+  Material used in set or epoxy resin (amine type hardening agent) from packaging, and silicon adhesive
+  (dealcoholized or oxime) all release gas which may affect quality of polarizer. Do confirm compatibility
+  with user materials.
+                                           SPEC   No.              MODEL   No.                    PAGE
+
+                                               LD-26912A                LS013B7DH05                         3
+
+(16) As this LCD module is composed electronic circuits, it is sensitive to electrostatic discharge of 200V or
+  more. Handle with care using cautions for the followings:
+        Operators
+         Operators must wear anti-static wears to prevent electrostatic charge up to and discharge from
+         human body.
+        Equipment and containers
+         Process equipment such as conveyer, soldering iron, working bench and containers may possibly
+         generate electrostatic charge up and discharge. Equipment must be grounded through 100Mohms
+         resistance. Use ion blower.
+        Floor
+         Floor plays an important role in leaking static electricity generated in human body or equipment. If
+         the floor is made of insulated material (such as polymer or rubber material), such static electricity
+         may charge. Proper measure should be taken to avoid static electricity charge (electrostatic earth:
+         100Mohms).There is a possibility that the static electricity is charged to them without leakage in case
+         of insulating floor, so the electrostatic earth:1×108Ω should be made.
+        Humidity
+         Humidity in work area relates to surface resistance of the persons or objects that
+         generate electrostatics, and it can be manipulated to prevent electrostatic charge.
+         Humidity of 40% or lower increases electrostatic earth resistance and promotes
+         electrostatic charging. Therefore, the humidity in the work area should be kept above
+         40%.    Specifically for film peeling process or processes that require human hands,
+         humidity should be kept above 50% and use electricity removal blower.
+        Transportation/Storage
+         Containers and styroform used in transporation and storage may charge electrostatic (from friction
+         and peeling) or electrostatic charge from human body, etc. may cause containers and styroform to
+         have induced charge. Proper electrostatic measure should be taken for containers and storage
+         material.
+                                           SPEC    No.              MODEL   No.                   PAGE
+
+                                                 LD-26912A               LS013B7DH05                        4
+
+                                     [For operating LCD module]
+(1) Do not operate the LCD panel under outside of electrical specification. Otherwise LCD panel may be
+ damaged.
+(2) Do not use the LCD panel under outside of specified driving timing chart. Otherwise LCD panel may not
+  have proper picture quality.
+(3) A still image should be displayed less than two hours, if it is necessary to display still image longer than
+  two hour, display image data must be refreshed in order to avoid sticking image on LCD panel.
+(4) If LCD module takes a static electricity, as the display image which is written into pixel memory might not
+  be displayed, Data update should be executed frequently.
+(5) It is neither a breakdown nor a defective indication though very slight change in black level might be
+  periodically seen in a black part on the black display image according to the source of light (angle of the
+  luminance and the source of light).
+
+
+                                        [Precautions for Storage]
+(1) After opening the package, do not leave the LCD panel in direct sun or under strong ultraviolet ray. Store
+  in dark place.
+(2) In temperature lower than specified rating, liquid crystal material will coagulate. In temperature higher
+  than specified rating, it isotropically liquefies. In either condition, the liquid crystal may not recover its
+  original condition. Store the LCD panel in at or around room temperature as much as possible.
+  Also, storing the LCD panel in high humidity will damage the polarizer. Store in normal room temperature
+  as much as possible.
+(3) Keeping Method
+   a. Don't keeping under the direct sunlight.           b. Keeping in the tray under the dark place.
+                                            SPEC   No.              MODEL     No.                 PAGE
+
+                                                LD-26912A                   LS013B7DH05                     5
+
+                                               [Other Notice]
+(1) Operation outside specified environmental conditions cannot be guaranteed.
+(2) As power supply (VDD-GND、VDDA-GND) impedance is lowered during use, bus controller should be
+    inserted near LCD module as much as possible.
+(3) Polarizer is applied over LCD panel surface. Liquid crystal inside LCD panel deteriorates with ultraviolet
+    ray. The panel should not be left in direct sun or under strong ultraviolet ray for prolonged period of time
+    even with the polarizer.
+(4) Disassembling the LCD module will cause permanent damage to the module. Do not disassemble the
+    module.
+(5) If LCD panel is broken, do not ingest the liquid crystal from the broken panel. If hand, leg, or clothes
+    come in contact with liquid crystal, wash off immediately with soap.
+(6) ODS (specific chlorofuorocarbon, specific halon, 1-1-1 trichloroethane, carbon tetrachloride) are not used
+    or contained in material or all production processes of this product.
+(7) Observe all other precautionary requirements in handling general electronic components.
+
+
+
+
+                                   Discarding liquid crystal modules
+
+
+LCD Panel:       Dispose of as glass waste. This LCD module contains no harmful substances.
+                 The liquid crystal panel contains no dangerous or harmful substances.
+                 This liquid crystal panel contains only an extremely small amount of
+                 liquid crystal (approximately 100mg) and therefore it will not leak
+                 even if the panel should break.
+                 Its median lethal dose (LD50) is greater than 2,000 mg/kg and a mutagenetic
+                 (Aims test: negative) material is used.
+                                                                          SPEC      No.                      MODEL        No.                              PAGE
+
+                                                                               LD-26912A                             LS013B7DH05                                             6
+
+                                                                                     Contents
+
+1. Outline ..............................................................................................................................................................7
+
+2. Characteristics ................................................................................................................................................7
+
+3. Mechanical Specification................................................................................................................................7
+
+4. Input terminal names and functions .............................................................................................................8
+
+6. Electrical characteristics ..............................................................................................................................10
+
+7. Optical characteristics ..................................................................................................................................21
+
+8. Module outline ...............................................................................................................................................23
+
+9. External capacitors .......................................................................................................................................24
+
+10. Marking .........................................................................................................................................................24
+
+12. Packaging ....................................................................................................................................................25
+
+13. Reliability Test Conditions .........................................................................................................................27
+                                                SPEC   No.             MODEL       No.          PAGE
+
+                                                     LD-26912A              LS013B7DH05                     7
+
+1. Outline
+    This TFT-LCD module is a reflective active-matrix with slightly transmissive
+    memory liquid crystal display module with CG silicone thin film transistor.
+    Module outline is indicated in fig 8-1.
+
+
+2. Characteristics
+・ Transflective panel of white and black
+・ 1.26” screen has 144 x 168 resolusion. (24192 pixels stripe array)
+・ Display control by serial data signal communication.
+・ Arbitrary line data renewable.
+・ 1bit internal memory for data storage within the panel.
+・ Thin, light-weight and compact module with monolithic technology.
+・ Super low power consumption TFT panel.
+
+
+3. Mechanical Specification
+         Table 3-1 Mechanical Specification
+                         Item                                   Specification                   unit
+          Screen size                          3.2 (1.26”)                                cm
+          Viewing Area                         20.88 (Horizontal) × 24.36 (Vertical)      mm
+          Dot configuration                    144 (Horizontal)    ×   168 (Vertical)     Dot
+          Dot pitch                            0.145 (Horizontal) × 0.145 (Vertical)      mm
+          Pixel Array                          Stripe Array                               -
+          Outline Dimension                    24.68 (W) × 30.00 (H) × 0.745 (D)          mm
+          Mass                                 3.0                                        g
+          Surface Hardness                     3H                                         Pencil hardness
+         (Note) Detail dimension and tolerance are shown in fig. 8-1
+                                                 SPEC    No.                MODEL       No.                PAGE
+
+                                                     LD-26912A                    LS013B7DH05                     8
+
+4. Input terminal names and functions
+     Table4-1 Signal name
+     Terminal      symbol      Type                                Description                       Remark
+        1           SCLK           INPUT                        Serial clock signal
+        2             SI           INPUT                   Serial data input signal
+        3           SCS            INPUT                         Chip select signal
+        4        EXTCOMIN          INPUT     External COM inversion signal input (H: enable)          【4-1】
+        5           DISP           INPUT                   Display ON/OFF signal                      【4-2】
+        6          VDDA           POWER                    Power supply (Analog)
+        7           VDD           POWER                        Power supply (Digital)
+        8        EXTMODE           INPUT                COM inversion select terminal                 【4-3】
+        9           VSS            GND                             GND(Digital)
+       10           VSSA           GND                             GND(Analog)
+【4-1】
+  When EXTMODE is ”Lo”, connect the EXTCOMIN to VSS.
+【4-2】
+  The display ON/OFF signal is only for display. Data in the memory will be saved at the time of ON/OFF.
+  When it’s ”H”, data in the memory will display, when it’s ”L”, white color will diaplay and data in the memory will be
+   saved.
+
+  4-1）Recommended Circuit
+           < EXTMODE=”L” >                                                 < EXTMODE=”H” >
+
+                           COM Signal Serial Ｉnput                                    External COM Signal Input
+
+
+
+
+                            Fig 4-1 EXTMODE_Lo                                        Fig 4-2 EXTMODE_Hi
+【4-3】
+   When EXTMODE is ”H”, EXTCOMIN signal is enable.
+   When EXTMODE is ”L” ,serial input flag is enable.
+      “H”mode; connect the EXTMODE toVDD,
+      ”L” mode; connect the EXTMODE to VSS
+                                              SPEC   No.              MODEL   No.                   PAGE
+
+                                                  LD-26912A               LS013B7DH05                              9
+
+5. Absolute Maximum Rating
+
+   Table5-1    Absolute Maximum Rating ( VSS=0V , VSSA＝0V )
+                 Item                    Symbol            MIN.            MAX.            Unit              Remark
+  Power       Analog                      VDDA             -0.3            +3.6              V
+   supply     Logic                        VDD             -0.3            +3.6              V           [5-1]
+   voltage
+  Input signal voltage(high)                                               VDD               V           [5-2]
+  Input signal voltage(low)                                -0.3                              V
+  Strage Temperature                       Tstg            -30             +80              ℃            [5-3,4]
+  Operation Temperature                   Topr1            -20             +70              ℃            [5-4,5]
+  (at panel surface)
+ [5-1] Applies to EXTMODE.
+ [5-2] Applies to SCLK, SI, SCS, DISP, EXTCOMIN.
+ [5-3] Do not exceed this temperature in any parts of module.
+ [5-4] Maximum wet bulb temperature is 57℃ or lower. No condensation is allowed.
+       Cndensation will cause electeical leak and may cause the module to not meet this specification.
+ [5-5] Operating temperature is the temperature that guarantees only for the operation.
+       For contrast, response time, and other display quality determination, use Ta＝＋25℃.
+                                            SPEC     No.          MODEL    No.                 PAGE
+
+                                                LD-26912A              LS013B7DH05                       10
+
+6. Electrical characteristics
+6-1) TFT LCD panel drive
+   Table6-1 Recommended operating Condition                          VSS＝0V、VSSA=0V、Ta＝＋25℃
+               Item                symbol          MIN.       TYP.         MAX.         Unit   Remark
+Power supply          Analog       VDDA            +2.7       +3.0         +3.3          V
+                      Logic         VDD            +2.7       +3.0          +3.3         V       [6-1]
+Input signal voltage Hi             VIH          +2.70       +3.00         *VDD          V       [6-2]
+                      Lo             VIL           VSS        VSS         VSS+0.1        V
+  *It can be operated below VDD voltage, however, operation around 3V is recommended.
+   [6-1] Applies to EXTMODE=”H”
+   [6-2] Applies to SCLK, SI, SCS, DISP, EXTCOMIN.
+                                                   SPEC   No.                 MODEL   No.                   PAGE
+
+                                                        LD-26912A                LS013B7DH05                       11
+
+6-2) Power supply sequence
+
+                                    On Sequence            Normal operation           Off sequence
+
+
+
+
+                              ①     ②     ③※1 ④※1                                ⑤       ⑥       ⑦
+                              T1     T2    T3      T4                            T5      T6      T7
+
+
+VDD/VDDA（5V）           GND                                                                            GND
+
+
+
+DISP                   GND                                                                            GND
+
+
+EXTCOMIN               GND                                Normal operation                            GND
+
+
+SCS                    GND          ※2                    Normal operation       ※2                   GND
+
+
+Others                 GND          ※2                    Normal operation       ※2                   GND
+
+
+
+
+         ※Refer to timing chart and AC timing characteristics for detail
+         ※1 ③ and ④ may be opposite (however, TCOM polarity inversion will not occur even with EXTCOMIN
+         between DISP=”L”. Also, when DISP and EXTCOMIN are simultaneously started up, allow 30us or more
+         before SCS starts up (It may be less than 60us).
+         ※2 Setting value for pixel memory initialization
+         SCS=Driving accordingly to clear pixel internal memory method (use all clear flag or write all screen white)
+         S1=M2 (all clear flag) = “H” or write white
+         SCLK: Normal Driving
+
+            [ON Sequence]
+            (1) 3V rise time (depends on IC)
+            (2) Pixel memory initialization
+                 T2: 1time or more Initialize with M2 (all clear flag) or write all screen white
+            (3) Release time for initialization of TCOM latch          T3: 30us or more
+                Time required to release COM related latch circuit initialization which is initializing using DISP signals
+            (4) TCOM polarity initialization time       T4: 30us or more
+                Time required initializing TCOM polarity accordingly to EXTCOMIN input
+            [Normal Operation]
+            Duration of normal driving
+            [Off Sequence]
+            (5) Pixel memory initialization time        T5: 1time or more
+            (6) VA, VB, VCOM initialization time        T6: 30us or more
+
+[Remark] Precaustions at ehte time of power on and power off.
+            Remark 1)When power on , VDDand VDDA are same timem or VDD should be faster than the VDDA.
+            Remark 2) When power off, VDD and VDDA are same time or VDDA shoud be faster than the VDD.
+                                                 SPEC   No.                MODEL       No.                PAGE
+
+                                                   LD-26912A                  LS013B7DH05                           12
+
+ 6-3) Input signal characteristics
+   Table6-3-1                        VDDA=＋3.0V、VDD=＋3.0V、VSS=0V、VSSA=0V、Ta=25℃
+                 Item                  Symbol           MIN       TYP         MAX            Unit          Remark
+         Frame frequency                fSCS             57       60           66            Hz
+         Clock frequency               fSCLK                       1           1.1           MHz
+           Vertical Interval              tV            15.0       -          17.54          ms
+         COM Frequency                  fCOM            28.5       -           33            Hz
+
+
+   Table 6-3-2                       VDDA=＋3.0V、VDD=＋3.0V、VSS=0V、VSSA=0V、Ta=25℃
+                 Item                  Symbol            MIN      TYP          MAX           Unit          Remark
+         SCS Rising time                trSCS                 -        -           50         ns
+         SCS Falling Time               tfSCS                 -        -           50         ns
+        SCS High duration              twSCSH            168           -           -          us
+                                                        22.54          -           -          us
+        SCS Low duration               twSCSL                 6        -           -          us
+         SCS set up time                tsSCS                 6        -           -          us
+           SCS hold time                thSCS                 2        -           -          us
+
+
+           SI Rising time                trSI                 -        -           50         ns
+           SI Folling time               tfSI                 -        -           50         ns
+            SI set up time               tsSI            250           -           -          ns
+             SI hold time                thSI            350           -           -          ns
+         SCLK Rising time              trSCLK                 -        -           50         ns
+         SCLK Folling time              tfSCLK                -        -           50         ns
+        SCLK High duration            twSCLKH           404.55    450              -          ns
+        SCLK Low duration             twSCLKL           404.55    450              -          ns
+   EXTCOMIN signal frequency         fEXTCOMIN            57       60              66        Hz     [Remark6-3] [Remark6-4]
+   EXTCOMIN signal rising time       trEXTCOMIN               -        -           50         ns
+   EXTCOMIN signal folling time      twEXTCOMIN               -        -           50         ns
+  EXTCOMIN signalHigh duration       thlEXTCOMIN              2                               us
+         DISP Rising time               trDISP                -        -           50         ns
+         DISP Folling time              tfDISP                -        -           50         ns
+【Remark 6-3】When data is writtne for displaying continuously, EXTCOMIN frequency should be made the same
+            frame frequency or lower.
+        SＣＳ
+
+
+ EXTCOMIN
+【Remark 6-4】When the display is maintained after writing of the displayed data, is not applied.
+           (Please keep SCS in the state of L when you maintain current display after writing of the display data.)
+
+       SＣＳ
+
+
+EXTCOMIN
+                                      SPEC   No.     MODEL   No.      PAGE
+
+                                         LD-26912A      LS013B7DH05          13
+
+6-4) Signal Timing
+
+
+
+
+    ※SCS,SI,SCLK、DISP、EXTCOMIN: 3V input voltage
+                                                       SPEC     No.           MODEL     No.                      PAGE
+
+                                                           LD-26912A                LS013B7DH05                           14
+
+6-5) Power consumption
+     Table6-4 Power consumption              (Ta=25℃,SCS SCLK,Si,DISP,EXTCOMIN=3V ,VDD=3V, VDDA=3V)
+   LC inversion             Operatin Model                MIN         TYP   MAX       unit                 Condiion
+    frequency
+       60Hz                  Display mode                             TBD   TBD       uW             no display data update
+
+
+                           Data update mode                           TBD   TBD       uW         display data update: 1frame/sec
+                            (SCLK=1.1MHz)
+
+
+ *Power consumption Display pattern : Black display
+ *LC inversion : LC material is needed alternative polarity driving as changing timing which should be   60Hz.
+  ( LC inversion frequency 60Hz is COM frequency 30Hz)
+  as shown fig6-4.
+
+                                                                 fCOM
+                                               H
+ COM inversion frequency
+                                                                                             L
+
+
+                                LC inversion frequency: 1Hz(1sec)
+                                                       60Hz(16.7ms)
+
+
+
+
+                                                                  Fig 6-4
+
+
+
+ 【Remark 6-5】 This is value in steady condition, not the falue of peak power at the time of COM operation. Some marging for
+                  power supply is recommended. We recommend capacitor for VDD and VDDA.
+                  (If VDD and VDDA are on separate systems, we recommend capacitor for each.)
+                                                                                           SPEC                  No.            MODEL            No.         PAGE
+
+                                                                                                      LD-26912A                       LS013B7DH05                    15
+
+6-6) Input Signal Timing Chart
+ 6-6-1 Data update mode (1 line)
+        Updates data of only one specified line. (M0=”H”、M2＝”L”)
+                                                             twSCSH                                                                                                  twSCSL
+
+  SCS
+         tsSCS                                                                                                                                               thSCS
+
+
+  SI             M0 M1 M2 DMY DMY DMY DMY DMY AG0 AG1 AG2 AG3 AG4 AG5 AG6 AG7 D1 D2 D3 D4                 D141 D142 D143 D144       DUMMY DATA(don't care)
+         tsSI       thSI           twSCLKL         twSCLKH
+
+  SCLK
+
+                           Mode selection period                Gate line address period   Data writing period                    Data transfer period
+                              (3ck+5ckDMY)                                (8ck)                 (144ck)                                  (16ck)
+
+
+
+
+                   M0: Mode flag. Set for “H”. Data update mode (Memory internal data update)
+                               When “L”, display mode (maintain memory internal data).
+                   M1: Frame inversion flag.
+                               When “H”, outputs VCOM=”H”, and when “L”, outputs VCOM=”L”.
+                               When EXTMODE=”H”, it can be “H” or “L”.
+                   M2: All clear flag.
+                                Refer to 6-6-4) All Clear Mode to execute clear.
+                   DUMMY DATA: Dummy data. It can be “H” or “L” (“L” is recommended.)
+                                                        ※ Data write period
+                                                        Data is being stored in 1st latch block of binary driver on panel.
+                                                        ※ Data transfer period
+                                                        Data written in 1st latch is being transferred (written) to pixel internal memory circuit.
+
+
+                   ※For gate line address setting, refer to 6-7) Input Signal and Display.
+                   ※M1: Frame inversion flag is enaled when EXTMODE=”L”.
+                   ※When SCS becomes “L”, M0 and M2 are cleared.
+                                                                                                                      SPEC              No.                               MODEL               No.                                             PAGE
+
+                                                                                                                             LD-26912A                                                LS013B7DH05                                                                  16
+
+6-6-2 Data Update Mode (Multiple Lines)
+    Updates arbitrary multiple lines data. (M0=”H”、M2＝”L”)
+                                                                                      twSCSH
+
+SCS
+                tsSCS
+
+SI                      M0       M1        M2     DMY   DMY   DMY   DMY   DMY   AG0   AG1    AG2   AG3      AG4   AG5     AG6    AG7     D1   D2   D3    D4            D141    D142   D143   D144   DUMMY DATA(don't care)   AG0   AG1         AG6     AG7   D1    D2
+
+
+                 tsSI          thSI                     twSCLKL           twSCLKH
+SCLK
+
+                                           Mode selection period                            Gate line address period                                Data writing period                                         Data transfer period                         Data writing period
+                                             (3ck+5ckDMY)                                             (8ck)                                              (144ck)                                         (8ck(Dummy)+8ck(Address)=16ck)                           (144ck)
+                                                                                                         GL1st line                                                                                                              GL2nd line
+
+
+
+
+                                                                                      twSCSH                                                                                                                                                  twSCSL
+
+
+
+                                                                                                                                                                                                                                   thSCS
+
+         D143    D144    DUMMY DATA(don't care)   AG0   AG1   AG2         AG5   AG6   AG7     D1    D2                    D143   D144                              DUMMY DATA(don't care)
+
+
+
+
+                                             Data transfer period                                   Data writing period                                       Data transfer period
+                                      (8ck(Dummy)+8ck(Address)=16ck)                                     (144ck)                                                     (16ck)
+      GL(n-1)th line                                              GL(n)th line
+
+
+
+
+                        M0: Mode flag. Set for “H”. Data update mode (Memory internal data update)
+                                    When “L”, display mode (maintain memory internal data).
+                        M1: Frame inversion flag.
+                                    When “H”, outputs VCOM=”H”, and when “L”, outputs VCOM=”L”.
+                                    When EXTMODE=”H”, it can be “H” or “L”.
+                        M2: All clear flag.
+                                     Refer to 6-6-4) All Clear Mode to execute clear.
+                        DUMMY DATA: Dummy data. It can be “H” or “L” (“L” is recommended.)
+         ※ Data write period
+           Data is being stored in 1st latch block of binary driver on panel.
+         ※ Data transfer period
+                For example, during GL2nd line data transfer period, GL 2nd line address is latched and GL1st
+                line data is transferred from 1st latch to pixel internal memory circuit at the same time.
+
+                        ※ For gate line address setting, refer to 6-7) Input Signal and Display.
+                        ※ Input data continuously.
+                        ※ M1: Frame inversion flag is enabled when EXTMODE=”L”.
+                        ※ When SCS becomes “L”, M0 and M2 are cleared.
+                                                                SPEC   No.            MODEL     No.                              PAGE
+
+                                                                  LD-26912A                   LS013B7DH05                                     17
+
+6-6-3 Display Mode
+  Maintains memory internal data (maintains current display). (M0=”L”、M2＝”L”)
+                                                    tV
+                                     twSCSH                                          twSCSL
+
+    SCS
+            tsSCS                                                            thSCS
+
+    SI              M0    M1    M2     DUMMY DATA(don't care)                                         M0   M1   M2   DUMMY DATA(don't care)
+
+
+
+             tsSI        thSI
+    SCLK
+
+                    Mode selection     Data transfer period
+                       period           (More than 13ck)
+                        (3ck)
+
+
+
+
+           M0: Mode flag. Set for “H”. Data update mode (Memory internal data update)
+                       When “L”, display mode (maintain memory internal data).
+           M1: Frame inversion flag.
+                       When “H”, outputs VCOM=”H”, and when “L”, outputs VCOM=”L”.
+                       When EXTMODE=”H”, it can be “H” or “L”.
+           M2: All clear flag.
+                        Refer to 6-5-4) All Clear Mode to execute clear.
+           DUMMY DATA: Dummy data. It can be “H” or “L” (“L” is recommended.)
+
+
+
+
+           ※ M1: Frame inversion flag is enabled when EXTMODE=”L”
+           ※ When SCS becomes “L”, M0 and M2 are cleared.
+                                                                     SPEC    No.            MODEL    No.                               PAGE
+
+                                                                         LD-26912A              LS013B7DH05                                   18
+
+6-6-4 All Clear Mode
+ Clears memory internal data and writes white. (M0=”L”、M2＝”H”)
+                                                            tV
+                                          twSCSH                                   twSCSL
+
+         SCS
+                tsSCS                                                thSCS
+
+         SI             M0    M1    M2      DUMMY DATA(don't care)                             M0   M1   M2   DUMMY DATA(don't care)
+
+
+
+                tsSI         thSI
+         SCLK
+
+                        Mode selection   Data transfer period
+                           period         (More than 13ck)
+                            (3ck)
+
+       M0: Mode flag.
+                 Set it “L”.
+       M1: Frame inversion flag.
+                  When “H”, outputs VCOM=”H”, and when “L”, outputs VCOM=”L”.
+                  When EXTMODE=”H”, it can be “H” or “L”.
+       M2: All clear flag.
+                    Set it “H”
+       DUMMY DATA: Dummy data. It can be “H” or “L” (“L” is recommended.)
+
+
+       ※ M1: Frame inversion flag is enabled when EXTMODE=”L”.
+       ※ When SCS becomes “L”, M0 and M2 are cleared.
+                                                            SPEC     No.                  MODEL   No.                PAGE
+
+                                                                   LD-26912A                  LS013B7DH05                   19
+
+6-6-5 COM Inversion
+ There are two types of inputs, COM signal serial input (EXTMODE=”L”) and external COM signal input
+(EXTMODE=”H”).
+    EXTMODE=“L”
+
+
+    SCS
+
+    SI              M0   M1  M2                               M0    M1 M2                               M0   M1 M2
+                          ※1                                        ※1                                       ※1
+    COM
+
+                                                                    fCOM
+                                                  ※2                                        ※2
+
+
+
+
+           M1：LC polarity inversion flag: If M1 is "H" then VCOM="H" is output. If M1 is "L" then VCOM="L" is output.
+                         ※1：LC inversion has been changed by M1 flag statement.
+                         ※2：The periods of plus polarity and minus polarity should be same length as much as possible.
+    EXTMODE="H" （COM inversion timing has two conditions ）
+
+
+
+
+         ② : the EXTCOMIN input during low period of the SCS signal .
+
+
+         SCS
+                                          fEXTCOMIN                                       twEXTCOMINH
+         EXTCOMIN
+
+
+                                            ※4                                              ※4
+         COM                                                                fCOM
+
+                                                                                                    ※5
+                                                    ※5
+
+
+               ※ 4 ： LC inversion polarity has been set by the rising edge of EXTCOMIN.
+
+               ※ 5 ： The period of EXTCOMIN should be constant.
+                                               SPEC   No.          MODEL   No.      PAGE
+
+                                                   LD-26912A          LS013B7DH05          20
+
+6-7) Input Signal and Display, Gate address(Line) Setting
+ Data position in display〔H,V〕
+
+
+
+
+                P1,L1   P2,L1   P3,L1                   P144,L1
+
+
+                P1,L2   P2,L2
+
+                P1,L3
+
+
+
+                                Display
+                                 side up
+
+
+
+             P1,L168                                   P144,L168
+
+
+
+
+    Gate line address setting
+
+           GL      AG0 AG1 AG2 AG3 AG4 AG5 AG6 AG7
+            1       1   0   0   0   0   0   0   0
+            2       0   1   0   0   0   0   0   0
+            3       1   1   0   0   0   0   0   0
+            4       0   0   1   0   0   0   0   0
+            5       1   0   1   0   0   0   0   0
+            6       0   1   1   0   0   0   0   0
+            7       1   1   1   0   0   0   0   0
+            8       0   0   0   1   0   0   0   0
+            ：       ：   ：   ：   ：   ：   ：   ：   ：
+          161       1   0   0   0   0   1   0   1
+          162       0   1   0   0   0   1   0   1
+          163       1   1   0   0   0   1   0   1
+          164       0   0   1   0   0   1   0   1
+          165       1   0   1   0   0   1   0   1
+          166       0   1   1   0   0   1   0   1
+          167       1   1   1   0   0   1   0   1
+          168       0   0   0   1   0   1   0   1
+                                                  SPEC     No.               MODEL   No.                     PAGE
+
+                                                       LD-26912A                 LS013B7DH05                            21
+
+7. Optical characteristics
+ Table 7-1                                                                                                       Ta=25℃
+               Item                Symbol        MIN.             TYP.       MAX.            unit           Remark
+
+  Viewing angle           H      θ21,θ22          (40)             60                      °(degree)   [Remark7-1]
+  CR≧2                    V         θ11           (40)             60                      °(degree)
+                                    θ12           (40)             60                      °(degree)
+  Contrast ratio                    CR.           (12)            (20)                                 [Remark7-2､3]
+  Reflecivity ratio                  R            (11)           (14.5)                        %       [Remark7-3]
+  Transmissivity ratio               T             -              0.3                          %
+  Response time          Rise        τr            -               10                         ms       [Remark 7-3,4]
+
+                         Fall        τd            -               20                         ms
+
+
+
+
+ Panel                   White       x                           (0.307)                               [Remark7-3]
+Chromaticity                         y                           (0.330)
+
+
+[Remark7-1] Defintion of Viewing Angle
+
+
+
+
+                                              Δθ22
+                                      Δθ11                                 Δθ12
+                                                                             Δθ21
+
+
+
+
+                                     6 o’clock direction
+
+
+
+[Remark7-2] Defintion of Contrast Retio
+
+
+
+
+                                                       Reflection intensity in white display
+                      Contrast ratio(CR) ＝
+                                                       Reflection intensity in black display
+                                                                          SPEC     No.              MODEL      No.                  PAGE
+
+                                                                             LD-26912A                  LS013B7DH05                          22
+
+[Remark7-3] Optical characteristics measurement equipment.
+             Figure 7-2 is for contrast ratio, reflectivity ratio, and panel chromaticity measurement, and figure 7-3 is
+             for response time measurement. Both are to be conducted in a dark or room equipment to a dark
+             room
+
+  Measurement equipment                                                          Measurement equipment
+  (CM-700D)                                                                      (LCD-5200)
+                                                                                                                     Normal line
+                                               Normal line
+
+
+
+
+                                                                                                                            Light
+                                                                Light receiver                  Light source
+                                                                                                                            receiver
+
+
+
+
+                                                                          Light source
+                                                                                                       -30°
+
+Integrating
+sphere
+
+                                                                                                                                           LCD panel
+                                                                      LCD panel
+
+                                               Display center                                                    Display center
+
+
+  Fig7-2 Contrast ratio, Reflection ratio, Panel chromaticity of white                                           Fig7-3 response time
+
+[Remark7-4] Respons time (Change in reflection ratio)
+    It’s difined by the time change of optical receiver output when signal is input to display white or black
+
+
+
+                                                White                               Black                                 White
+     (Incremental)
+                     Optical receiver output
+
+
+
+
+                                                                                         Time
+                                              SPEC   No.             MODEL   No.                 PAGE
+
+                                                 LD-26912A               LS013B7DH05                       23
+
+8. Module outline
+    8-1) Outline dimension of the 1.26” (144 x 168) panel
+
+
+
+
+                                                     Figure 8-1
+ <Recommended Connector>         Panasonic: AYF531035 (Contact: Bottom side)
+                                SMK FP12 Series: CFP-4610-0150F(Contact: Bottom side)
+                                Molex: 51441-1093(Contact: Bottom side )
+  8-2) FPC Bend Specification
+  When bending FPC, bend where specified in Condition (1) and the bend R should be more than R specified in
+  Condition (2). FPC is not to contact glass edge, and there should be no stress to connective area between panel
+  and FPC.
+  Condition (1) FPC bend recommended area: 0.8mm – 6.0mm from glass edge.
+  Condition (2) Minimum bend R: Inner diameter R0.45
+
+
+
+
+                                                     Figure 8-2
+      【Remark 8-1】 Do not bend backward (toward polarizer film side)
+      【Remark 8-2】 Bend frequency: 3 times or less (Repeat bend condition: 180°～ 0°)
+
+     <Recommended Connector>        Panasonic: AYF531035 (Contact: Upper side)
+                                   SMK FP12 series : CFP-4510-0150F (Contact: Upper side)
+                                               SPEC   No.             MODEL   No.                  PAGE
+
+                                                  LD-26912A                LS013B7DH05                    24
+
+9. External capacitors
+
+
+
+
+                           Fig. 9-1 External capacitor recommendation capacity value
+
+
+         ＜Recommended capacity value＞
+              C1：DISP- VSS: rank B    0.1uF Ceramic capacitor
+              C2：VDDA- VSS: rank B 1uF Ceramic capacitor
+              C3：VDD- VSS: rank B    1uF Ceramic capacitor
+
+
+                               ※Above circuit and parts are only recommendation.
+                   For actual use, please evaluate their conformity with your system and design.
+                  (Capacitor pressure resistance can be larger than resistance indicated above.)
+
+
+
+
+10. Marking
+
+
+                                                       ＴＢＤ
+                                                SPEC   No.              MODEL   No.               PAGE
+
+                                                   LD-26912A                 LS013B7DH05                      25
+
+12. Packaging
+12-1) Serial number (Ink-jet print)
+
+
+12-2) Forwarding form
+          1) Piling number of cartons. : ＴＢＤ     cartons
+                    LCD modules quantity in a carton : TBD pcs
+          2) Storage condition
+                    Temperature:      0～40°
+                    Humidity:         60%RH or lower (at 40°)
+                                      There should be no condensation at low temperature and high humidity.
+                    Atmosphere:       No harmful gas, such as acid or alkali, which causes severe corrosion on
+                                      electronic parts and wiring, are to be detected.
+                    Period:           About 3 months
+                    Opening the package: In order to prevent electrostatic damage to TFT modules, room humidity
+                                      should be made over 50%RH and take effective measure such as use of earth
+                                      when opening the package.
+                     SPEC   No.          MODEL   No.            PAGE
+
+                        LD-26912A            LS013B7DH05               26
+
+12-3) Packaging
+
+
+
+
+                    TBD
+
+
+
+
+                                  Packageing size ：578mmx382mmx153mm
+
+
+
+
+                  Fig. 12-2 Packaging Form
+                                                SPEC   No.              MODEL    No.                   PAGE
+
+                                                    LD-26912A                 LS013B7DH05                        27
+
+13. Reliability Test Conditions
+ 13-1) Reliability test items
+        Table13-1
+                            Test Item                               Test condition                      Remark
+
+        1    High temperature storage test           Ta=80degrees Celsius                 240h
+
+             Low temperature storage test            Ta=-30degrees Celsius                240h
+        2
+
+             High temperature and high humidity      Tp=40degrees Celsius/95%RH           240h
+        3
+             operating test
+        4    High temperature operating test         Tp=70degrees Celsius                 240h
+
+        5    Low temperature operating test          Tp=-20degrees Celsius                240h
+
+             Shock test                              Ta=-30degrees Celsius (1h)～+80 degrees
+        6
+             (Non operating test)                    Celsius (1h) / 5 cycle
+        7    Electro static discharge test           ±200V、200pF(0Ω) each terminai: 1 time
+     [Remark] Ta = Ambient temperature, Tp = Panel temperature
+      (Evaluation method)
+             In the standard condition, there shall be no practical problems that may affect the display function.
+
