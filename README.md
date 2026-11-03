@@ -30,3 +30,18 @@ git clone https://github.com/jjd408/picsimlab-msp430 sim/picsimlab-msp430
 - Python 3 to regenerate the library (`hw/lib/make_symbols.py`, `make_footprints.py`), FreeCAD 1.0 for the 3D
   models (`freecadcmd hw/lib/make_lcd_model.py`, `make_switch_model.py`).
 - TI MSP430-GCC (`msp430-elf-gcc -mmcu=msp430fr2355`) for firmware.
+
+## Licence
+
+Copyright jjd408 2026.
+
+The hardware design (everything under `hw/`) is licensed under the CERN Open Hardware Licence Version 2,
+Strongly Reciprocal (CERN-OHL-S-2.0); see [LICENSE](LICENSE). You may redistribute and modify it under that
+licence. It's distributed WITHOUT ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING OF MERCHANTABILITY, SATISFACTORY
+QUALITY AND FITNESS FOR A PARTICULAR PURPOSE; see the licence for the applicable conditions.
+
+Source location: <https://github.com/jjd408/solitaire>. As the licence asks, keep this notice and the source
+location in any products you make with the design.
+
+The datasheets in `docs/datasheets/` aren't covered: they belong to their vendors (TI, Sharp, Panasonic, Murata,
+ALPS) and are included for reference.
