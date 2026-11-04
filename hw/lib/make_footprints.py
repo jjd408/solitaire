@@ -191,9 +191,52 @@ def skrpace010():
     return name, s
 
 
+def ls013b7dh05_outline():
+    """Where the Sharp LS013B7DH05 lies on the board: its glass and FPC, as a board-only footprint (no pads,
+    not in the BOM or placement files) that keeps parts out from under them and carries the display's 3D model.
+
+    The origin is the glass's bottom-left corner, the 3D model's origin (see make_lcd_model.py); the FPC runs
+    down (+Y) from the glass's bottom edge. Glass 24.68 x 30.0, FPC 9.47 wide and 13.63 long, centred on the
+    glass (Sharp's spec LD-26912A). Lying face up with the FPC straight into an AYF531035 turned to face the
+    glass, the connector's pad row is FPC_IN mm short of the FPC's end; the courtyard stops at the connector's.
+    """
+    name = "LCD_Sharp_LS013B7DH05_Outline"
+    gw, gh, fw, fl = 24.68, 30.0, 9.47, 13.63
+    fpc_in = 2.63                       # FPC end past the connector's pad row (estimate; see ../README.md)
+    conn = fl - fpc_in                  # the connector's pad row, below the glass
+    fx0, fx1 = gw / 2 - fw / 2, gw / 2 + fw / 2
+    m = COURTYARD
+    s = (f'(footprint "{name}"\n\t(version 20241229)\n\t(generator "make_footprints.py")\n'
+         '\t(generator_version "9.0")\n\t(layer "F.Cu")\n')
+    s += text("Reference", "REF**", gw / 2, -gh / 2, "F.Fab", name)
+    s += text("Value", name, gw / 2, -gh / 2 + 1.5, "F.Fab", name, size=0.8)
+    s += text("Datasheet", "${KIPRJMOD}/../../docs/datasheets/LS013B7DH05_spec.pdf", 0, 0, "F.Fab", name,
+              hide=True)
+    s += text("Description", "Sharp LS013B7DH05 memory LCD: glass and FPC outline, face up, FPC straight down",
+              0, 0, "F.Fab", name, hide=True)
+    s += '\t(attr board_only exclude_from_pos_files exclude_from_bom)\n'
+    s += rect(0, -gh, gw, 0, "F.Fab", 0.1, name + "glass")
+    s += rect(fx0, 0, fx1, fl, "F.Fab", 0.1, name + "fpc")
+    s += (f'\t(fp_text user "FPC" (at {gw / 2:.3f} {fl / 2:.3f} 0) (layer "F.Fab") (uuid "{uid(name + "fpct")}")\n'
+          '\t\t(effects (font (size 0.8 0.8) (thickness 0.12)))\n\t)\n')
+    # silkscreen corner marks just outside the glass, to line it up by
+    for (cx, cy, dx, dy) in [(0, -gh, 1, 1), (gw, -gh, -1, 1), (0, 0, 1, -1), (gw, 0, -1, -1)]:
+        x, y = cx - 0.2 * dx, cy - 0.2 * dy
+        s += line(x, y, x + 1.5 * dx, y, "F.SilkS", LINE, name + f"silk{cx}{cy}h")
+        s += line(x, y, x, y + 1.5 * dy, "F.SilkS", LINE, name + f"silk{cx}{cy}v")
+    pts = [(-m, -gh - m), (gw + m, -gh - m), (gw + m, m), (fx1, m), (fx1, conn - 0.65), (fx0, conn - 0.65),
+           (fx0, m), (-m, m)]
+    s += ('\t(fp_poly (pts ' + ' '.join(f'(xy {x:.3f} {y:.3f})' for x, y in pts) + ')\n'
+          f'\t\t(stroke (width 0.05) (type solid)) (fill no) (layer "F.CrtYd") (uuid "{uid(name + "crtyd")}")\n\t)\n')
+    s += ('\t(embedded_fonts no)\n'
+          '\t(model "${KIPRJMOD}/../lib/3d/LS013B7DH05.step"\n'
+          '\t\t(offset (xyz 0 0 0.05)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0))\n\t)\n)\n')
+    return name, s
+
+
 def main():
     os.makedirs("solitaire.pretty", exist_ok=True)
-    for make in (ayf531035, dfe201612e, skrpace010):
+    for make in (ayf531035, dfe201612e, skrpace010, ls013b7dh05_outline):
         name, s = make()
         with open(os.path.join("solitaire.pretty", name + ".kicad_mod"), "w") as f:
             f.write(s)

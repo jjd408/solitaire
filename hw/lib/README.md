@@ -15,6 +15,7 @@ KiCad 9 symbols, footprints and 3D models for the solitaire handheld (see `../RE
 | ALPS SKRPACE010 (tact switch, 4.2x3.2x2.5mm, the game's buttons) | `solitaire:SW_SKRPACE010` (this library; KiCad's `SW_Push` drawing with the part filled in) | `solitaire:SW_Alps_SKRPACE010` (this library) | `3d/SW_Alps_SKRPACE010.step` (this library, linked from the footprint) |
 | Spy-Bi-Wire programming header (1x4 2.54mm) | `solitaire:Conn_SBW_1x04` (this library; pins named 3V0, TEST/SBWTCK, RST/SBWTDIO, GND) | `Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical` (KiCad) | KiCad's `PinHeader_1x04_P2.54mm_Vertical.step` |
 | **Sharp LS013B7DH05** (1.26in 144x168 memory LCD, the chosen display) | `solitaire:LS013B7DH05` (this library) | `solitaire:Panasonic_AYF531035_1x10-1MP_P0.5mm_Horizontal` (this library), the FPC connector | `3d/LS013B7DH05.step` (this library) |
+| LS013B7DH05 on the board (where the glass and FPC lie, so nothing is placed under them) | none (board only) | `solitaire:LCD_Sharp_LS013B7DH05_Outline` (this library): glass and FPC outline, courtyard, silkscreen corner marks; not in the BOM or placement files | `3d/LS013B7DH05.step` (linked from the footprint) |
 | Sharp LS013B7DH03 (1.28in 128x128, a pin-compatible alternative to the DH05; listed obsolete by Mouser) | `solitaire:LS013B7DH03` (this library) | The FPC connector's footprint | `3d/LS013B7DH03.step` (this library) |
 
 ## Files

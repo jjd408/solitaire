@@ -4,7 +4,8 @@ A pocket solitaire game: an MSP430 microcontroller drives a Sharp memory LCD, ru
 and is played with push buttons. The memory LCD holds its image without refresh, so the board spends
 almost all of its time asleep and wakes only when a button is pressed.
 
-The schematic is in `sol/` and passes KiCad's ERC; the PCB hasn't been laid out. The parts library is in `lib/`.
+The schematic and board are in `sol/`; the schematic passes KiCad's ERC and the board its DRC, with the board matching the
+schematic. The parts library is in `lib/`.
 
 ## Block diagram
 
@@ -123,6 +124,59 @@ The AYF531035 has contacts on both sides, so the FPC can go in either face down:
 Sharp's limits on the FPC: bend only 0.8–6.0 mm from the glass edge, inner radius at least 0.45 mm, never
 toward the display face, and no more than three bends.
 
+## Board
+
+A two-layer, 1.6 mm board, 64 × 80 mm with 3 mm corner radii and an M2 mounting hole 3.5 mm in from each corner. Every
+part is on the front:
+
+```
++----------------------------------------------------------------+
+|  o   2xAA        +------------------------+               o    |
+|      + -         |                        |                    |
+|                  |   LS013B7DH05 glass    |                    |
+|  R1-3 U2 L1      |                        |                    |
+|       C1 C2      |                        |                    |
+|                  +----+    FPC     +------+                    |
+|                       |            |  C8 C6 U1  R4 C7  J3 SBW  |
+|                 C4 C3 [ connector  ] C5                        |
+|          [S1]     [S2]      [S3]      [S4]           suits     |
+|  [1]  [2]  [3]  [4]  [5]  [6]  [7]  [8]  [9]          stacks   |
+|  o            [SW1]   [SW2]   [SW3]                        o   |
++----------------------------------------------------------------+
+```
+
+- **Display.** The glass lies face up at the top, centred, on a thin layer of tape; its FPC runs straight down
+  into the connector, which is turned to face it (the library's lead-1-to-pad-1 orientation). The board-only
+  footprint `LCD1` (`lib/`'s `LCD_Sharp_LS013B7DH05_Outline`) marks where the glass and FPC lie, keeps parts out
+  from under them, and carries the display's 3D model; silkscreen corner marks line the glass up. Tracks and
+  tented vias do run under the glass. The FPC's end is taken to go 2.63 mm past the connector's pad row, which
+  puts the glass's bottom edge 11.0 mm above it; the case should allow ±0.5 mm there.
+- **Buttons** follow the simulator's Solitaire board: suits S1–S4 (SW13–16) on a 9.75 mm pitch, stacks 1–9
+  (SW4–12) on 6.5 mm, then SW1–SW3, each labelled on the silkscreen.
+- **MCU** right of the connector, so its SCS/SI/SCLK pins face the connector's signal pads; C6 and C8 by DVCC.
+- **Power** left of the display: the battery pads (TP1 +, TP2 −) for the holder's leads, then the TPS63900 with
+  L1 straight across from its LX pins, C1 at VIN, C2 under VOUT and the CFG resistors beside their pins.
+- **Programming**: the Spy-Bi-Wire header on the right edge, its pins labelled, with R4 and C7 beside it.
+
+Rules: 0.2 mm tracks and clearance (0.3 mm for the supply, battery, inductor and ground nets, narrowing to 0.2 mm
+at fine-pitch pads), 0.6/0.3 mm vias, copper 0.5 mm from the edge. The TPS63900 footprint's thermal vias are
+0.2 mm drills, so the minimum hole is 0.2 mm (standard at JLCPCB and most others). Both layers are poured with
+ground; the back is kept mostly unbroken and stitched to the front with vias about every 4 mm. Reference
+designators are on the fabrication layer, so the silkscreen carries only labels.
+
+The board is made by two scripts in `sol/`, run with KiCad's Python from that folder:
+
+- `python3 layout.py` places everything: outline, holes, the display outline, parts, labels, and the net
+  classes and rules in `sol.kicad_pro`.
+- `python3 route.py` routes it (about 15 minutes) with a small negotiated-congestion maze router on a 0.1 mm grid,
+  fans out every ground pad to a via, stitches and pours ground, and fills the zones. The MCU's decoupling
+  capacitors' ground pads are routed to its DVSS pin like a signal, so the other tracks can't wall them off from
+  the pour; a last check walks the ground net and joins any pad still cut off.
+
+Both start over from the board's footprints, so edit `PLACE` in `layout.py` and rerun them rather than editing
+the routed board by hand (or, once you do edit it by hand, stop rerunning them). Check the result with
+`kicad-cli pcb drc --schematic-parity sol.kicad_pcb`.
+
 ## Files
 
 - `lib/`: KiCad 9 symbols, footprints and 3D models for the parts above; see `lib/README.md`. Everything there is
@@ -134,7 +188,8 @@ Firmware toolchain: TI MSP430-GCC 9.3.1.11 at `~/ti/msp430-gcc` (`-mmcu=msp430fr
 
 ## Open items
 
-- Start the schematic and PCB.
+- Review the routed board in KiCad, in particular the TPS63900's layout against TI's guidelines, before ordering.
+- Confirm how far the FPC goes into the connector against a sample, and with it the display's position.
 - Check the AYF531035 footprint against Panasonic's product specification for the exact part.
 - Decide whether to add reverse-battery protection.
 - Design the case around the board and the display's outline (`lib/3d/LS013B7DH05.step`).
