@@ -75,7 +75,8 @@ Everything happens in interrupts that set flags and wake `main`; `main` handles 
 ```
 main:   init clocks, ports, timers, SPI, display
         load or deal a game; draw everything
-loop:   disable interrupts
+loop:   kick the watchdog
+        disable interrupts
         if no events pending: enter LPM3 with GIE set   ; bis #LPM3_bits|GIE, SR (atomic, no lost wake-up)
         enable interrupts
         take the next event (button number)
@@ -92,8 +93,8 @@ awake. The event queue is a small ring buffer in RAM (16 entries is plenty).
 | --- | --- | --- |
 | PORT1, PORT2, PORT3 | `__interrupt_vector_port1`, `_port2`, `_port3` | Read PxIV, queue the button, start its debounce lockout |
 | TIMER0_B0 | `__interrupt_vector_43` | Debounce: re-enable buttons whose lockout ended |
+| TIMER0_B1 | `__interrupt_vector_42` | TB0 overflow every 128 s: read TB0IV, wake `main` so it kicks the watchdog |
 | (TB2.1 output) | none | EXTCOMIN toggles in hardware, no interrupt |
-| WDT (interval) | `__interrupt_vector_34` | Optional 1 Hz tick for idle timing |
 
 In assembly a vector is a word in its section:
 
@@ -105,6 +106,26 @@ In assembly a vector is a word in its section:
 The reset vector and start-up (`__crt0_start`, which clears `.bss`, copies `.data` and calls `main`) come from
 gcc's start-up code, which the plugin links in.
 
+### Watchdog
+
+The watchdog is kept as a safety net: if the firmware ever hangs, the chip resets, and because the game lives
+in FRAM it comes back where it was.
+
+- **Clocked from ACLK** (REFO), with a time-out of 2^23 counts = 256 s:
+  `WDT_RUN = WDTPW|WDTSSEL__ACLK|WDTIS__8192K|WDTCNTCL`. Not SMCLK: in watchdog mode the chip keeps the
+  watchdog's clock running even in LPM3, so on SMCLK it would keep the DCO running and the sleep current would
+  go from about 2 µA to hundreds (TI's family user's guide warns of exactly this). ACLK runs in LPM3 anyway.
+- **Stopped during set-up**: `sys_init` writes `WDTPW|WDTHOLD` first (the watchdog runs from reset and would
+  otherwise reset the chip after about 31 ms on the reset clocks) and `WDT_RUN` last.
+- **Kicked on every pass of the main loop** by writing `WDT_RUN` again (always the whole word with the password:
+  a write without `WDTPW` resets the chip).
+- **Kept kicked while idle**: it counts on in LPM3, so the loop must run at least every 256 s even with no
+  presses. TB0 runs from ACLK ÷ 64 (`ID__8` and `TBIDEX__8`, 512 Hz) in continuous mode; its overflow every
+  65536 / 512 = 128 s raises `TBIFG` (enabled with `TBIE`, vector TIMER0_B1), which wakes `main` for one pass.
+  That's one brief wake-up every two minutes.
+- **After a watchdog reset** `SYSRSTIV` reads 0x16; `sys_init` counts these in `.persistent` (shown with the
+  statistics), so a hang that's otherwise invisible gets noticed.
+
 ### Modules
 
 One file per module under `sw/sol/src/`, each exporting a few routines (`.global`). The plugin builds all of
@@ -113,7 +134,7 @@ them into one program.
 | File | Responsibility | Main routines |
 | --- | --- | --- |
 | `main.S` | Start-up, event loop | `main` |
-| `system.S` | Watchdog, clocks (FLL to 8 MHz, REFO LP), port defaults, LOCKLPM5 | `sys_init` |
+| `system.S` | Watchdog (safety net), clocks (FLL to 8 MHz, REFO LP), TB0 time base, port defaults, LOCKLPM5 | `sys_init`, `wdt_kick` |
 | `lcd.S` | SPI, SCS timing, all-clear, multi-line write of dirty lines, EXTCOMIN timer, DISP | `lcd_init`, `lcd_clear`, `lcd_flush` |
 | `gfx.S` | Framebuffer drawing: fill, invert, glyphs, text, cards, dirty-line marking | `gfx_card`, `gfx_text`, `gfx_fill`, ... |
 | `font.S` | Rank and suit glyphs, a small text font, card back pattern (FRAM constants) | data only |
@@ -218,7 +239,8 @@ runs of dirty lines and clears their bits. After a move `ui_draw` redraws only t
 - Ports 1–3: the button pins as inputs with pull-ups (`PxREN`, `PxOUT` = 1), interrupt on the falling edge
   (`PxIES` = 1), so pressing a button wakes the chip.
 - On an interrupt, read `PxIV` (which clears the flag), queue the button, disable that pin's interrupt and
-  give it a 30 ms lockout. TB0 on ACLK in continuous mode, with a compare for the next lockout to end,
+  give it a 30 ms lockout. TB0 (ACLK ÷ 64, 512 Hz, continuous; see Watchdog) with its CCR0 compare set for the
+  next lockout to end (about 15 counts),
   re-enables pins whose lockout ended and whose pin reads high again (released). That rejects both press and
   release bounce without polling.
 - Only presses are events. Holding a button does nothing more (no auto-repeat).
@@ -327,8 +349,10 @@ That gets a win screen, and the win is added to the statistics.
 
 Each step ends with something visible in the simulator and, from step 2, an automated test.
 
-1. **Skeleton**: the module files, `sys_init` (watchdog off, 8 MHz, REFO LP for ACLK, unused pins low,
-   LOCKLPM5 cleared), the sleep loop. Check: MCLK 8 MHz, the CPU asleep in LPM3.
+1. **Skeleton**: the module files, `sys_init` (watchdog held during set-up, 8 MHz, REFO LP for ACLK, TB0 time
+   base, unused pins low, LOCKLPM5 cleared, watchdog started on ACLK), the sleep loop with its kick. Check: MCLK
+   8 MHz, the CPU asleep in LPM3, no reset over 10 simulated minutes of idle, and a deliberate hang (a test build
+   with an endless loop) reset within 256 s with `SYSRSTIV` 0x16.
 2. **Display**: SPI, all-clear, EXTCOMIN on TB2.1, DISP, framebuffer, `lcd_flush` with dirty lines; a test
    pattern. Check: the display's status line shows 60 Hz and no timing problems; the picture matches.
 3. **Graphics**: font and suit glyphs, card faces, backs, empty slots, inverted selection, text. Check: a sheet
