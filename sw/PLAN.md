@@ -356,7 +356,7 @@ Each step ends with something visible in the simulator and, from step 2, an auto
    with an endless loop) reset within 256 s with `SYSRSTIV` 0x16.
 2. **Display** (details in `STEP2-display.md`): SPI, all-clear, EXTCOMIN on TB2.1, DISP, framebuffer,
    `lcd_flush` with dirty lines; a test pattern. Check: the display's status line shows 60 Hz and no timing problems; the picture matches.
-3. **Graphics**: font and suit glyphs, card faces, backs, empty slots, inverted selection, text. Check: a sheet
+3. **Graphics** (details in `STEP3-graphics.md`): font and suit glyphs, card faces, backs, empty slots, inverted selection, text. Check: a sheet
    of all 52 cards.
 4. **Buttons**: interrupts, debounce, event queue; a test screen that marks each button pressed (like
    `buttons.c`). Check: scripted presses, including bouncing ones, give exactly one event each.

@@ -49,13 +49,17 @@ if [ ! -x "$run" ]; then
     exit 2
 fi
 
-# The firmware, built the way the NetBeans project builds it
-hex=$out/sol.hex
-if ! "$gcc" -mmcu=msp430fr2355 -g ${inc:+-I"$inc" -L"$inc"} -I"$sol/src" "$sol"/src/*.S -o "$out/sol.elf" \
-        || ! "$objcopy" -O ihex "$out/sol.elf" "$hex"; then
-    echo "FAIL: the firmware doesn't build" >&2
-    exit 1
-fi
+# build NAME [gcc options...]: builds the firmware the way the NetBeans project does, with extra options such as
+# -DTEST_SCREEN=1, into out/NAME.hex
+build() {
+    name=$1
+    shift
+    if ! "$gcc" -mmcu=msp430fr2355 -g ${inc:+-I"$inc" -L"$inc"} -I"$sol/src" "$@" "$sol"/src/*.S \
+            -o "$out/$name.elf" || ! "$objcopy" -O ihex "$out/$name.elf" "$out/$name.hex"; then
+        echo "FAIL: the firmware doesn't build ($name)" >&2
+        exit 1
+    fi
+}
 
 # The display's pins by package pin number: SCLK, SI, SCS, EXTCOMIN, DISP
 SHARP=18,17,16,37,36
@@ -73,11 +77,13 @@ fail() {
     failed=$((failed + 1))
 }
 
-# screen NAME SECONDS [runner options...]: runs the firmware for SECONDS of simulated time and checks the display
+# screen NAME BUILD SECONDS [runner options...]: runs out/BUILD.hex for SECONDS of simulated time and checks the
+# display, against the approved picture NAME.pbm
 screen() {
     name=$1
-    seconds=$2
-    shift 2
+    hex=$out/$2.hex
+    seconds=$3
+    shift 3
     got=$out/$name.pbm
     rm -f "$got"
     report=$("$run" "$hex" --seconds "$seconds" --tick 8e6 --sharp "$SHARP,$got" "$@" 2>&1)
@@ -123,8 +129,13 @@ screen() {
     fi
 }
 
+build pattern -DTEST_SCREEN=1
+build cards -DTEST_SCREEN=2
+
 # Step 2: the test pattern after start-up
-screen step2_pattern 2
+screen step2_pattern pattern 2
+# Step 3: every card and graphic
+screen step3_cards cards 2
 
 echo "$passed passed, $failed failed"
 [ "$failed" -eq 0 ]

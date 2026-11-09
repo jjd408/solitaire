@@ -18,11 +18,8 @@
 #include <msp430.h>
 #include "sol.h"
 
-#define LCD_W   144
-#define LCD_H   168
-#define LINE    18              /* bytes per line */
-#define CARD_W  40
-#define CARD_H  56
+#define PAT_CARD_W  40
+#define PAT_CARD_H  56
 #define CARD_Y  88
 
         .text
@@ -115,7 +112,7 @@ chk_byte:
         clr.b   1(R14)                                  ; byte 21: no lines
         ret
 
-; card: draws a card outline, CARD_W x CARD_H, with its corner pixels left out so it looks rounded.
+; card: draws a card outline, PAT_CARD_W x PAT_CARD_H, with its corner pixels left out so it looks rounded.
 ;   in:      R12 = left x, R13 = top y
 ;   out:     none
 ;   changes: R11-R15
@@ -127,24 +124,24 @@ card:
         mov.w   R9, R12
         inc.w   R12
         mov.w   R10, R13
-        mov.w   #CARD_W-2, R11
+        mov.w   #PAT_CARD_W-2, R11
         call    #hline                                  ; top
         mov.w   R9, R12
         inc.w   R12
         mov.w   R10, R13
-        add.w   #CARD_H-1, R13
-        mov.w   #CARD_W-2, R11
+        add.w   #PAT_CARD_H-1, R13
+        mov.w   #PAT_CARD_W-2, R11
         call    #hline                                  ; bottom
         mov.w   R9, R12
         mov.w   R10, R13
         inc.w   R13
-        mov.w   #CARD_H-2, R11
+        mov.w   #PAT_CARD_H-2, R11
         call    #vline                                  ; left
         mov.w   R9, R12
-        add.w   #CARD_W-1, R12
+        add.w   #PAT_CARD_W-1, R12
         mov.w   R10, R13
         inc.w   R13
-        mov.w   #CARD_H-2, R11
+        mov.w   #PAT_CARD_H-2, R11
         call    #vline                                  ; right
         pop.w   R10
         pop.w   R9
