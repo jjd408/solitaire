@@ -229,7 +229,8 @@ y 167   +-----------------------------------------------+
 ### Redrawing
 
 `gfx` draws into the framebuffer and marks the lines it touched in the dirty-line bitmap; `lcd_flush` sends
-runs of dirty lines and clears their bits. After a move `ui_draw` redraws only the piles the move changed
+all the dirty lines in one transfer (each line carries its own address, so they needn't be next to each other)
+and clears their bits. After a move `ui_draw` redraws only the piles the move changed
 (each pile has a known rectangle), plus the status line.
 
 ## Buttons and controls
@@ -353,8 +354,8 @@ Each step ends with something visible in the simulator and, from step 2, an auto
    base, unused pins low, LOCKLPM5 cleared, watchdog started on ACLK), the sleep loop with its kick. Check: MCLK
    8 MHz, the CPU asleep in LPM3, no reset over 10 simulated minutes of idle, and a deliberate hang (a test build
    with an endless loop) reset within 256 s with `SYSRSTIV` 0x16.
-2. **Display**: SPI, all-clear, EXTCOMIN on TB2.1, DISP, framebuffer, `lcd_flush` with dirty lines; a test
-   pattern. Check: the display's status line shows 60 Hz and no timing problems; the picture matches.
+2. **Display** (details in `STEP2-display.md`): SPI, all-clear, EXTCOMIN on TB2.1, DISP, framebuffer,
+   `lcd_flush` with dirty lines; a test pattern. Check: the display's status line shows 60 Hz and no timing problems; the picture matches.
 3. **Graphics**: font and suit glyphs, card faces, backs, empty slots, inverted selection, text. Check: a sheet
    of all 52 cards.
 4. **Buttons**: interrupts, debounce, event queue; a test screen that marks each button pressed (like
