@@ -104,70 +104,71 @@ lcd_clear:
         call    #spi_deselect
         ret
 
-; lcd_flush: check for dirty lines and send them.
+; lcd_flush: sends the dirty lines to the display and marks them clean.
 ;   in:      none
 ;   out:     none
-;   changes: R11,R12,R13,R14,R15
-    .global lcd_flush
+;   changes: R11-R15
+        .global lcd_flush
 lcd_flush:
-        clr.w   R13
+        clr.w   R13                                     ; anything dirty? (no calls here: a scratch register)
 1:      tst.b   dirty(R13)
-        jnz     work                    ; something to send
+        jnz     work                                    ; something to send
         inc.w   R13
         cmp.w   #21, R13
         jne     1b
-        ret                             ; all clean
+        ret                                             ; all clean
 work:
+        pushm.w #3, R10                                 ; save R8-R10: they hold the loop's state across calls
         call    #spi_select
         mov.b   #0x01, R12
-        call    #spi_send                               ; mode: data update 
-        clr.w   R13                                     ; R13 = byte number in dirty, 0-20
-        clr.w   R14                                     ; R14 = line number, 0-167
+        call    #spi_send                               ; mode: data update
+        clr.w   R8                                      ; R8 = byte number in dirty, 0-20
+        clr.w   R9                                      ; R9 = line number, 0-167
 next_byte:
-        tst.b   dirty(R13)                              ; whole byte clean? 
+        tst.b   dirty(R8)                               ; whole byte clean?
         jz      skip_byte                               ;   then skip its 8 lines at once
-        mov.b   #1, R15                                 ; R15 = mask: bit 0 first
+        mov.b   #1, R10                                 ; R10 = mask: bit 0 first
 next_bit:
-        bit.b   R15, dirty(R13)                         ; this line dirty?
+        bit.b   R10, dirty(R8)                          ; this line dirty?
         jz      clean
-        call    #send_line
+        mov.w   R9, R12
+        call    #send_line                              ; send_line(line)
 clean:
-        inc.w   R14                                     ; next line
-        rla.b   R15                                     ; next bit: 1, 2, 4 ... 128, then 0
+        inc.w   R9                                      ; next line
+        rla.b   R10                                     ; next bit: 1, 2, 4 ... 128, then 0
         jnz     next_bit                                ; 0 means all 8 bits done
-        clr.b   dirty(R13)                              ; the byte's lines are sent: clear them all
+        clr.b   dirty(R8)                               ; the byte's lines are sent: clear them all
         jmp     byte_done
 skip_byte:
-        add.w   #8, R14                                 ; 8 clean lines
+        add.w   #8, R9                                  ; 8 clean lines
 byte_done:
-        inc.w   R13
-        cmp.w   #21, R13
+        inc.w   R8
+        cmp.w   #21, R8
         jne     next_byte
         clr.w   R12
-        call    #spi_send               ; closing dummy
-        call    #spi_deselect        
+        call    #spi_send                               ; closing dummy
+        call    #spi_deselect
+        popm.w  #3, R10                                 ; give R8-R10 back
         ret
 
-; send_line: sends one line to the display
-;   in:      R14 line number
+; send_line: sends one line to the display: its address, its 18 bytes, a dummy.
+;   in:      R12 = line number, 0-167
 ;   out:     none
-;   changes: R11,R12
+;   changes: R11-R14
 send_line:
-        push.w  R10
-        mov.w   R14, R12
+        mov.w   R12, R13                                ; R13 = y (R12 is needed for the bytes)
         inc.w   R12                                     ; address = y + 1
         call    #spi_send
-        mov.w   R14, R11
+        mov.w   R13, R11
         rlam.w  #4, R11                                 ; y * 16
-        add.w   R14, R11
-        add.w   R14, R11                                ; y * 18
+        add.w   R13, R11
+        add.w   R13, R11                                ; y * 18
         add.w   #fb, R11                                ; R11 = the line's first byte in fb
-        mov.w   #18, R10                                ; R10 = bytes left 
+        mov.w   #18, R14                                ; R14 = bytes left
 1:      mov.b   @R11+, R12                              ; next byte; R11 moves on by 1
-        call    #spi_send
-        dec.w   R10
+        call    #spi_send                               ; changes nothing, so R11 and R14 survive
+        dec.w   R14
         jnz     1b
         clr.w   R12
         call    #spi_send                               ; dummy
-        pop.w    R10
         ret
