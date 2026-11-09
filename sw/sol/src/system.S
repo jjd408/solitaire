@@ -29,7 +29,15 @@ system:
         bis.b   #BIT2|BIT3|BIT4, &P5DIR
         clr.b   &P6OUT                                  ; P6.0-P6.6: not on the TSSOP-38
         mov.b   #0x7F, &P6DIR
-        bic.w   #LOCKLPM5,&PM5CTL0                    ;enable io
+        ; set up ports for the display
+        bic.b   #BIT7, &P4OUT                           ; SCS low
+        bis.b   #BIT7, &P4DIR
+        bis.b   #BIT5|BIT6, &P4SEL0                     ; P4SEL1:0 = 01 → P4.5 = UCB1CLK, P4.6 = UCB1SIMO
+        bis.b   #BIT0, &P5SEL0                          ; P5SEL1:0 = 01 → P5.0 = TB2.1...
+        bic.b   #BIT1, &P5OUT                           ; display off
+        bis.b   #BIT0 | BIT1, &P5DIR                    ; P5.0 (TB2.1) and P5.1 (DISP) outputs
+        bic.w   #LOCKLPM5,&PM5CTL0                      ;enable io
+
         ; set up clocks
         bis.w   #SCG0, SR                             ;disable FLL
         nop                                           ;wait after changing status reg

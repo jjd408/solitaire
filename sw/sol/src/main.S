@@ -13,9 +13,12 @@
 ;   changes: none
         .global main
 main:
-        call    #system                 ; init everything
+        call    #system                 ; init clocks and io ports
+        call    #lcd                    ; init display
+        call    #test_pattern           ; draw the test picture (step 2)
 loop:   
         mov.w   #WDT_RUN, &WDTCTL       ; kick the watchdog
+        call    #lcd_flush
         bis     #LPM3_bits|GIE, SR      ; low power sleep
         nop
         jmp     loop
