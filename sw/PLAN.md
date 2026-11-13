@@ -358,7 +358,7 @@ Each step ends with something visible in the simulator and, from step 2, an auto
    `lcd_flush` with dirty lines; a test pattern. Check: the display's status line shows 60 Hz and no timing problems; the picture matches.
 3. **Graphics** (details in `STEP3-graphics.md`): font and suit glyphs, card faces, backs, empty slots, inverted selection, text. Check: a sheet
    of all 52 cards.
-4. **Buttons**: interrupts, debounce, event queue; a test screen that marks each button pressed (like
+4. **Buttons** (details in `STEP4-buttons.md`): interrupts, debounce, event queue; a test screen that marks each button pressed (like
    `buttons.c`). Check: scripted presses, including bouncing ones, give exactly one event each.
 5. **Game model**: cards, piles in `.persistent`, rng, shuffle, deal, the draw of the opening layout. Check:
    seeded deals match expected layouts.
