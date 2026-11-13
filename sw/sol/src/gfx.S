@@ -253,6 +253,22 @@ glyph_done:
 ;   changes: R11-R15
         .global gfx_text
 gfx_text:
+        push.w  R8
+        mov.w   #font_table, R8                         ; R8 = the font
+        jmp     text
+
+; gfx_text_small: the same in the 3 x 5 font (font.S's small_table), 4 pixels a character: for labels.
+;   in:      R12 = x, R13 = y (top), R14 = the text, ending in a 0 byte
+;   out:     R12 = x after the last character
+;   changes: R11-R15
+        .global gfx_text_small
+gfx_text_small:
+        push.w  R8
+        mov.w   #small_table, R8
+        ; fall into text
+
+; text: does the work for both, with R8 = the font's table (pushed by the caller, popped here).
+text:
         push.w  R10
         push.w  R9
         mov.w   R13, R9                                 ; R9 = y
@@ -266,26 +282,63 @@ text_char:
         cmp.w   #'z'+1, R14
         jhs     1f
         sub.w   #'a'-'A', R14                           ; lower case to upper
-1:      sub.w   #' ', R14                               ; the font starts at ' '
+1:      sub.w   #' ', R14                               ; the fonts start at ' '
         cmp.w   #64, R14
         jlo     2f
         mov.w   #'?'-' ', R14                           ; outside the font
 2:      rla.w   R14
-        mov.w   font_table(R14), R14
+        add.w   R8, R14
+        mov.w   @R14, R14                               ; the glyph
         mov.w   R9, R13
         call    #gfx_glyph                              ; moves R12 on
         jmp     text_char
 text_done:
         pop.w   R9
         pop.w   R10
+        pop.w   R8
         ret
 
-; gfx_number: draws a number in decimal, without leading zeros.
+; gfx_text_width_small: how wide a text is in the 3 x 5 font, to centre it: 4 pixels a character, less the
+; last one's gap.
+;   in:      R12 = the text, ending in a 0 byte
+;   out:     R12 = its width in pixels (0 for no text)
+;   changes: R12, R13
+        .global gfx_text_width_small
+gfx_text_width_small:
+        mov.w   R12, R13
+        clr.w   R12
+1:      tst.b   0(R13)
+        jz      2f
+        add.w   #4, R12
+        inc.w   R13
+        jmp     1b
+2:      tst.w   R12
+        jz      3f
+        dec.w   R12
+3:      ret
+
+; gfx_number: draws a number in decimal, without leading zeros, in the 5 x 7 font.
 ;   in:      R12 = x, R13 = y (top), R14 = the number (0-65535)
 ;   out:     R12 = x after the last digit
 ;   changes: R11-R15
         .global gfx_number
 gfx_number:
+        push.w  R8
+        mov.w   #gfx_text, R8                           ; R8 = what writes the digits
+        jmp     number
+
+; gfx_number_small: the same in the 3 x 5 font.
+;   in:      R12 = x, R13 = y (top), R14 = the number (0-65535)
+;   out:     R12 = x after the last digit
+;   changes: R11-R15
+        .global gfx_number_small
+gfx_number_small:
+        push.w  R8
+        mov.w   #gfx_text_small, R8
+        ; fall into number
+
+; number: does the work for both, with R8 = the text routine (pushed by the caller, popped here).
+number:
         push.w  R10
         push.w  R9
         push.w  R13                                     ; y, as R13 counts digits below
@@ -315,10 +368,11 @@ num_power:
         clr.b   0(R15)
         mov.w   SP, R14
         mov.w   6(SP), R13                              ; y
-        call    #gfx_text
+        call    R8                                      ; gfx_text or gfx_text_small
         add.w   #8, SP                                  ; the digits and y
         pop.w   R9
         pop.w   R10
+        pop.w   R8
         ret
 
 ; gfx_card: draws a card, or the top part of one where the next card in a column covers the rest.

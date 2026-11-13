@@ -655,3 +655,326 @@ f_Z:    .byte   5, 7
         row     .#...
         row     #....
         row     #####
+
+; ---- the small font: 3 x 5, drawn 4 pixels apart (gfx_text_small), for labels and small numbers ----
+
+; small_table: the small glyph for each character from ' ' (0x20) to '_' (0x5F), like font_table. Only digits,
+; capitals, space and '-' have glyphs; anything else shows as '?'.
+        .balign 2
+        .global small_table
+small_table:
+        .word   s_space, s_qm, s_qm, s_qm, s_qm, s_qm, s_qm, s_qm              ;  !"#$%&'
+        .word   s_qm, s_qm, s_qm, s_qm, s_qm, s_minus, s_qm, s_qm              ; ()*+,-./
+        .word   s_0, s_1, s_2, s_3, s_4, s_5, s_6, s_7                         ; 01234567
+        .word   s_8, s_9, s_qm, s_qm, s_qm, s_qm, s_qm, s_qm                   ; 89:;<=>?
+        .word   s_qm, s_A, s_B, s_C, s_D, s_E, s_F, s_G                        ; @ABCDEFG
+        .word   s_H, s_I, s_J, s_K, s_L, s_M, s_N, s_O                         ; HIJKLMNO
+        .word   s_P, s_Q, s_R, s_S, s_T, s_U, s_V, s_W                         ; PQRSTUVW
+        .word   s_X, s_Y, s_Z, s_qm, s_qm, s_qm, s_qm, s_qm                    ; XYZ[\]^_
+
+        .balign 2
+s_space: .byte 3, 0                     ; no rows: only moves on
+
+        .balign 2
+s_minus:.byte   3, 5
+        row     ...
+        row     ...
+        row     ###
+        row     ...
+        row     ...
+
+        .balign 2
+s_qm:   .byte   3, 5
+        row     ###
+        row     ..#
+        row     .#.
+        row     ...
+        row     .#.
+
+        .balign 2
+s_0:    .byte   3, 5
+        row     ###
+        row     #.#
+        row     #.#
+        row     #.#
+        row     ###
+
+        .balign 2
+s_1:    .byte   3, 5
+        row     .#.
+        row     ##.
+        row     .#.
+        row     .#.
+        row     ###
+
+        .balign 2
+s_2:    .byte   3, 5
+        row     ###
+        row     ..#
+        row     ###
+        row     #..
+        row     ###
+
+        .balign 2
+s_3:    .byte   3, 5
+        row     ###
+        row     ..#
+        row     .##
+        row     ..#
+        row     ###
+
+        .balign 2
+s_4:    .byte   3, 5
+        row     #.#
+        row     #.#
+        row     ###
+        row     ..#
+        row     ..#
+
+        .balign 2
+s_5:    .byte   3, 5
+        row     ###
+        row     #..
+        row     ###
+        row     ..#
+        row     ###
+
+        .balign 2
+s_6:    .byte   3, 5
+        row     ###
+        row     #..
+        row     ###
+        row     #.#
+        row     ###
+
+        .balign 2
+s_7:    .byte   3, 5
+        row     ###
+        row     ..#
+        row     .#.
+        row     .#.
+        row     .#.
+
+        .balign 2
+s_8:    .byte   3, 5
+        row     ###
+        row     #.#
+        row     ###
+        row     #.#
+        row     ###
+
+        .balign 2
+s_9:    .byte   3, 5
+        row     ###
+        row     #.#
+        row     ###
+        row     ..#
+        row     ###
+
+        .balign 2
+s_A:    .byte   3, 5
+        row     .#.
+        row     #.#
+        row     ###
+        row     #.#
+        row     #.#
+
+        .balign 2
+s_B:    .byte   3, 5
+        row     ##.
+        row     #.#
+        row     ##.
+        row     #.#
+        row     ##.
+
+        .balign 2
+s_C:    .byte   3, 5
+        row     .##
+        row     #..
+        row     #..
+        row     #..
+        row     .##
+
+        .balign 2
+s_D:    .byte   3, 5
+        row     ##.
+        row     #.#
+        row     #.#
+        row     #.#
+        row     ##.
+
+        .balign 2
+s_E:    .byte   3, 5
+        row     ###
+        row     #..
+        row     ##.
+        row     #..
+        row     ###
+
+        .balign 2
+s_F:    .byte   3, 5
+        row     ###
+        row     #..
+        row     ##.
+        row     #..
+        row     #..
+
+        .balign 2
+s_G:    .byte   3, 5
+        row     .##
+        row     #..
+        row     #.#
+        row     #.#
+        row     .##
+
+        .balign 2
+s_H:    .byte   3, 5
+        row     #.#
+        row     #.#
+        row     ###
+        row     #.#
+        row     #.#
+
+        .balign 2
+s_I:    .byte   3, 5
+        row     ###
+        row     .#.
+        row     .#.
+        row     .#.
+        row     ###
+
+        .balign 2
+s_J:    .byte   3, 5
+        row     ..#
+        row     ..#
+        row     ..#
+        row     #.#
+        row     .#.
+
+        .balign 2
+s_K:    .byte   3, 5
+        row     #.#
+        row     #.#
+        row     ##.
+        row     #.#
+        row     #.#
+
+        .balign 2
+s_L:    .byte   3, 5
+        row     #..
+        row     #..
+        row     #..
+        row     #..
+        row     ###
+
+        .balign 2
+s_M:    .byte   3, 5
+        row     #.#
+        row     ###
+        row     #.#
+        row     #.#
+        row     #.#
+
+        .balign 2
+s_N:    .byte   3, 5
+        row     ##.
+        row     #.#
+        row     #.#
+        row     #.#
+        row     #.#
+
+        .balign 2
+s_O:    .byte   3, 5
+        row     .#.
+        row     #.#
+        row     #.#
+        row     #.#
+        row     .#.
+
+        .balign 2
+s_P:    .byte   3, 5
+        row     ##.
+        row     #.#
+        row     ##.
+        row     #..
+        row     #..
+
+        .balign 2
+s_Q:    .byte   3, 5
+        row     .#.
+        row     #.#
+        row     #.#
+        row     ###
+        row     .##
+
+        .balign 2
+s_R:    .byte   3, 5
+        row     ##.
+        row     #.#
+        row     ##.
+        row     #.#
+        row     #.#
+
+        .balign 2
+s_S:    .byte   3, 5
+        row     .##
+        row     #..
+        row     .#.
+        row     ..#
+        row     ##.
+
+        .balign 2
+s_T:    .byte   3, 5
+        row     ###
+        row     .#.
+        row     .#.
+        row     .#.
+        row     .#.
+
+        .balign 2
+s_U:    .byte   3, 5
+        row     #.#
+        row     #.#
+        row     #.#
+        row     #.#
+        row     ###
+
+        .balign 2
+s_V:    .byte   3, 5
+        row     #.#
+        row     #.#
+        row     #.#
+        row     #.#
+        row     .#.
+
+        .balign 2
+s_W:    .byte   3, 5
+        row     #.#
+        row     #.#
+        row     #.#
+        row     ###
+        row     #.#
+
+        .balign 2
+s_X:    .byte   3, 5
+        row     #.#
+        row     #.#
+        row     .#.
+        row     #.#
+        row     #.#
+
+        .balign 2
+s_Y:    .byte   3, 5
+        row     #.#
+        row     #.#
+        row     .#.
+        row     .#.
+        row     .#.
+
+        .balign 2
+s_Z:    .byte   3, 5
+        row     ###
+        row     ..#
+        row     .#.
+        row     #..
+        row     ###
