@@ -17,8 +17,8 @@ All switch to ground, so a button reads 0 while it's held. Package pins are what
 | --- | --- | --- | --- |
 | Stacks 1–4 | P1.0–P1.3 | 7, 6, 5, 4 | `B_TABLEAU1`–`B_TABLEAU4` (1–4) |
 | Stacks 5–7 | P1.4–P1.6 | 31, 30, 29 | `B_TABLEAU5`–`B_TABLEAU7` (5–7) |
-| Stack 8 | P2.0 | 27 | `B_WASTE` (8) |
-| Stack 9 | P2.1 | 26 | `B_STOCK` (9) |
+| Waste (stack 8, bottom row) | P2.0 | 27 | `B_WASTE` (8) |
+| Stock (stack 9, bottom row) | P2.1 | 26 | `B_STOCK` (9) |
 | Suits 1–4 | P2.2–P2.5 | 25, 24, 15, 14 | `B_FOUND1`–`B_FOUND4` (10–13) |
 | SW1 | P3.0 | 3 | `B_NEW` (14) |
 | SW2 | P3.1 | 2 | `B_UNDO` (15) |
@@ -58,8 +58,8 @@ What each button means to the game (`PLAN.md`, Controls), and the number its eve
 | --- | --- | --- | --- |
 | `B_NONE` | 0 | — | No event |
 | `B_TABLEAU1`–`B_TABLEAU7` | 1–7 | Stacks 1–7 | Tableau column 1–7: a source or destination |
-| `B_WASTE` | 8 | Stack 8 | The waste: a source |
-| `B_STOCK` | 9 | Stack 9 | Deal to the waste, or turn it over |
+| `B_WASTE` | 8 | Waste (stack 8) | The waste: a source |
+| `B_STOCK` | 9 | Stock (stack 9) | Deal to the waste, or turn it over |
 | `B_FOUND1`–`B_FOUND4` | 10–13 | Suits 1–4 | Foundation 1–4: a source or destination |
 | `B_NEW` | 14 | SW1 | New game, confirmed by a second press |
 | `B_UNDO` | 15 | SW2 | Undo |
@@ -180,7 +180,7 @@ the chip is asleep, and wakes it. (TI asks for a `nop` after `dint` and around c
 ## 8. The test screen (`TEST_SCREEN` 3)
 
 Like `buttons.c`, but counting events, not showing levels: one box per button, laid out as on the board (row 1
-SW1–SW3, row 2 stacks 1–9, row 3 suits 1–4), each with its press count under it, drawn with step 3's `gfx`. For
+suits 1–4, row 2 stacks 1–7, row 3 stock, waste and SW1–SW3), each with its press count under it, drawn with step 3's `gfx`. For
 each event, `main` adds one to that role's count (a byte array `presses`, by role) and redraws the box and its
 number: an event's box is drawn inverted until the next event, so the last button pressed shows.
 

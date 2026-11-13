@@ -160,15 +160,15 @@ screen step2_pattern pattern 2
 # Step 3: every card and graphic
 screen step3_cards cards 2
 
-# Step 4: the buttons. Package pins of roles 1-16: stacks 1-9 7 6 5 4 31 30 29 27 26, suits 1-4 25 24 15 14,
-# SW1-SW3 3 2 1. N=0@t holds pin N low from t seconds; N=z@t lets it go, back to its pull-up.
+# Step 4: the buttons. Package pins of roles 1-16: stacks 1-7 7 6 5 4 31 30 29, waste 27, stock 26 (the bottom
+# row's stack 8 and 9 switches), suits 1-4 25 24 15 14, SW1-SW3 3 2 1. N=0@t holds pin N low from t seconds; N=z@t lets it go, back to its pull-up.
 #   - each button once, 60 ms each, 150 ms apart;
 #   - stack 1: a press that bounces (0.5 ms apart) and is held;
 #   - stack 2: a release that bounces;
 #   - stack 3: held for 2 s (no repeat);
 #   - suit 1 and SW2 pressed 1 ms apart;
-#   - stack 9: pressed again 200 ms after letting go.
-# Each press must be exactly one event: stacks 1-3 2 each, stack 9 3, suit 1 2, SW2 2, every other button 1.
+#   - stock: pressed again 200 ms after letting go.
+# Each press must be exactly one event: stacks 1-3 2 each, stock 3, suit 1 2, SW2 2, every other button 1.
 screen step4_buttons buttons 7.2 --peek "$("$nm" "$out/buttons.elf" | awk '$3 == "presses" { print $1 }'):9" \
     --pin 7=0@0.50 --pin 7=z@0.56 \
     --pin 6=0@0.65 --pin 6=z@0.71 \

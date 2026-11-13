@@ -21,9 +21,9 @@ All from `hw/sol/sol.kicad_sch`; the simulator's Solitaire board is wired the sa
 | Display DISP | P5.1 | GPIO | High = display on |
 | Stacks 1–4 | P1.0, P1.1, P1.2, P1.3 | Port 1 interrupt | All buttons switch to ground; use internal pull-ups |
 | Stacks 5–7 | P1.4, P1.5, P1.6 | Port 1 interrupt | |
-| Stacks 8–9 | P2.0, P2.1 | Port 2 interrupt | |
+| Waste, stock | P2.0, P2.1 | Port 2 interrupt | Stacks 8 and 9 in the schematic; in the bottom row |
 | Suits 1–4 | P2.2, P2.3, P2.4, P2.5 | Port 2 interrupt | |
-| SW1, SW2, SW3 | P3.0, P3.1, P3.2 | Port 3 interrupt | Below the stacks row |
+| SW1, SW2, SW3 | P3.0, P3.1, P3.2 | Port 3 interrupt | Bottom row, right of stock and waste |
 | Programming | TEST, RST | Spy-Bi-Wire | RST has a 47 kΩ pull-up and 1 nF |
 
 Unused pins (P1.7, P2.6, P2.7, P3.3–P3.7, P4.0–P4.4) are set as outputs driven low, the lowest-current state
@@ -249,13 +249,16 @@ and clears their bits. After a move `ui_draw` redraws only the piles the move ch
   pin to a role, so when buttons move on the board (likely, once the screen layout is settled) only that table
   and `hw/sol` change; the game and interface code don't.
 
-### Controls (proposal)
+### Controls
+
+The board's rows, top to bottom: suits 1–4; tableau stacks 1–7; stock, waste, new game, undo, options.
+
 
 | Button | Meaning |
 | --- | --- |
 | Stacks 1–7 | Tableau columns 1–7, left to right |
-| Stack 8 | Waste |
-| Stack 9 | Stock: deal to the waste (or turn the waste over when the stock is empty) |
+| Waste (stack 8) | Waste |
+| Stock (stack 9) | Stock: deal to the waste (or turn the waste over when the stock is empty) |
 | Suits 1–4 | Foundations 1–4 |
 | SW1 | New game (press twice to confirm) |
 | SW2 | Undo |
@@ -350,7 +353,7 @@ That gets a win screen, and the win is added to the statistics.
 
 Each step ends with something visible in the simulator and, from step 2, an automated test.
 
-1. **Skeleton**: the module files, `sys_init` (watchdog held during set-up, 8 MHz, REFO LP for ACLK, TB0 time
+1. **Skeleton** (details in `STEP1-skeleton.md`): the module files, `sys_init` (watchdog held during set-up, 8 MHz, REFO LP for ACLK, TB0 time
    base, unused pins low, LOCKLPM5 cleared, watchdog started on ACLK), the sleep loop with its kick. Check: MCLK
    8 MHz, the CPU asleep in LPM3, no reset over 10 simulated minutes of idle, and a deliberate hang (a test build
    with an endless loop) reset within 256 s with `SYSRSTIV` 0x16.
@@ -376,8 +379,9 @@ Each step ends with something visible in the simulator and, from step 2, an auto
 
 ## Open decisions
 
-- **Button mapping**: the table above is provisional; buttons will move to suit the screen layout once it's
-  designed.
+- **Button mapping**: settled on 2026-11-13: the waste and stock buttons moved from the end of the stacks row
+  to the bottom row, stock at the left, as on the screen. The pins didn't change, so only `hw/sol`, the
+  simulator's board picture and the button test screen did.
 
 ## References
 

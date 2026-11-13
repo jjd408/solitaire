@@ -79,7 +79,8 @@ uses only 5 of the FR2355's 34 GPIO, so there are plenty to spare.
 
 All four ports (P1–P4) have pin interrupts that wake the MCU from every low-power mode, including
 LPMx.5, so buttons can go on any of them. The schematic has 16: nine for the stacks (P1.0–P1.6, P2.0–P2.1),
-four for the suits (P2.2–P2.5) and three more on P3.0–P3.2. Each switches to GND, using the MCU's internal
+four for the suits (P2.2–P2.5) and three more on P3.0–P3.2. Stacks 1–7 are the tableau's columns; stacks 8
+and 9 (SW11, SW12) are the waste and the stock, and sit in the bottom row with SW1–SW3. Each switches to GND, using the MCU's internal
 pull-ups.
 
 ### Power
@@ -140,8 +141,8 @@ part is on the front:
 |                       |            |  C8 C6 U1  R4 C7  J3 SBW  |
 |                 C4 C3 [ connector  ] C5                        |
 |          [S1]     [S2]      [S3]      [S4]           suits     |
-|  [1]  [2]  [3]  [4]  [5]  [6]  [7]  [8]  [9]          stacks   |
-|  o            [SW1]   [SW2]   [SW3]                        o   |
+|       [1]  [2]  [3]  [4]  [5]  [6]  [7]               stacks   |
+|  o  [STOCK] [WASTE] [NEW] [UNDO] [OPTIONS]                 o   |
 +----------------------------------------------------------------+
 ```
 
@@ -151,8 +152,10 @@ part is on the front:
   from under them, and carries the display's 3D model; silkscreen corner marks line the glass up. Tracks and
   tented vias do run under the glass. The FPC's end is taken to go 2.63 mm past the connector's pad row, which
   puts the glass's bottom edge 11.0 mm above it; the case should allow ±0.5 mm there.
-- **Buttons** follow the simulator's Solitaire board: suits S1–S4 (SW13–16) on a 9.75 mm pitch, stacks 1–9
-  (SW4–12) on 6.5 mm, then SW1–SW3, each labelled on the silkscreen.
+- **Buttons** follow the simulator's Solitaire board: suits S1–S4 (SW13–16) on a 9.75 mm pitch, the seven
+  tableau stacks (SW4–10) on 6.5 mm, then a bottom row on 9.75 mm: stock (SW12), waste (SW11), new game (SW1),
+  undo (SW2) and options (SW3), stock and waste at the left as they are on the screen. Each is labelled on the
+  silkscreen with its number or job.
 - **MCU** right of the connector, so its SCS/SI/SCLK pins face the connector's signal pads; C6 and C8 by DVCC.
 - **Power** left of the display: the battery pads (TP1 +, TP2 −) for the holder's leads, then the TPS63900 with
   L1 straight across from its LX pins, C1 at VIN, C2 under VOUT and the CFG resistors beside their pins.

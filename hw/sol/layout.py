@@ -17,8 +17,8 @@ The board, front side (all parts are on the front):
     |                       |            |       U1 (MCU)    J3 SBW  |
     |                 C4 C3 [ connector  ] C5                        |
     |          [S1]     [S2]      [S3]      [S4]           suits     |
-    |  [1]  [2]  [3]  [4]  [5]  [6]  [7]  [8]  [9]          stacks   |
-    |  o            [SW1]   [SW2]   [SW3]                        o   |
+    |       [1]  [2]  [3]  [4]  [5]  [6]  [7]               stacks   |
+    |  o  [STOCK] [WASTE] [NEW] [UNDO] [OPTIONS]                 o   |
     +----------------------------------------------------------------+
 
 The display lies face up on the board with its FPC running straight down into the connector (the library's
@@ -74,15 +74,18 @@ PLACE = {
     "R2": (6.6, 22.15, 180),   # CFG2 511
     "R3": (6.6, 23.7, 180),    # CFG3 13.3k
 }
-# Buttons, in the simulator's arrangement: suits (SW13-16), stacks 1-9 (SW4-12), then SW1-3.
+# Buttons, in the simulator's arrangement: suits (SW13-16), the seven tableau stacks (SW4-10), then the bottom
+# row: stock and waste (SW12, SW11: stacks 9 and 8 in the schematic, on P2.1 and P2.0) and SW1-3 (new game, undo,
+# options). Stock and waste sit at the left as they do on the screen, the commands to their right.
 # SW4-16 have their signal pads (2) on the bottom, so they're turned over to face the MCU above them;
 # SW1-3's signal pads (1) are already on top.
 for i in range(4):
     PLACE[f"SW{13 + i}"] = (W / 2 + (i - 1.5) * ROW_PITCH, 56.0, 180)
-for i in range(9):
-    PLACE[f"SW{4 + i}"] = (W / 2 + (i - 4) * STACK_PITCH, 64.0, 180)
-for i in range(3):
-    PLACE[f"SW{1 + i}"] = (W / 2 + (i - 1) * ROW_PITCH, 72.0, 0)
+for i in range(7):
+    PLACE[f"SW{4 + i}"] = (W / 2 + (i - 3) * STACK_PITCH, 64.0, 180)
+BOTTOM_ROW = [("SW12", "STOCK"), ("SW11", "WASTE"), ("SW1", "NEW"), ("SW2", "UNDO"), ("SW3", "OPTIONS")]
+for i, (ref, _) in enumerate(BOTTOM_ROW):
+    PLACE[ref] = (W / 2 + (i - 2) * ROW_PITCH, 72.0, 180 if ref in ("SW11", "SW12") else 0)
 
 HOLES = [(3.5, 3.5), (W - 3.5, 3.5), (3.5, H - 3.5), (W - 3.5, H - 3.5)]
 
@@ -93,10 +96,10 @@ LABELS = [("SOLITAIRE", W / 2, 77.0, 1.2), ("+", 3.2, 11.0, 1.2), ("−", 3.2, 1
           ("GND", 57.6, 44.12, 0.8)]
 for i, s in enumerate(["S1", "S2", "S3", "S4"]):
     LABELS.append((s, W / 2 + (i - 1.5) * ROW_PITCH, 59.0, 0.8))
-for i in range(9):
-    LABELS.append((str(i + 1), W / 2 + (i - 4) * STACK_PITCH, 67.0, 0.8))
-for i in range(3):
-    LABELS.append((f"SW{i + 1}", W / 2 + (i - 1) * ROW_PITCH - 4.3, 72.0, 0.8))
+for i in range(7):
+    LABELS.append((str(i + 1), W / 2 + (i - 3) * STACK_PITCH, 67.0, 0.8))
+for i, (_, name) in enumerate(BOTTOM_ROW):
+    LABELS.append((name, W / 2 + (i - 2) * ROW_PITCH, 74.9, 0.8))
 
 def mm(x, y):
     return pcbnew.VECTOR2I(pcbnew.FromMM(OX + x), pcbnew.FromMM(OY + y))
