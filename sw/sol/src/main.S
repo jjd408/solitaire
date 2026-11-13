@@ -6,7 +6,7 @@
 /* Which test screen to show until the game exists: 1 the step 2 pattern, 2 the step 3 card sheet, 3 the
    step 4 button screen. The tests choose with -DTEST_SCREEN=n; NetBeans builds the latest. */
 #ifndef TEST_SCREEN
-#define TEST_SCREEN 2
+#define TEST_SCREEN 3
 #endif
 
         .text
