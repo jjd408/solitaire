@@ -34,9 +34,8 @@ On jlcpcb.com:
 3. **Upload `jlc-bom.csv` and `jlc-cpl.csv`.** Check that every part is matched and in stock. The two to watch
    are the **MCU (C2053375)** and the **display connector (C425133)**, which have been short. If one is out,
    use JLCPCB's global sourcing or pre-order it into your parts store; either adds days.
-4. **Check every part's rotation in the 3D preview**, and rotate any that are wrong. JLCPCB's footprints don't
-   always share KiCad's zero; the usual suspects are U1, U2, Q1, L1, DS1 and the switches. Compare pin 1 with
-   the dots on U1 and U2, and DS1's chamfered corner on `sol-assembly.pdf`.
+4. **Check every part's rotation in the 3D preview**, and rotate any that are wrong: see *Checking part
+   rotations* below. U1, U2, Q1 and DS1 are the ones that matter.
 5. **J3, the programming header, is the only through-hole part.** If the Economic tier won't fit it, leave it off
    and solder it by hand (4 pins).
 6. Check the total, which shows import duties if any, and order.
@@ -44,6 +43,34 @@ On jlcpcb.com:
 **Estimated cost:** about **$90–125** for 2 assembled boards (plus 3 bare), including shipping, before any import
 duty: 5 bare boards ~$20–25, assembly setup ~$8, ~$3 for each kind of part not on JLCPCB's standard reels
 (~$30–45 here), parts ~$12–18, shipping ~$15–25. For comparison, 5 assembled boards would be about $110–145.
+
+### Checking part rotations
+
+The placement file gives each part's rotation measured from its footprint's "zero" orientation, and KiCad and
+JLCPCB don't always agree on what zero is: JLCPCB places parts from its own footprint library (made in EasyEDA),
+and for some packages its zero is turned 90° or 180° from KiCad's. Uncorrected, the machine fits the part turned
+on its pads, which for a chip means power on the wrong pins.
+
+| Part | If it's turned wrong | Check |
+| --- | --- | --- |
+| U1, the MCU (TSSOP-38) | Rotated 180°, pin 1 lands where pin 20 should be | **Pin 1** |
+| U2, the regulator (WSON-10) | The same | **Pin 1** |
+| Q1, the MOSFET (SOT-23) | Its three pins are asymmetric: gate, source and drain swap. SOT-23 is often 180° out | **Pin 1** |
+| DS1, the display connector | The ribbon can't go in, or goes in from the wrong side | **The chamfered corner** |
+| L1 and the 16 switches | Symmetric: 180° doesn't matter, 90° would be visibly off its pads | Pads line up |
+| Capacitors and resistors | No polarity: 180° is harmless, 90° would be obvious | Pads line up |
+
+In JLCPCB's order page, after uploading the BOM and placement file, the preview draws each part on its pads:
+
+1. Check each part's pads line up with the board's.
+2. For U1, U2 and Q1, find the part's pin-1 mark (a dot or a bevelled corner) and check it's at the board's pin 1.
+   `sol-assembly.pdf` shows where pin 1 is: the dots by U1 and U2, and DS1's chamfered corner.
+3. Rotate any part that's wrong with the preview's rotate button, in 90° steps, until it lines up. It applies to
+   this order only.
+
+JLCPCB's engineers also review assembly orders and often email about anything that looks wrong: a safety net, but
+not a replacement for checking. For frequent orders, the KiCad plugin *JLCPCB Tools* (by Bouni) keeps a database of
+these corrections and writes the JLCPCB files with them applied.
 
 ### Parts substituted in the BOM
 
