@@ -139,8 +139,7 @@ them into one program.
 | `gfx.S` | Framebuffer drawing: fill, invert, glyphs, text, cards, dirty-line marking | `gfx_card`, `gfx_text`, `gfx_fill`, ... |
 | `font.S` | Rank and suit glyphs, a small text font, card back pattern (FRAM constants) | data only |
 | `buttons.S` | Port set-up, interrupt routines, debounce, event queue | `btn_init`, `btn_next` |
-| `rng.S` | Pseudo-random numbers (xorshift32) and seeding | `rng_seed`, `rng_next` |
-| `game.S` | Klondike model: deal, legal moves, applying and undoing moves, win check | `game_new`, `game_move`, `game_undo` |
+| `game.S` | Klondike model: random numbers (xorshift32), the piles, deal, legal moves, applying and undoing moves, win check | `rng_seed`, `rng_next`, `rng_below`, `pile_push`, `pile_pop`, `game_new`, `game_move`, `game_undo` |
 | `ui.S` | What a button means in the current state, selection, layout, what to redraw | `ui_button`, `ui_draw` |
 | `store.S` | FRAM write-protection discipline, validating the saved game | `store_open`, `store_close`, `store_valid` |
 
@@ -363,7 +362,7 @@ Each step ends with something visible in the simulator and, from step 2, an auto
    of all 52 cards.
 4. **Buttons** (details in `STEP4-buttons.md`): interrupts, debounce, event queue; a test screen that marks each button pressed (like
    `buttons.c`). Check: scripted presses, including bouncing ones, give exactly one event each.
-5. **Game model**: cards, piles in `.persistent`, rng, shuffle, deal, the draw of the opening layout. Check:
+5. **Game model** (details in `STEP5-game.md`): cards, piles in `.persistent`, rng, shuffle, deal, the draw of the opening layout. Check:
    seeded deals match expected layouts.
 6. **Moves**: rules, multi-card moves, stock and waste, automatic turn-over, win detection. Check: scripted games,
    including a full winning game from a known seed.
