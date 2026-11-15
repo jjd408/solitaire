@@ -112,15 +112,17 @@ screen() {
         *) problems="$problems; the display is off (DISP 0)" ;;
     esac
 
-    approved=$here/$name.pbm
+    against=${APPROVED:-$name}                          # APPROVED=OTHER: compare with OTHER.pbm instead
+    APPROVED=                                           # (some shells keep it after the call: just this once)
+    approved=$here/$against.pbm
     new=$here/$name.new.pbm
     if [ ! -f "$approved" ]; then
         cp "$got" "$new"
         problems="$problems; no approved picture yet: look at tests/$name.new.pbm and, if it's right, rename it"
-        problems="$problems to $name.pbm"
+        problems="$problems to $against.pbm"
     elif ! cmp -s "$got" "$approved"; then
         cp "$got" "$new"
-        problems="$problems; the screen differs from tests/$name.pbm: see tests/$name.new.pbm"
+        problems="$problems; the screen differs from tests/$against.pbm: see tests/$name.new.pbm"
     else
         rm -f "$new"
     fi
@@ -151,6 +153,33 @@ counts() {
     fi
 }
 
+# deal NAME BUILD SEED DEALS: checks the game in FRAM, from the --peek of the last run (screen or run_only),
+# against tests/deal.py's reference deal for that seed, and that DEALS games have been dealt
+deal() {
+    name=$1
+    addr=$("$nm" "$out/$2.elf" | awk '$3 == "game_magic" { print toupper(substr($1, length($1) - 3)) }')
+    if result=$(echo "$report" | python3 "$here/deal.py" "$addr" "$3" "$4"); then
+        pass "$name piles"
+    else
+        fail "$name piles: $(echo "$result" | head -3 | tr '\n' ' ')"
+    fi
+}
+
+# run_only BUILD SECONDS [runner options...]: runs without the display model, for a deal check
+run_only() {
+    hex=$out/$1.hex
+    seconds=$2
+    shift 2
+    report=$("$run" "$hex" --seconds "$seconds" --tick 1e6 "$@" 2>&1)
+}
+
+# game_peek BUILD: the runner option that dumps the game (store.S's .persistent block, 129 words)
+game_peek() {
+    echo "--peek $("$nm" "$out/$1.elf" | awk '$3 == "game_magic" { print $1 }'):129"
+}
+
+build game -DTEST_SEED=0x1234
+build game5678 -DTEST_SEED=0x5678
 build pattern -DTEST_SCREEN=1
 build cards -DTEST_SCREEN=2
 build buttons -DTEST_SCREEN=3
@@ -192,6 +221,17 @@ screen step4_buttons buttons 7.2 --peek "$("$nm" "$out/buttons.elf" | awk '$3 ==
     --pin 25=0@6.0 --pin 2=0@6.001 --pin 25=z@6.2 --pin 2=z@6.2 \
     --pin 26=0@6.4 --pin 26=z@6.5 --pin 26=0@6.7 --pin 26=z@6.8
 counts step4_buttons buttons "0 2 2 2 1 1 1 1 1 3 2 1 1 1 1 2 1"
+
+# Step 5: the game. SW1 (NEW) is package pin 3; RST is pin 9 (driven high again, as its pull-up is on the board).
+# The builds deal from a fixed seed (-DTEST_SEED), so each deal is known; deal.py works it out independently.
+screen step5_title game 2                               # a fresh chip: no game yet, the title screen
+screen step5_deal game 1.5 $(game_peek game) --pin 3=0@0.5 --pin 3=z@0.6
+deal step5_deal game 0x1234 1
+APPROVED=step5_deal screen step5_kept game 2 $(game_peek game) --pin 3=0@0.5 --pin 3=z@0.6 \
+    --pin 9=0@1.2 --pin 9=1@1.21                        # reset after the deal: the same game, drawn again
+deal step5_kept game 0x1234 1
+run_only game5678 1.5 $(game_peek game5678) --pin 3=0@0.5 --pin 3=z@0.6
+deal step5_seed_5678 game5678 0x5678 1
 
 echo "$passed passed, $failed failed"
 [ "$failed" -eq 0 ]

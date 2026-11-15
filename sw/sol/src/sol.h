@@ -39,3 +39,18 @@
 #define B_OPTIONS   16          /* open or close the options screen */
 #define B_ROLES     17          /* how many role numbers there are, counting B_NONE: sizes tables by role */
 
+/* Piles (STEP5-game.md): numbers for pile_count, pile_top, pile_card, pile_push, pile_pop */
+#define P_STOCK     0
+#define P_WASTE     1
+#define P_FOUND1    2           /* foundations 1-4: P_FOUND1 + n - 1 */
+#define P_TAB1      6           /* tableau columns 1-7: P_TAB1 + n - 1 (= role B_TABLEAU1 + 5) */
+#define P_PILES     13          /* how many */
+#define GAME_MAGIC  0x50CA      /* in game_magic once a game has been dealt */
+
+/* Layout (PLAN.md, Layout): columns 20 pixels apart, the top row at y 2, the tableau from y 30 */
+#define COL_X(n)    (2 + 20 * (n))
+#define TOP_Y       2
+#define TABLE_Y     30
+#define STRIP_DOWN  3           /* lines a face-down card shows when another covers it */
+#define STRIP_UP    10          /* lines a face-up card shows when another covers it */
+#define STATUS_Y    161         /* the status line, in the small font */

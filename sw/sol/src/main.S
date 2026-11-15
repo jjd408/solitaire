@@ -3,10 +3,10 @@
 #include <msp430.h>
 #include "sol.h"
 
-/* Which test screen to show until the game exists: 1 the step 2 pattern, 2 the step 3 card sheet, 3 the
-   step 4 button screen. The tests choose with -DTEST_SCREEN=n; NetBeans builds the latest. */
+/* What to build: 0 the game; or a test screen: 1 the step 2 pattern, 2 the step 3 card sheet, 3 the step 4
+   button screen. The tests choose with -DTEST_SCREEN=n; NetBeans builds the game. */
 #ifndef TEST_SCREEN
-#define TEST_SCREEN 3
+#define TEST_SCREEN 0
 #endif
 
         .text
@@ -20,12 +20,14 @@ main:
         call    #system                                 ; init clocks and io ports
         call    #lcd                                    ; init display
         call    #buttons                                ; init buttons io
-#if TEST_SCREEN == 1
+#if TEST_SCREEN == 0
+        call    #ui_start                               ; the game kept in FRAM, or the title screen
+#elif TEST_SCREEN == 1
         call    #test_pattern                           ; step 2's test picture
+#elif TEST_SCREEN == 2
+        call    #card_sheet                             ; step 3's sheet of cards
 #elif TEST_SCREEN == 3
         call    #button_screen                          ; step 4's button test screen
-#else
-        call    #card_sheet                             ; step 3's sheet of cards
 #endif
 loop:
         mov.w   #WDT_RUN, &WDTCTL                       ; kick the watchdog
@@ -42,7 +44,9 @@ loop:
         call    #q_pop                                  ; R12 = the next event's role, or 0
         tst.w   R12
         jz      loop                                    ; none (a timer wake-up): back round
-#if TEST_SCREEN == 3
+#if TEST_SCREEN == 0
+        call    #ui_button                              ; the game does what the button means
+#elif TEST_SCREEN == 3
         call    #button_event                           ; the button test screen counts it
 #endif
         jmp     loop                                    ; for the next event

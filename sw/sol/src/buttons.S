@@ -12,6 +12,9 @@ p3_locked: .skip 1
 p1_seen: .skip  1                                       ; locked pins that read released on the last tick
 p2_seen: .skip  1
 p3_seen: .skip  1
+        .balign 2
+        .global press_time
+press_time: .skip 2                                     ; TB0's count at the latest press: the seed's randomness
 
         .section __interrupt_vector_timer0_b0, "ax", @progbits ; TB0 CCR0: the debounce tick
         .word   timer0_b0_isr
@@ -110,6 +113,17 @@ tick_start:
         bis.w   #CCIE, &TB0CCTL0                        ; interrupt when TB0R reaches TB0CCR0
 2:      ret
 
+; stamp: notes TB0's count (512 Hz) in press_time, for seeding a new game from when NEW was pressed.
+;   in:      none
+;   out:     none
+;   changes: R13
+stamp:
+1:      mov.w   &TB0R, R13                              ; read twice: TB0 runs on ACLK, not the CPU's clock
+        cmp.w   &TB0R, R13
+        jne     1b
+        mov.w   R13, &press_time
+        ret
+
 ; timer0_b0_isr: the debounce tick, every 29 ms while any button is locked. A locked pin is unlocked once it
 ; has read released on two ticks in a row; then the tick goes on if anything is still locked, or stops.
 ;   changes: nothing (an interrupt saves all it uses)
@@ -163,6 +177,7 @@ timer0_b0_isr:
 ;   changes: nothing (an interrupt saves all it uses)
 p1_isr:
         pushm.w #4, R15                                 ; save R12-R15
+        call    #stamp                                  ; when it was pressed (changes R13, saved above)
 1:      mov.w   &P1IV, R13                              ; the next pending pin, 2 x (bit + 1), or 0; clears its flag
         tst.w   R13
         jz      2f
@@ -183,6 +198,7 @@ p1_isr:
 ;   changes: nothing (an interrupt saves all it uses)
 p2_isr:
         pushm.w #4, R15                                 ; save R12-R15
+        call    #stamp                                  ; when it was pressed (changes R13, saved above)
 1:      mov.w   &P2IV, R13                              ; the next pending pin, 2 x (bit + 1), or 0; clears its flag
         tst.w   R13
         jz      2f
@@ -204,6 +220,7 @@ p2_isr:
 ;   changes: nothing (an interrupt saves all it uses)
 p3_isr:
         pushm.w #4, R15                                 ; save R12-R15
+        call    #stamp                                  ; when it was pressed (changes R13, saved above)
 1:      mov.w   &P3IV, R13                              ; the next pending pin, 2 x (bit + 1), or 0; clears its flag
         tst.w   R13
         jz      2f
