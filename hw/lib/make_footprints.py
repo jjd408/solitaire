@@ -50,9 +50,13 @@ def rect(x1, y1, x2, y2, layer, width, name):
             f'\t\t(stroke (width {width}) (type solid)) (fill no) (layer "{layer}") (uuid "{uid(name)}")\n\t)\n')
 
 
-def pad(number, x, y, w, h, name):
+def pad(number, x, y, w, h, name, paste=None):
+    """An SMD pad. paste=(margin, ratio) shrinks its solder paste (a stencil opening) below the pad: KiCad makes
+    each side margin + ratio x that side's size."""
+    extra = "" if paste is None else (f" (solder_paste_margin {paste[0]:.3f})"
+                                       f" (solder_paste_margin_ratio {paste[1]:.2f})")
     return (f'\t(pad "{number}" smd roundrect (at {x:.3f} {y:.3f}) (size {w:.2f} {h:.2f})\n'
-            f'\t\t(layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (uuid "{uid(name)}")\n\t)\n')
+            f'\t\t(layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25){extra} (uuid "{uid(name)}")\n\t)\n')
 
 
 def ayf531035():
@@ -101,8 +105,11 @@ def ayf531035():
 
     s += rect(-cx, cy_top, cx, cy_bot, "F.CrtYd", 0.05, name + "crtyd")
 
+    # Signal pads' paste: Panasonic's recommended stencil opening, 0.25 x 0.55 mm for a 120 um stencil (57% of
+    # the pad, against bridging at 0.5 mm pitch): margin + ratio x size a side gives 0.30 -> 0.25 and 0.80 -> 0.55.
+    # The metal hold-down pads keep a full opening, as Panasonic says.
     for i in range(PINS):
-        s += pad(i + 1, first + i * PITCH, 0, PAD_W, PAD_H, f"{name}pad{i + 1}")
+        s += pad(i + 1, first + i * PITCH, 0, PAD_W, PAD_H, f"{name}pad{i + 1}", paste=(0.035, -0.20))
     s += pad("MP", -mp_x, -MP_BACK, MP_W, MP_H, name + "mp_l")
     s += pad("MP", mp_x, -MP_BACK, MP_W, MP_H, name + "mp_r")
     s += '\t(embedded_fonts no)\n)\n'
