@@ -5,6 +5,304 @@
 	(uuid "bc95c0d0-830b-4c86-8b60-22e5ba195640")
 	(paper "A4")
 	(lib_symbols
+		(symbol "Transistor_FET:IRLML6401"
+			(pin_names
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at 5.08 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "IRLML6401"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+				(at 5.08 -1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.infineon.com/dgdl/irlml6401pbf.pdf?fileId=5546d462533600a401535668b96d2634"
+				(at 5.08 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Description" "-4.3A Id, -12V Vds, 50mOhm Rds, P-Channel HEXFET Power MOSFET, SOT-23"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "P-Channel HEXFET MOSFET Logic-Level"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SOT?23*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "IRLML6401_0_1"
+				(polyline
+					(pts
+						(xy 0.254 1.905) (xy 0.254 -1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.254 0) (xy -2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 2.286) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 1.778) (xy 3.302 1.778) (xy 3.302 -1.778) (xy 0.762 -1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 0.508) (xy 0.762 -0.508)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 -1.27) (xy 0.762 -2.286)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.651 0)
+					(radius 2.794)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.286 0) (xy 1.27 0.381) (xy 1.27 -0.381) (xy 2.286 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 2.54) (xy 2.54 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.54 1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 -1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.794 -0.508) (xy 2.921 -0.381) (xy 3.683 -0.381) (xy 3.81 -0.254)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.302 -0.381) (xy 2.921 0.254) (xy 3.683 0.254) (xy 3.302 -0.381)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "IRLML6401_1_1"
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 5.08 270)
+					(length 2.54)
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector:TestPoint"
 			(pin_numbers
 				(hide yes)
@@ -4607,16 +4905,6 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 158.75) (xy 36.83 158.75)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "763de368-b0c1-45ba-b29f-ab110c7efe3a")
-	)
-	(wire
-		(pts
 			(xy 54.61 48.26) (xy 54.61 49.53)
 		)
 		(stroke
@@ -5177,7 +5465,7 @@
 	)
 	(wire
 		(pts
-			(xy 30.48 166.37) (xy 36.83 166.37)
+			(xy 30.48 166.37) (xy 31.75 166.37)
 		)
 		(stroke
 			(width 0)
@@ -5849,12 +6137,135 @@
 			)
 		)
 	)
+	(wire
+		(pts
+			(xy 31.75 166.37) (xy 36.83 166.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "040509bd-a540-4846-be1c-bb1622d7c363")
+	)
+	(junction
+		(at 31.75 166.37)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2aadd1e3-6f55-4bb1-b45e-8044eaa68db1")
+	)
+	(label "BATT_IN"
+		(at 26.67 158.75 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "64bb49ee-f908-4967-add6-bc87d33f6646")
+	)
+	(symbol
+		(lib_id "Transistor_FET:IRLML6401")
+		(at 31.75 161.29 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b9f5ad34-a7d8-47d9-892f-4b9471a00f98")
+		(property "Reference" "Q1"
+			(at 31.75 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "IRLML6401"
+			(at 31.75 155.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 31.75 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.infineon.com/dgdl/irlml6401pbf.pdf?fileId=5546d462533600a401535668b96d2634"
+			(at 31.75 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Reverse-battery protection: P-channel MOSFET, on (125 mOhm max at -1.8 V gate) with the cells the right way round, off when they are reversed"
+			(at 31.75 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Infineon"
+			(at 31.75 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "IRLML6401TRPBF"
+			(at 31.75 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C3034"
+			(at 31.75 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "85b61a70-da95-41a5-bf87-d8fa6a4d107a")
+		)
+		(pin "2"
+			(uuid "8c48ec90-3581-4d45-9176-84450f0bff55")
+		)
+		(pin "3"
+			(uuid "55048201-77a2-4954-a1ba-29accd536739")
+		)
+		(instances
+			(project ""
+				(path "/bc95c0d0-830b-4c86-8b60-22e5ba195640"
+					(reference "Q1")
+					(unit 1)
+				)
+			)
+		)
+	)
 	(symbol
 		(lib_id "Connector:TestPoint")
 		(at 26.67 166.37 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -5967,12 +6378,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "suit3"
+		(property "Function" "Suit 3"
 			(at 46.99 127.508 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 46.99 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 46.99 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 46.99 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -6042,12 +6480,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "suit4"
+		(property "Function" "Suit 4"
 			(at 46.99 142.748 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 46.99 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 46.99 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 46.99 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -6121,6 +6586,24 @@
 			)
 		)
 		(property "MPN" "GRM188R60J106ME47"
+			(at 36.83 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 36.83 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C77041"
 			(at 36.83 162.56 0)
 			(effects
 				(font
@@ -6208,6 +6691,24 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer" "Yageo"
+			(at 91.44 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C137703"
+			(at 91.44 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "941e617d-46ea-44ca-b187-2f20e85346ec")
 		)
@@ -6275,12 +6776,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "New Game"
+		(property "Function" "Undo"
 			(at 236.728 66.548 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 236.22 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 236.22 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 236.22 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -6350,12 +6878,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "stack9"
+		(property "Function" "Stock (stack 9)"
 			(at 46.99 70.358 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 46.99 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 46.99 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 46.99 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -6559,7 +7114,25 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "RC0603FR-0713K3L"
+		(property "MPN" "RT0603FRE0713K3L"
+			(at 81.28 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 81.28 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C863573"
 			(at 81.28 177.8 0)
 			(effects
 				(font
@@ -6631,6 +7204,24 @@
 		)
 		(property "Description" "Spy-Bi-Wire programming header, 1x4 2.54mm, pinned to match a LaunchPad eZ-FET's 3V3/TST/RST/GND jumpers"
 			(at 113.03 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "PZ254V-11-04P"
+			(at 113.03 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C492403"
+			(at 113.03 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6723,6 +7314,24 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer" "Murata"
+			(at 260.35 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C97888"
+			(at 260.35 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "4fa271c5-447a-43c7-8fa1-a8444386687c")
 		)
@@ -6790,12 +7399,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "stack5"
+		(property "Function" "Stack 5"
 			(at 25.4 108.458 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 25.4 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 25.4 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 25.4 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -6865,12 +7501,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "stack6"
+		(property "Function" "Stack 6"
 			(at 25.4 127.508 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 25.4 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 25.4 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 25.4 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -7076,6 +7739,24 @@
 			)
 		)
 		(property "MPN" "RC0603FR-0720K5L"
+			(at 99.06 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 99.06 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C273789"
 			(at 99.06 177.8 0)
 			(effects
 				(font
@@ -7349,12 +8030,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "Deal"
+		(property "Function" "New game"
 			(at 236.22 51.308 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 236.22 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 236.22 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 236.22 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -7484,6 +8192,33 @@
 		)
 		(property "Description" "MSP430FR2355 mixed-signal microcontroller, 32KB FRAM, 4KB RAM, 24MHz, TSSOP-38"
 			(at 147.32 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "MSP430FR2355TDBT"
+			(at 147.32 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Texas Instruments"
+			(at 147.32 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C2053375"
+			(at 147.32 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7667,6 +8402,33 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "AYF531035"
+			(at 232.41 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Panasonic"
+			(at 232.41 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C425133"
+			(at 232.41 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "a6d938b2-02ea-423f-afa4-b019acec7d21")
 		)
@@ -7758,12 +8520,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "suit1"
+		(property "Function" "Suit 1"
 			(at 46.99 89.408 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 46.99 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 46.99 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 46.99 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -7836,7 +8625,25 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "GRM188R71C104KA01"
+		(property "MPN" "GCJ188R71C104KA01D"
+			(at 90.17 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 90.17 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C710619"
 			(at 90.17 50.8 0)
 			(effects
 				(font
@@ -7865,7 +8672,7 @@
 		(at 26.67 158.75 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -8044,12 +8851,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "stack4"
+		(property "Function" "Stack 4"
 			(at 25.4 89.408 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 25.4 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 25.4 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 25.4 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -8186,6 +9020,33 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "TPS63900DSKR"
+			(at 66.04 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Texas Instruments"
+			(at 66.04 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C1518762"
+			(at 66.04 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "6979b653-5588-4e27-a7ee-096a79e402ac")
 		)
@@ -8280,12 +9141,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "suit2"
+		(property "Function" "Suit 2"
 			(at 46.99 108.458 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 46.99 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 46.99 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 46.99 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -8355,12 +9243,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "stack3"
+		(property "Function" "Stack 3"
 			(at 25.4 70.358 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 25.4 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 25.4 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 25.4 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -8574,6 +9489,24 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer" "Murata"
+			(at 248.92 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C97888"
+			(at 248.92 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "6d6b456a-e5c6-4600-9e34-ecfa31145e91")
 		)
@@ -8644,7 +9577,25 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "GRM188R71C104KA01"
+		(property "MPN" "GCJ188R71C104KA01D"
+			(at 205.74 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 205.74 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C710619"
 			(at 205.74 120.65 0)
 			(effects
 				(font
@@ -8720,12 +9671,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "stack1"
+		(property "Function" "Stack 1"
 			(at 25.4 33.528 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 25.4 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 25.4 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 25.4 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -8798,6 +9776,24 @@
 			)
 		)
 		(property "MPN" "DFE201612E-2R2M=P2"
+			(at 49.53 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 49.53 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C337893"
 			(at 49.53 173.99 0)
 			(effects
 				(font
@@ -8943,7 +9939,25 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "GRM187R60J226ME15"
+		(property "MPN" "GRM188R60J226ME15D"
+			(at 110.49 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 110.49 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C440187"
 			(at 110.49 162.56 0)
 			(effects
 				(font
@@ -9085,12 +10099,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "Undo"
+		(property "Function" "Options"
 			(at 236.22 80.518 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 236.22 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 236.22 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 236.22 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "2"
@@ -9160,12 +10201,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "stack8"
+		(property "Function" "Waste (stack 8)"
 			(at 46.99 51.308 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 46.99 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 46.99 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 46.99 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -9301,12 +10369,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "stack7"
+		(property "Function" "Stack 7"
 			(at 46.99 33.528 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 46.99 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 46.99 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 46.99 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -9442,12 +10537,39 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "stack2"
+		(property "Function" "Stack 2"
 			(at 25.4 51.308 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "MPN" "SKRPACE010"
+			(at 25.4 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Alps Alpine"
+			(at 25.4 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C139797"
+			(at 25.4 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -9521,6 +10643,24 @@
 			)
 		)
 		(property "MPN" "GRM188R60J475KE19"
+			(at 105.41 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 105.41 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C71631"
 			(at 105.41 50.8 0)
 			(effects
 				(font
@@ -9608,6 +10748,24 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer" "Yageo"
+			(at 213.36 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C105579"
+			(at 213.36 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "2a1f6d21-3cb2-4cbe-8311-e99ae491be75")
 		)
@@ -9679,6 +10837,24 @@
 			)
 		)
 		(property "MPN" "GRM188R71H102KA01"
+			(at 223.52 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Murata"
+			(at 223.52 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C71653"
 			(at 223.52 35.56 0)
 			(effects
 				(font

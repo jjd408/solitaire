@@ -65,6 +65,7 @@ PLACE = {
     "C7": (55.2, 43.4, 90),    # 1nF RST
     # power: battery pads, TPS63900 and its parts, left of the display
     "TP1": (6.0, 11.0, 0),     # Batt+
+    "Q1": (11.0, 13.0, 90),    # reverse-battery P-MOSFET between Batt+ and VBAT, its gate to ground
     "TP2": (6.0, 15.0, 0),     # Batt-
     "U2": (11.0, 22.0, 0),
     "L1": (14.4, 22.0, 90),    # LX1 (pin 2) up toward U2 pin 9, LX2 down toward pin 7
@@ -173,7 +174,7 @@ def net_classes():
     power = dict(default, name="Power", track_width=0.3, priority=0)
     ns["classes"] = [default, power]
     ns["netclass_patterns"] = [{"netclass": "Power", "pattern": n}
-                               for n in ["+3V0", "/VBAT", "GND", "Net-(U2-LX1)", "Net-(U2-LX2)"]]
+                               for n in ["+3V0", "/BATT_IN", "/VBAT", "GND", "Net-(U2-LX1)", "Net-(U2-LX2)"]]
     ds = p["board"]["design_settings"]
     ds["track_widths"] = [0.0, 0.2, 0.3]
     ds["via_dimensions"] = [{"diameter": 0.0, "drill": 0.0}, {"diameter": 0.6, "drill": 0.3}]
@@ -222,6 +223,9 @@ def main():
                 item.SetLayer(pcbnew.F_Fab)
     # the TPS63900's exposed pad and its thermal vias join the ground pour solidly, not through spokes
     fps["U2"].SetLocalZoneConnection(pcbnew.ZONE_CONNECTION_FULL)
+    # The drill/place origin at the board's bottom-left corner: make_fab.sh measures the Gerbers, drill and
+    # placement files from it, as board houses expect (x right, y up)
+    board.GetDesignSettings().SetAuxOrigin(mm(0, H))
     board.Save(PCB)
     net_classes()
     print(f"placed {len(PLACE)} parts on a {W:g} x {H:g} mm board")

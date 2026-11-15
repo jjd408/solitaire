@@ -35,7 +35,7 @@ EDGE = 0.5                     # copper to board edge
 VIA_D, VIA_DRILL = 0.6, 0.3
 VIA_SPACING = 0.9              # via centre to via centre, any nets
 NARROW = 0.2                   # signal width, and the width power tracks narrow to
-POWER = {"+3V0": 0.3, "/VBAT": 0.3, "GND": 0.3, "Net-(U2-LX1)": 0.3, "Net-(U2-LX2)": 0.3}
+POWER = {"+3V0": 0.3, "/BATT_IN": 0.3, "/VBAT": 0.3, "GND": 0.3, "Net-(U2-LX1)": 0.3, "Net-(U2-LX2)": 0.3}
 HMAX = 0.15                    # the widest track's half-width
 EPS = 0.01                     # allowance for the grid (a diagonal step's midpoint can be ~0.005 closer)
 
@@ -59,7 +59,7 @@ LOCAL = {"GND:U1": [("U1", "11"), ("C6", "2"), ("C8", "2")]}
 # Fine-pitch parts whose used pins get an escape corridor this long (mm) beyond the pad
 ESCAPE = {"U1": 1.2, "DS1": 1.0}
 
-NETS = ["Net-(U2-LX1)", "Net-(U2-LX2)", "Net-(U2-CFG1)", "Net-(U2-CFG2)", "Net-(U2-CFG3)", "/VBAT",
+NETS = ["Net-(U2-LX1)", "Net-(U2-LX2)", "Net-(U2-CFG1)", "Net-(U2-CFG2)", "Net-(U2-CFG3)", "/BATT_IN", "/VBAT",
         "Net-(DS1-SCLK)", "Net-(DS1-SI)", "Net-(DS1-SCS)", "Net-(DS1-EXTCOMIN)", "Net-(DS1-DISP)", "+3V0",
         "/RST", "Net-(J3-TEST{slash}SBWTCK)"]
 NETS += ["Net-(U1-P3.0{slash}MCLK)", "Net-(U1-P3.1{slash}OA2O)", "Net-(U1-P3.2{slash}OA2-)"]
@@ -593,6 +593,7 @@ class Board:
             z.SetPadConnection(pcbnew.ZONE_CONNECTION_THERMAL)
             z.SetIslandRemovalMode(pcbnew.ISLAND_REMOVAL_MODE_ALWAYS)
             b.Add(z)
+        solid_ground_pads(b)
         pcbnew.ZONE_FILLER(b).Fill(b.Zones())
         self.drop_dangling()
         self.repair()
@@ -748,6 +749,19 @@ class Board:
                   f"({len(self.tracks) - n0} tracks, {len(self.vias) - v0} vias)")
             pcbnew.ZONE_FILLER(b).Fill(b.Zones())
         print("  some ground pads may still be cut off")
+
+
+# The TPS63900's current loops, as TI's layout guidelines ask: its input and output capacitors' ground pads, its
+# GND pin and its thermal pad join the ground pour solidly, not through thermal-relief spokes (which ease
+# hand soldering but narrow the loops; the board is reflow-soldered).
+SOLID_GROUND = [("C1", "2"), ("C2", "2"), ("U2", "8"), ("U2", "11")]
+
+
+def solid_ground_pads(board):
+    for ref, num in SOLID_GROUND:
+        for pad in board.FindFootprintByReference(ref).Pads():
+            if pad.GetNumber() == num:
+                pad.SetLocalZoneConnection(pcbnew.ZONE_CONNECTION_FULL)
 
 
 def main():

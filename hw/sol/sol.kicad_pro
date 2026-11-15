@@ -517,6 +517,10 @@
       },
       {
         "netclass": "Power",
+        "pattern": "/BATT_IN"
+      },
+      {
+        "netclass": "Power",
         "pattern": "/VBAT"
       },
       {
