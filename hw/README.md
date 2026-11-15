@@ -32,6 +32,7 @@ schematic. The parts library is in `lib/`.
 | Display capacitors | Murata GRM188R71C104KA01 (0.1 µF) and 2 × GRM188R71A105KA61 (1 µF), X7R 0603 | Sharp's Figure 9-1: 0.1 µF DISP to VSS, 1 µF VDDA to VSSA, 1 µF VDD to VSS. |
 | Regulator configuration | Yageo RC0603FR-07 series, 1%: 20.5 kΩ (CFG1), 511 Ω (CFG2), 13.3 kΩ (CFG3) | Set 3.0 V out and a 100 mA input current limit; see Power below. |
 | Battery | 2 × AA in an open holder with a JST-PH lead (e.g. Adafruit #4194) | Cheap, easy to find, and long-lasting at this current draw. |
+| Reverse-battery protection | Infineon IRLML6401TRPBF P-channel MOSFET (SOT-23) | Fully on at the cells' lowest 1.8 V, costing about 12 mV; off if the cells go in backwards. See Power below. |
 | Buttons | ALPS SKRPACE010 tact switches | Low-profile, easy to source. |
 | Programming | 1 × 4, 2.54 mm Spy-Bi-Wire header: 3V0, TEST/SBWTCK, RST/SBWTDIO, GND | Same order as a LaunchPad eZ-FET's 3V3/TST/RST/GND jumpers, so four jumper wires run straight across. Needs a 47 kΩ pull-up on RST/SBWTDIO and at most 1.1 nF from it to GND (1 nF). |
 
@@ -102,16 +103,23 @@ The regulator reads three resistors to ground once at power-up (Tables 7-2 and 7
 | CFG2 | 511 Ω | 100 mA input current limit |
 | CFG3 | 13.3 kΩ | 3.0 V output when SEL is low |
 
-Both output settings are 3.0 V, so SEL's level doesn't matter; tie it to GND. Tie EN to VIN. Neither pin may be
+Both output settings are 3.0 V, so SEL's level doesn't matter; it's tied to VIN, like EN. Neither pin may be
 left open. The 100 mA limit still allows about 50 mA out with nearly flat cells at 1.8 V, far more than the
 board draws, and limits the input to about 26 mA if the output is shorted. Use resistors of 1% or better and
 200 ppm/°C or better, keep the CFG traces short, and put no capacitance on them (10 pF maximum).
 
 There's no power switch: the board is always on and relies on sleep. When programming, don't connect the
 debugger's 3.3 V while the batteries are in, or it will fight the regulator's output: either remove the batteries
-and let the debugger power the board (3.3 V is within the MCU's and display's limits), or leave its 3V3 wire off. The TPS63900 isn't protected against a
-reversed battery, so either add protection (a P-channel MOSFET costs almost no voltage) or check the battery
-lead's polarity against the connector's pin 1 before first power-up.
+and let the debugger power the board (3.3 V is within the MCU's and display's limits), or leave its 3V3 wire off.
+
+**Reverse-battery protection.** The TPS63900 isn't protected against reversed cells, so Q1, a P-channel MOSFET
+(Infineon IRLML6401TRPBF, SOT-23), sits in the positive lead between the battery pad (BATT_IN) and VBAT, its
+drain to the battery, source to VBAT, gate to GND. With the cells the right way round, its body diode starts
+the rail and the gate, 1.8–3.2 V below the source, turns it fully on: 125 mΩ at most at the cells' 1.8 V end,
+12 mV at the 100 mA input limit. Reversed, the gate is above the source and the body diode is backwards, so
+nothing conducts. It draws no current of its own. A series diode would cost 0.2–0.3 V, too much at 1.8 V; the
+IRLML6401 is one of the few small P-MOSFETs rated at a gate drive this low (its threshold is −0.4 to −0.95 V).
+Other makers sell parts named IRLML6401 with different ratings: order Infineon's.
 
 ### Display connector and FPC routing
 
@@ -189,10 +197,57 @@ the routed board by hand (or, once you do edit it by hand, stop rerunning them).
 Firmware toolchain: TI MSP430-GCC 9.3.1.11 at `~/ti/msp430-gcc` (`-mmcu=msp430fr2355`). The mspdebug source is in
 `~/ti/src/mspdebug` but isn't built yet; it needs `libusb-dev` and `libreadline-dev`.
 
+## Ordering
+
+`sh sol/make_fab.sh` checks the board (DRC with schematic parity) and writes `sol/fab/`: Gerbers and Excellon drill
+files (zipped as `sol-gerbers.zip`), the BOM (`sol-bom.csv`: manufacturer and part number for every part), the
+placement file (`sol-cpl.csv`) and an assembly drawing (`sol-assembly.pdf`, the parts' references). Coordinates are
+from the board's bottom-left corner. `fab/` isn't kept in git: rerun the script after any change.
+
+For the board house: 2 layers, 1.6 mm FR-4, 1 oz copper, ENIG finish (flat pads for the 0.5 mm-pitch WSON and FPC
+connector), 64 × 80 mm. Tracks and gaps are 0.2 mm at the least; the smallest holes are the TPS63900 footprint's
+0.2 mm thermal vias (the board's own vias are 0.3 mm). Bought separately: the display (LS013B7DH05, it plugs into
+DS1, the AYF531035) and the battery holder. J3, the programming header, is the only through-hole part.
+
+### Ordering from JLCPCB (2 assembled boards)
+
+The full ordering guide, with the displays, battery holders and a budget, is in [ORDERING.md](ORDERING.md).
+
+The schematic's LCSC field holds each part's JLCPCB/LCSC number, so `make_fab.sh` also writes `jlc-bom.csv` and
+`jlc-cpl.csv` in JLCPCB's format. On jlcpcb.com:
+
+1. Upload `fab/sol-gerbers.zip`. Board: 2 layers, 1.6 mm, quantity 5 (the minimum), surface finish **ENIG**.
+2. Turn on PCB Assembly: Economic, top side, **quantity 2** (the other 3 boards come bare).
+3. Upload `fab/jlc-bom.csv` and `fab/jlc-cpl.csv`. Check every part was matched and is in stock: the MCU (C2053375)
+   and the connector (C425133) are the ones to watch. A part that's out can be bought through JLCPCB's global
+   sourcing or pre-ordered into its parts store, at the cost of some days.
+4. **Check each part's rotation in the 3D preview** and rotate any that are wrong: JLCPCB's footprints don't always
+   share KiCad's zero, typically for U1, U2, Q1, L1, DS1 and the switches. Pin 1 marks: U1's and U2's dots, DS1's
+   chamfered corner on the assembly drawing.
+5. J3 is through-hole: if the assembly tier won't fit it, leave it off and solder it by hand (4 pins).
+
+Not from JLCPCB: the displays (LS013B7DH05, Mouser or DigiKey) and the battery holders.
+
+Substitutions in the BOM, each equal or better than the original part: C2 is GRM188R60J226ME15D (TI's list names
+GRM187R60J226ME15, which isn't sold); C5 and C6 are GCJ188R71C104KA01D (GRM188R71C104KA01 is obsolete); R3 is
+the thin-film RT0603FRE0713K3L (1%, 50 ppm/°C: the thick-film RC part isn't stocked). The MCU's LCSC listing is
+the reel packaging, MSP430FR2355TDBTR, the same chip.
+
+Reviewed before ordering (2026-11-14):
+- **The TPS63900 against TI's layout guidelines** (datasheet section 10): the input and output capacitors are
+  within 2 mm of their pins, all the regulator's tracks are on the top layer and at most about 1.5 mm, and the
+  capacitors' ground pads, the GND pin and the thermal pad share the top-layer ground pour. They now join it
+  solidly rather than through thermal-relief spokes (`route.py`'s `SOLID_GROUND`), keeping the loops short and
+  wide as TI asks.
+- **The AYF531035 footprint against Panasonic's recommended pattern** (Y5B datasheet, page 7): the pads, pitch
+  and hold-down pads match. The signal pads' solder paste now follows Panasonic's stencil pattern, 0.25 × 0.55 mm
+  for a 120 µm stencil, against bridging at 0.5 mm pitch.
+- **The BOM:** every part has its manufacturer and part number (the switches' button names moved to a separate
+  Function field), and the battery pads are left off it.
+
 ## Open items
 
-- Review the routed board in KiCad, in particular the TPS63900's layout against TI's guidelines, before ordering.
+- Choose the board house and whether it assembles the board; then check its stock of the MCU, the TPS63900, the
+  switches and the FPC connector, and convert the BOM and placement file to its format if it has one.
 - Confirm how far the FPC goes into the connector against a sample, and with it the display's position.
-- Check the AYF531035 footprint against Panasonic's product specification for the exact part.
-- Decide whether to add reverse-battery protection.
 - Design the case around the board and the display's outline (`lib/3d/LS013B7DH05.step`).

@@ -11,3 +11,6 @@ fp-info-cache
 # Generated or temporary
 __pycache__/
 *.FCBak
+
+# Order files: made by hw/sol/make_fab.sh
+hw/sol/fab/
