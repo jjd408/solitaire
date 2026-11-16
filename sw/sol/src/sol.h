@@ -45,6 +45,7 @@
 #define P_FOUND1    2           /* foundations 1-4: P_FOUND1 + n - 1 */
 #define P_TAB1      6           /* tableau columns 1-7: P_TAB1 + n - 1 (= role B_TABLEAU1 + 5) */
 #define P_PILES     13          /* how many */
+#define P_SCRATCH   13          /* pile_move's scratch pile, in RAM: not one of the game's 13 */
 #define GAME_MAGIC  0x50CA      /* in game_magic once a game has been dealt */
 
 /* Layout (PLAN.md, Layout): columns 20 pixels apart, the top row at y 2, the tableau from y 30 */
@@ -54,3 +55,11 @@
 #define STRIP_DOWN  3           /* lines a face-down card shows when another covers it */
 #define STRIP_UP    10          /* lines a face-up card shows when another covers it */
 #define STATUS_Y    161         /* the status line, in the small font */
+
+/* The move record (STEP6-moves.md): 4 bytes, enough to undo the move exactly */
+#define M_SOURCE    0           /* byte offsets: the pile the cards came from */
+#define M_DEST      1           /* the pile they went to */
+#define M_COUNT     2           /* how many cards moved */
+#define M_FLAGS     3           /* what else happened: */
+#define M_TURNED    1           /*   the source's new top card was turned face up */
+#define M_RECYCLED  2           /*   the waste was turned back over into the stock */

@@ -364,7 +364,7 @@ Each step ends with something visible in the simulator and, from step 2, an auto
    `buttons.c`). Check: scripted presses, including bouncing ones, give exactly one event each.
 5. **Game model** (details in `STEP5-game.md`): cards, piles in `.persistent`, rng, shuffle, deal, the draw of the opening layout. Check:
    seeded deals match expected layouts.
-6. **Moves**: rules, multi-card moves, stock and waste, automatic turn-over, win detection. Check: scripted games,
+6. **Moves** (details in `STEP6-moves.md`): rules, multi-card moves, stock and waste, automatic turn-over, win detection. Check: scripted games,
    including a full winning game from a known seed.
 7. **Interface**: two-press moves, selection display, same-button-twice to foundation, status line, layout
    compression of long columns, win screen.

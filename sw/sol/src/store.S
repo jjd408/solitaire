@@ -7,7 +7,7 @@
 ; store_open first.
         .section .persistent, "aw"
         .balign 2
-        .global game_magic, seed, rng, deals
+        .global game_magic, seed, rng, deals, moves, draw, passes, won, last_move
 game_magic: .word 0                                     ; GAME_MAGIC once a game has been dealt
 seed:   .word   0, 0                                    ; the deal's seed (32 bits)
 rng:    .word   0, 0                                    ; the generator's state
@@ -26,14 +26,22 @@ tab4:   .skip   20
 tab5:   .skip   20
 tab6:   .skip   20
 tab7:   .skip   20
+; The game in play: its rules, its progress and its last move
+        .balign 2                                       ; moves is a word: on an even address whatever comes before
+moves:  .word   0                                       ; moves made this game, for the status line
+draw:   .byte   3                                       ; cards a stock move deals, 1 or 3: set by game_new
+passes: .byte   0                                       ; times the waste has been turned back into the stock
+won:    .byte   0                                       ; non-zero once the game is won
+last_move: .skip 4                                      ; the last move's record (M_SOURCE ... in sol.h)
 
-; pile_addr: each pile's address, by pile number (P_STOCK ... P_TAB1 + 6 in sol.h), for the pile routines in game.S
+; pile_addr: each pile's address, by pile number (P_STOCK ... P_TAB1 + 6 in sol.h, and P_SCRATCH, game.S's
+; scratch pile in RAM), for the pile routines in game.S
         .section .rodata
         .balign 2
         .global pile_addr
 pile_addr:
         .word   stock, waste, found1, found2, found3, found4
-        .word   tab1, tab2, tab3, tab4, tab5, tab6, tab7
+        .word   tab1, tab2, tab3, tab4, tab5, tab6, tab7, scratch
 
         .text
 

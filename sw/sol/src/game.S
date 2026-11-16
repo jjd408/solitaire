@@ -2,10 +2,10 @@
 ; .S files go through the C preprocessor, so TI's names from msp430.h work here.
 #include <msp430.h>
 #include "sol.h"
-
         .section .bss
+        .global scratch
 deck:   .skip   52                                      ; scratch for shuffling: 52 cards, one byte each
-
+scratch: .skip  25                                      ; pile_move's scratch pile (P_SCRATCH): a count, 24 cards
         .text
 
 ; ---- random numbers: xorshift32 (Marsaglia), its 32-bit state in rng (store.S, saved with the game) ----
@@ -188,6 +188,48 @@ pile_pop:
         dec.w   R15
         mov.b   R15, 0(R14)                             ; one card fewer
         ret
+
+; pile_move: moves the top count cards of one pile onto another, keeping their order: through the scratch pile
+; (popping them onto it reverses them; popping them off again puts them back). FRAM must be writable
+; (store_open): the caller opens it once for the whole move, as it changes more than the piles.
+;   in:      R12 = the source pile (with at least count cards), R13 = the destination pile, R14 = count (0: does
+;            nothing)
+;   out:     none
+;   changes: R12-R15
+pile_move:
+        tst.w   R14
+        jz      3f                                      ; no cards: nothing to do
+        pushm.w #3, R10                                 ; R8-R10
+        mov.w   R12, R8                                 ; R8 = the source
+        mov.w   R13, R9                                 ; R9 = the destination
+        mov.w   R14, R10                                ; R10 = cards still to take
+1:      mov.w   R8, R12
+        call    #pile_pop                               ; the source's top card...
+        mov.w   R12, R13
+        mov.w   #P_SCRATCH, R12
+        call    #pile_push                              ; ...onto the scratch pile (reversed)
+        dec.w   R10
+        jnz     1b
+2:      mov.w   #P_SCRATCH, R12
+        call    #pile_pop                               ; the scratch pile's top card...
+        mov.w   R12, R13
+        mov.w   R9, R12
+        call    #pile_push                              ; ...onto the destination (back in order)
+        tst.b   &scratch                                ; scratch's count: 0 = empty
+        jnz     2b                                      ; cards left: take the next
+        popm.w  #3, R10
+3:      ret
+
+; card_red: tests a card's colour: Z clear if it's red (jnz red), set if it's black.
+;   reg = the register holding the card
+        .macro  card_red reg
+        bit.b   #HEARTS, \reg
+        .endm
+
+; card_rank: leaves only a card's rank (1-13) in reg.
+        .macro  card_rank reg
+        and.b   #RANK_MASK, \reg
+        .endm
 
 ; ---- a new game ----
 

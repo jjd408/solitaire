@@ -1,4 +1,4 @@
-; ui.S: MSP430FR2355 assembly (GNU as)
+; ui    .S: MSP430FR2355 assembly (GNU as)
 ; .S files go through the C preprocessor, so TI's names from msp430.h work here.
 ;
 ; The interface: what a button means, and drawing the table (PLAN.md, Layout):
