@@ -12,5 +12,6 @@ fp-info-cache
 __pycache__/
 *.FCBak
 
-# Order files: made by hw/sol/make_fab.sh
+# Order files: made by hw/sol/make_fab.sh; case files: made by hw/case/make_case.sh
 hw/sol/fab/
+hw/case/out/

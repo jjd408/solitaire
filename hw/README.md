@@ -250,4 +250,5 @@ Reviewed before ordering (2026-11-14):
 - Choose the board house and whether it assembles the board; then check its stock of the MCU, the TPS63900, the
   switches and the FPC connector, and convert the BOM and placement file to its format if it has one.
 - Confirm how far the FPC goes into the connector against a sample, and with it the display's position.
-- Design the case around the board and the display's outline (`lib/3d/LS013B7DH05.step`).
+- Print the case (`case/`, made by `case/make_case.sh`) and check its fit: one cap and the front first; measure
+  the battery holder before printing the back.
