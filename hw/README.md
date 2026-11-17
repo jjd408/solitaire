@@ -207,7 +207,9 @@ from the board's bottom-left corner. `fab/` isn't kept in git: rerun the script 
 For the board house: 2 layers, 1.6 mm FR-4, 1 oz copper, ENIG finish (flat pads for the 0.5 mm-pitch WSON and FPC
 connector), 64 × 80 mm. Tracks and gaps are 0.2 mm at the least; the smallest holes are the TPS63900 footprint's
 0.2 mm thermal vias (the board's own vias are 0.3 mm). Bought separately: the display (LS013B7DH05, it plugs into
-DS1, the AYF531035) and the battery holder. J3, the programming header, is the only through-hole part.
+DS1, the AYF531035) and the battery holder. J3, the programming header, is marked do-not-populate (the case has
+no room for it): its plated holes are drilled, and a header or pogo pins pressed into them from the back program
+the board, so every fitted part is surface-mount.
 
 ### Ordering from JLCPCB (2 assembled boards)
 
@@ -224,7 +226,7 @@ The schematic's LCSC field holds each part's JLCPCB/LCSC number, so `make_fab.sh
 4. **Check each part's rotation in the 3D preview** and rotate any that are wrong: JLCPCB's footprints don't always
    share KiCad's zero, typically for U1, U2, Q1, L1, DS1 and the switches. Pin 1 marks: U1's and U2's dots, DS1's
    chamfered corner on the assembly drawing.
-5. J3 is through-hole: if the assembly tier won't fit it, leave it off and solder it by hand (4 pins).
+5. J3 isn't in the BOM or placement file (do-not-populate), so the order is all surface-mount.
 
 Not from JLCPCB: the displays (LS013B7DH05, Mouser or DigiKey) and the battery holders.
 
@@ -247,8 +249,10 @@ Reviewed before ordering (2026-11-14):
 
 ## Open items
 
-- Choose the board house and whether it assembles the board; then check its stock of the MCU, the TPS63900, the
-  switches and the FPC connector, and convert the BOM and placement file to its format if it has one.
-- Confirm how far the FPC goes into the connector against a sample, and with it the display's position.
+- Order: JLCPCB, 2 assembled boards (`ORDERING.md`); check each part's stock and rotation in its preview when
+  placing the order.
+- Confirm how far the FPC goes into the connector against a sample, and with it the display's position (the case
+  window allows ±0.5 mm).
 - Print the case (`case/`, made by `case/make_case.sh`) and check its fit: one cap and the front first; measure
   the battery holder before printing the back.
+- Bring the boards up: `../sw/STEP11-bringup.md`.

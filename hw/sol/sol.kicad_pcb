@@ -6422,7 +6422,7 @@
 		(path "/416d1a11-e36e-4b2e-b4b8-396719b437f5")
 		(sheetname "/")
 		(sheetfile "sol.kicad_sch")
-		(attr through_hole)
+		(attr through_hole dnp)
 		(fp_line
 			(start -1.38 -1.38)
 			(end 0 -1.38)

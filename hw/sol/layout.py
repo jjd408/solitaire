@@ -221,6 +221,9 @@ def main():
         for item in fp.GraphicalItems():
             if isinstance(item, pcbnew.PCB_TEXT) and item.GetLayer() == pcbnew.F_SilkS:
                 item.SetLayer(pcbnew.F_Fab)
+    # J3, the programming header, isn't fitted (the case has no room for it; hw/case): its plated holes stay, for a
+    # header or pogo pins pressed in from the back. Marked do-not-populate here and in the schematic
+    fps["J3"].SetDNP(True)
     # the TPS63900's exposed pad and its thermal vias join the ground pour solidly, not through spokes
     fps["U2"].SetLocalZoneConnection(pcbnew.ZONE_CONNECTION_FULL)
     # The drill/place origin at the board's bottom-left corner: make_fab.sh measures the Gerbers, drill and

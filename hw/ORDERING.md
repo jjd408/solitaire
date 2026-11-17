@@ -36,8 +36,9 @@ On jlcpcb.com:
    use JLCPCB's global sourcing or pre-order it into your parts store; either adds days.
 4. **Check every part's rotation in the 3D preview**, and rotate any that are wrong: see *Checking part
    rotations* below. U1, U2, Q1 and DS1 are the ones that matter.
-5. **J3, the programming header, is the only through-hole part.** If the Economic tier won't fit it, leave it off
-   and solder it by hand (4 pins).
+5. **J3, the programming header, isn't fitted** (do-not-populate: the case has no room for it), so it's not in the
+   BOM or placement file and every part is surface-mount. Its plated holes are drilled: program the boards with a
+   4-pin header or pogo pins pressed into them from the back (`../sw/STEP11-bringup.md`).
 6. Check the total, which shows import duties if any, and order.
 
 **Estimated cost:** about **$90–125** for 2 assembled boards (plus 3 bare), including shipping, before any import
