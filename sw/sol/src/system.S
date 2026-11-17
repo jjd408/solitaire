@@ -8,7 +8,8 @@
 
         .text
 
-; system: sets up the board: the watchdog, the ports (unused pins, display, buttons), clocks and TB0.
+; system: sets up the board: the watchdog, the ports (unused pins, display, buttons), clocks and TB0; and counts
+; a reset by the watchdog in wdt_resets.
 ;   in:      none
 ;   out:     none
 ;   changes: none
@@ -66,6 +67,17 @@ system:
         mov.w   #SELMS__DCOCLKDIV|SELA__REFOCLK, &CSCTL4 ; MCLK = SMCLK = DCO, ACLK = REFO
         mov.w   #TBIDEX__8, &TB0EX0                     ; set up timer B0 divide ACLK by 8
         mov.w   #TB0_SETUP, &TB0CTL                     ; ACLK / 8 again = 512 Hz,rollover, int on wrap
+        push.w  R12                                     ; count a watchdog reset (PLAN.md, Watchdog)
+1:      mov.w   &SYSRSTIV, R12                          ; the reset's causes, highest first; reading clears each
+        tst.w   R12
+        jz      2f
+        cmp.w   #SYSRSTIV_WDTTO, R12
+        jne     1b
+        call    #store_open                             ; the watchdog ran out: a hang, caught
+        inc.w   &wdt_resets
+        call    #store_protect                          ; (not store_close: the game isn't touched)
+        jmp     1b
+2:      pop.w   R12
         mov.w   #WDT_RUN, &WDTCTL                       ; start watchdog
         ret
 

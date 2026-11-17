@@ -139,9 +139,11 @@ them into one program.
 | `gfx.S` | Framebuffer drawing: fill, invert, glyphs, text, cards, dirty-line marking | `gfx_card`, `gfx_text`, `gfx_fill`, ... |
 | `font.S` | Rank and suit glyphs, a small text font, card back pattern (FRAM constants) | data only |
 | `buttons.S` | Port set-up, interrupt routines, debounce, event queue | `btn_init`, `btn_next` |
-| `game.S` | Klondike model: random numbers (xorshift32), the piles, deal, legal moves, applying and undoing moves, win check | `rng_seed`, `rng_next`, `rng_below`, `pile_push`, `pile_pop`, `game_new`, `game_move`, `game_undo` |
-| `ui.S` | What a button means in the current state, selection, layout, what to redraw | `ui_button`, `ui_draw` |
-| `store.S` | FRAM write-protection discipline, validating the saved game | `store_open`, `store_close`, `store_valid` |
+| `game.S` | Klondike model: random numbers (xorshift32), the piles, deal, legal moves, the stock, applying and undoing moves, scoring, win check | `rng_seed`, `rng_next`, `rng_below`, `pile_push`, `pile_pop`, `game_new`, `card_fits`, `game_move`, `game_to_foundation`, `game_stock`, `game_undo` |
+| `ui.S` | What a button means in the current state, selection, messages, layout and squeezing, redrawing what changed, the win screen | `ui_start`, `ui_button`, `ui_update` |
+| `options.S` | The options screen and statistics | `options_open`, `options_button` |
+| `store.S` | The data kept in FRAM; write-protection discipline, the checksum, validating the saved game and settings | `store_open`, `store_close`, `store_protect`, `store_valid`, `settings_valid` |
+| `test*.S` | Test screens for steps 2, 3, 4 and 7, built only with `-DTEST_SCREEN=n` | |
 
 ### Conventions
 
@@ -159,12 +161,11 @@ gdb's backtraces make sense:
 
 | Region | Use | Size |
 | --- | --- | --- |
-| FRAM, code | All modules | ~6–8 KB estimated |
-| FRAM, constants | Font, suit glyphs, card back, text | ~1–2 KB |
-| FRAM, `.persistent` | The game (piles, undo log, options, statistics, seed) | ~1.5 KB |
+| FRAM, code and constants | All modules, the fonts and glyphs, text | 8.0 KB (the game build, step 10) |
+| FRAM, `.persistent` | The game (piles, undo log, counts, seed: 1304 B) and the settings and statistics (16 B) | 1320 B |
 | RAM | Framebuffer 168 lines × 18 bytes | 3024 B |
-| RAM | Dirty-line bitmap (168 bits), event queue, UI state, scratch | ~64 B |
-| RAM | Stack | ~256 B, at the top of RAM |
+| RAM | Dirty-line bitmap (168 bits), event queue, UI state, the deck and scratch piles, `cards_valid`'s table | 214 B |
+| RAM | Stack | the rest, about 850 B, at the top of RAM |
 
 The framebuffer takes three quarters of RAM, so **the game state lives in FRAM, not RAM**. FRAM writes as fast as
 RAM and wears out only after about 10^15 writes, so the game can be updated in place. That also saves it
@@ -173,9 +174,11 @@ automatically: pull the batteries mid-game and it resumes where it was.
 ### FRAM write protection
 
 `SYSCFG0.PFWP` protects program FRAM from stray writes. The game in `.persistent` sits in program FRAM, so
-`store_open` clears PFWP before a state change and `store_close` sets it again straight after. Code and
-constants are only writable for those few instructions. A version word and a checksum in the saved game let
-`store_valid` reject a half-written or incompatible state (after a firmware update, say) and deal a new game.
+`store_open` clears PFWP before a state change and `store_close` sets it again straight after (sealing the game
+with its checksum; `store_protect` protects without sealing, for the settings). Code and constants are only
+writable for those few instructions. A version word and a checksum in the saved game let `store_valid` reject a
+half-written or incompatible state (after a firmware update, say); a game whose cards are all there is kept
+without its undo log (`STEP9-saving.md`).
 
 ## Display
 
@@ -220,6 +223,7 @@ y 167   +-----------------------------------------------+
   2. face-up strips from 10 pixels down to 8 (the 7-pixel rank and suit glyphs plus the card's edge).
   The tallest legal column, 6 face-down + 13 face-up, then takes 6×1 + 12×8 + 26 = 128 pixels, an exact fit;
   normal spacing holds 9 face-up cards on 6 face-down (11 with none face-down), so most columns never squeeze.
+  (At 1 pixel each, face-down strips merge into a solid bar: they show there are face-down cards, not how many.)
   `ui.S` works out each column's strip sizes when it draws the column.
 - Selection: the selected card (or run) is drawn inverted.
 - Red suits (hearts, diamonds) can't be coloured, so they're drawn as outlined symbols and black suits
@@ -229,8 +233,8 @@ y 167   +-----------------------------------------------+
 
 `gfx` draws into the framebuffer and marks the lines it touched in the dirty-line bitmap; `lcd_flush` sends
 all the dirty lines in one transfer (each line carries its own address, so they needn't be next to each other)
-and clears their bits. After a move `ui_draw` redraws only the piles the move changed
-(each pile has a known rectangle), plus the status line.
+and clears their bits. After a move `ui_update` redraws only the piles the move changed (each pile has a known
+rectangle; a column only as far down as it went last time), plus the status line (`STEP7-interface.md`).
 
 ## Buttons and controls
 
@@ -268,8 +272,8 @@ Moving cards is two presses, source then destination:
 - **Source**: a tableau column, the waste, or a foundation. Its top card is shown selected.
 - **Destination**: a tableau column or a foundation. Between tableau columns, the run that fits is moved: the one
   whose bottom card is one lower and the opposite colour of the destination's top card, or the run starting
-  with a king for an empty column. There's no buzzer, so an illegal destination flashes the status line and
-  keeps the selection.
+  with a king for an empty column. There's no buzzer, so an illegal destination shows a message across the
+  status line (white on black, until the next press) and keeps the selection.
 - **Same button twice**: sends the source's top card to its foundation if it can go, else cancels the selection.
 - Uncovered face-down cards turn over automatically.
 
@@ -283,7 +287,7 @@ On the options screen each setting sits beside a button, which steps through its
 | Draw | 1 card, 3 cards | 3 |
 | Stock passes | Unlimited, 3, 1 | Unlimited |
 | Scoring | Off (move count only), Standard, Vegas | Off |
-| Statistics | Shown on the screen: games played and won, win rate, current and best streak; one button resets them | |
+| Statistics | Shown on the screen: games played and won, win rate, current and best streak (and watchdog resets, if any); S4 twice resets them | |
 
 Settings are kept in `.persistent` with the game. A change to Draw, Stock passes or Scoring applies from the
 next new game, so a game in progress keeps the rules it started with (they're saved with it).
@@ -366,14 +370,14 @@ Each step ends with something visible in the simulator and, from step 2, an auto
    seeded deals match expected layouts.
 6. **Moves** (details in `STEP6-moves.md`): rules, multi-card moves, stock and waste, automatic turn-over, win detection. Check: scripted games,
    including a full winning game from a known seed.
-7. **Interface**: two-press moves, selection display, same-button-twice to foundation, status line, layout
+7. **Interface** (details in `STEP7-interface.md`): two-press moves, selection display, same-button-twice to foundation, status line, layout
    compression of long columns, win screen.
-8. **Undo, new game, options**: the undo log, confirm for new game, the options screen (draw 1/3, stock
+8. **Undo, new game, options** (details in `STEP8-undo-options.md`): the undo log, confirm for new game, the options screen (draw 1/3, stock
    passes, scoring, statistics).
-9. **Saving**: FRAM write protection discipline, version and checksum, resume after power-up (in the simulator:
+9. **Saving** (details in `STEP9-saving.md`): FRAM write protection discipline, version and checksum, resume after power-up (in the simulator:
    reset mid-game and check the game is back).
-10. **Power**: confirm LPM3 everywhere, nothing left running; measure on hardware when boards exist.
-11. **Hardware bring-up**: programming over Spy-Bi-Wire, the display's power-up order on real glass, button feel,
+10. **Power** (details in `STEP10-power.md`): confirm LPM3 everywhere, nothing left running; measure on hardware when boards exist.
+11. **Hardware bring-up** (details in `STEP11-bringup.md`): programming over Spy-Bi-Wire, the display's power-up order on real glass, button feel,
     current.
 
 ## Open decisions

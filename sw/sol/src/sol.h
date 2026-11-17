@@ -47,6 +47,9 @@
 #define P_PILES     13          /* how many */
 #define P_SCRATCH   13          /* pile_move's scratch pile, in RAM: not one of the game's 13 */
 #define GAME_MAGIC  0x50CA      /* in game_magic once a game has been dealt */
+#define STORE_VERSION 2         /* the layout of the saved game (store.S): a game saved with another is dropped */
+#define SETTINGS_MAGIC 0x5E77   /* in settings_magic while the settings and statistics are valid */
+#define UNDO_SIZE   256         /* records in the undo log (a ring: the oldest are forgotten) */
 
 /* Layout (PLAN.md, Layout): columns 20 pixels apart, the top row at y 2, the tableau from y 30 */
 #define COL_X(n)    (2 + 20 * (n))
@@ -55,6 +58,19 @@
 #define STRIP_DOWN  3           /* lines a face-down card shows when another covers it */
 #define STRIP_UP    10          /* lines a face-up card shows when another covers it */
 #define STATUS_Y    161         /* the status line, in the small font */
+#define STATUS_TOP  159         /* the status line's band: lines 159-167 (a message shows inverted across it) */
+#define TABLE_H     128         /* lines for the tableau: y 30-157 (PLAN.md, Layout) */
+#define STRIP_DOWN_MIN 1        /* a squeezed column's strips (PLAN.md, Layout): face down from 3 to 1... */
+#define STRIP_UP_MIN 8          /* ...then face up from 10 to 8 */
+#define WASTE_FAN   9           /* draw 3: the waste's top three cards, 9 pixels apart */
+
+/* What ui_update redraws (ui.S's redraw word): a bit per pile (1 << pile), and these */
+#define R_STATUS    0x2000      /* the status line */
+#define R_ALL       0x4000      /* everything: the table and the status line, or the title or options screen */
+
+/* Which screen the buttons work on (ui.S's mode) */
+#define MODE_TABLE  0           /* the game (or the title screen, before there is one) */
+#define MODE_OPTIONS 1          /* the options screen */
 
 /* The move record (STEP6-moves.md): 4 bytes, enough to undo the move exactly */
 #define M_SOURCE    0           /* byte offsets: the pile the cards came from */
@@ -63,3 +79,15 @@
 #define M_FLAGS     3           /* what else happened: */
 #define M_TURNED    1           /*   the source's new top card was turned face up */
 #define M_RECYCLED  2           /*   the waste was turned back over into the stock */
+
+/* Scoring (PLAN.md, Options) */
+#define S_OFF       0           /* the move count only */
+#define S_STANDARD  1           /* +5 waste to tableau, +10 to a foundation, +5 a turn-over, -15 off a foundation */
+#define S_VEGAS     2           /* -52 to start, +5 a card to a foundation, -5 a card off one */
+#define VEGAS_START -52
+
+/* What game_stock says */
+#define STOCK_NONE  0           /* nothing to do: the stock and the waste are empty */
+#define STOCK_DONE  1           /* dealt, or turned the waste over */
+#define STOCK_LIMIT 2           /* the waste can't be turned over: no passes left */
+

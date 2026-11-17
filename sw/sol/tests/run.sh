@@ -173,13 +173,74 @@ run_only() {
     report=$("$run" "$hex" --seconds "$seconds" --tick 1e6 "$@" 2>&1)
 }
 
-# game_peek BUILD: the runner option that dumps the game (store.S's .persistent block, 129 words)
+# game_peek BUILD: the runner option that dumps the game (the start of store.S's .persistent block, 134 words)
 game_peek() {
-    echo "--peek $("$nm" "$out/$1.elf" | awk '$3 == "game_magic" { print $1 }'):129"
+    echo "--peek $("$nm" "$out/$1.elf" | awk '$3 == "game_magic" { print $1 }'):134"
+}
+
+# stock NAME BUILD SEED PRESSES: checks the stock and waste in FRAM, from the --peek of the last run, against
+# tests/stock.py's reference for that seed after PRESSES presses of STOCK
+stock() {
+    name=$1
+    addr=$("$nm" "$out/$2.elf" | awk '$3 == "game_magic" { print toupper(substr($1, length($1) - 3)) }')
+    if result=$(echo "$report" | python3 "$here/stock.py" "$addr" "$3" "$4"); then
+        pass "$name piles"
+    else
+        fail "$name piles: $(echo "$result" | head -3 | tr '\n' ' ')"
+    fi
+}
+
+# fram_peek BUILD: the runner option that dumps everything kept in FRAM (store.S's .persistent, 660 words)
+fram_peek() {
+    echo "--peek $("$nm" "$out/$1.elf" | awk '$3 == "game_magic" { print $1 }'):660"
+}
+
+# model NAME BUILD SEED DRAW ROLES: checks FRAM, from the --peek of the last run, against tests/klondike.py's model
+# of the firmware after the presses ROLES (a file, or the names), from a chip with seed SEED and draw option DRAW
+model() {
+    name=$1
+    addr=$("$nm" "$out/$2.elf" | awk '$3 == "game_magic" { print toupper(substr($1, length($1) - 3)) }')
+    if result=$(echo "$report" | python3 "$here/klondike.py" check "$addr" "$3" "$4" "$5"); then
+        pass "$name FRAM"
+    else
+        fail "$name FRAM: $(echo "$result" | head -4 | tr '\n' ' ')"
+    fi
+}
+
+# play NAME BUILD SEED DRAW ROLES: presses ROLES (150 ms apart, from 0.5 s) without the display model, then model
+play() {
+    n=$(python3 -c "import sys; sys.path.insert(0, '$here'); import klondike; print(len(klondike.read_roles('$5')))")
+    run_only "$2" "$(echo "0.5 + $n * 0.15 + 1" | bc)" $(fram_peek "$2") $(python3 "$here/klondike.py" pins "$5" 0.5 0.15)
+    model "$@"
+}
+
+# screen_play NAME BUILD SEED DRAW ROLES: the same with the display model, checking the screen too (NAME.pbm, or
+# APPROVED=OTHER)
+screen_play() {
+    n=$(python3 -c "import sys; sys.path.insert(0, '$here'); import klondike; print(len(klondike.read_roles('$5')))")
+    screen "$1" "$2" "$(echo "0.5 + $n * 0.15 + 1" | bc)" $(fram_peek "$2") \
+        $(python3 "$here/klondike.py" pins "$5" 0.5 0.15)
+    model "$@"
+}
+
+# cycles: the MCLK cycles the last run counted (the CPU's time awake)
+cycles() {
+    echo "$report" | sed -n 's/^ran .*: \([0-9]*\) MCLK cycles.*/\1/p'
+}
+
+# presses PIN COUNT START: runner options pressing package pin PIN COUNT times from START seconds, 60 ms each,
+# 150 ms apart
+presses() {
+    awk -v pin="$1" -v n="$2" -v t="$3" 'BEGIN {
+        for (i = 0; i < n; i++) printf "--pin %d=0@%.2f --pin %d=z@%.2f ", pin, t + i * 0.15, pin, t + i * 0.15 + 0.06 }'
 }
 
 build game -DTEST_SEED=0x1234
 build game5678 -DTEST_SEED=0x5678
+build win -DTEST_SEED=0x1007 -DTEST_DRAW=1
+build squeeze -DTEST_SEED=0x1234 -DTEST_SCREEN=4
+build corrupt1 -DTEST_SEED=0x1234 -DTEST_CORRUPT=1
+build corrupt2 -DTEST_SEED=0x1234 -DTEST_CORRUPT=2
 build pattern -DTEST_SCREEN=1
 build cards -DTEST_SCREEN=2
 build buttons -DTEST_SCREEN=3
@@ -232,6 +293,61 @@ APPROVED=step5_deal screen step5_kept game 2 $(game_peek game) --pin 3=0@0.5 --p
 deal step5_kept game 0x1234 1
 run_only game5678 1.5 $(game_peek game5678) --pin 3=0@0.5 --pin 3=z@0.6
 deal step5_seed_5678 game5678 0x5678 1
+
+# Step 6: moves. STOCK is package pin 26. Draw 3 from 24 cards: 8 presses empty the stock, the 9th turns the waste
+# back over, the 10th deals the same 3 cards as the first.
+run_only game 3 $(game_peek game) --pin 3=0@0.5 --pin 3=z@0.6 $(presses 26 9 1.0)
+stock step6_stock_turnover game 0x1234 9
+run_only game 3 $(game_peek game) --pin 3=0@0.5 --pin 3=z@0.6 $(presses 26 10 1.0)
+stock step6_stock_second_pass game 0x1234 10
+# Scripted play (tests/sequences.py), and a whole winning game from seed 0x1007 in draw 1 (tests/solve.py),
+# checked against the model (tests/klondike.py) byte for byte: the piles, counts, undo log, score, statistics
+play step6_moves game 0x1234 3 "$here/moves.txt"
+screen_play step6_win win 0x1007 1 "$here/win.txt"     # 216 presses: the longest test; the win screen at the end
+
+# Step 7: the interface. Seed 0x1234: column 1 is 9C, column 2 ends 2C, column 7 ends 5C.
+screen_play step7_select game 0x1234 3 "NEW T7"         # column 7's top card selected: inverted
+screen_play step7_cant game 0x1234 3 "NEW T1 T2"        # 9C on 2C: not allowed; said, and still selected
+screen_play step7_waste game 0x1234 3 "NEW STOCK STOCK WASTE"   # draw 3: the top three fanned, the top selected
+screen_play step7_confirm game 0x1234 3 "NEW STOCK NEW"         # NEW mid-game asks first
+screen step7_squeeze squeeze 2 --pin 4=0@1.0 --pin 4=z@1.06     # every column height; the tallest selected
+
+# Step 8: undo (play, then undo it all, and two more), scoring, a pass limit, and the options screen
+play step8_undo game 0x1234 3 "$here/undo.txt"
+play step8_standard game 0x1234 3 "$here/standard.txt"
+play step8_vegas game 0x1234 3 "$here/vegas.txt"
+play step8_passes game 0x1234 3 "$here/passes.txt"
+screen_play step8_options game 0x1234 3 "NEW OPTIONS F1 F2 F3 F4"     # every setting changed; S4 asks first
+
+# Step 9: saving. A reset mid-game comes back exactly (the same picture as before it); a game damaged after its
+# checksum was written is kept if its cards are all there (but not its undo log), else dropped for the title.
+screen_play step9_before game 0x1234 3 "NEW T5 T1 STOCK STOCK"
+APPROVED=step9_before screen_play step9_resume game 0x1234 3 "NEW T5 T1 STOCK STOCK RESET"
+play step9_damaged_count corrupt1 0x1234 3 "NEW T5 T1 STOCK STOCK RESET_CORRUPT_MOVES UNDO"
+APPROVED=step5_title screen_play step9_damaged_cards corrupt2 0x1234 3 "NEW T5 T1 STOCK RESET_CORRUPT_CARDS"
+
+# Step 10: power. Idle: after a deal, 5 minutes asleep may cost only the two TB0 wake-ups for the watchdog (a few
+# hundred cycles each). A press: at most 150000 cycles (19 ms awake), averaged over 40 presses of real play.
+run_only game 2.5 --pin 3=0@0.5 --pin 3=z@0.6
+short=$(cycles)
+run_only game 300 --pin 3=0@0.5 --pin 3=z@0.6
+long=$(cycles)
+sr=$(echo "$report" | sed -n 's/.* SR=\([0-9A-Fa-f]*\) .*/\1/p')
+if [ $((long - short)) -gt 5000 ] || [ $((0x$sr & 0xD0)) -ne $((0xD0)) ]; then
+    fail "step10_idle: $((long - short)) cycles awake in 5 minutes idle (at most 5000), SR=$sr"
+else
+    pass "step10_idle: $((long - short)) cycles awake in 5 minutes idle"
+fi
+first=$(python3 -c "import sys; sys.path.insert(0, '$here'); import klondike; print(' '.join(klondike.read_roles('$here/moves.txt')[:41]))")
+report=$("$run" "$out/game.hex" --seconds 9 --tick 8e6 $(python3 "$here/klondike.py" pins "NEW" 0.5 0.15) 2>&1)
+one=$(cycles)
+report=$("$run" "$out/game.hex" --seconds 9 --tick 8e6 $(python3 "$here/klondike.py" pins "$first" 0.5 0.15) 2>&1)
+per=$(( ($(cycles) - one) / 40 ))
+if [ "$per" -gt 150000 ]; then
+    fail "step10_press: $per cycles a press (at most 150000)"
+else
+    pass "step10_press: $per cycles a press ($((per / 8000)) ms at 8 MHz)"
+fi
 
 echo "$passed passed, $failed failed"
 [ "$failed" -eq 0 ]

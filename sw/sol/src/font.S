@@ -658,15 +658,15 @@ f_Z:    .byte   5, 7
 
 ; ---- the small font: 3 x 5, drawn 4 pixels apart (gfx_text_small), for labels and small numbers ----
 
-; small_table: the small glyph for each character from ' ' (0x20) to '_' (0x5F), like font_table. Only digits,
-; capitals, space and '-' have glyphs; anything else shows as '?'.
+; small_table: the small glyph for each character from ' ' (0x20) to '_' (0x5F), like font_table. Digits,
+; capitals, space and ! % ' ( ) - . / : have glyphs; anything else shows as '?'.
         .balign 2
         .global small_table
 small_table:
-        .word   s_space, s_qm, s_qm, s_qm, s_qm, s_qm, s_qm, s_qm              ;  !"#$%&'
-        .word   s_qm, s_qm, s_qm, s_qm, s_qm, s_minus, s_qm, s_qm              ; ()*+,-./
+        .word   s_space, s_excl, s_qm, s_qm, s_qm, s_pct, s_qm, s_apos         ;  !"#$%&'
+        .word   s_lpar, s_rpar, s_qm, s_qm, s_qm, s_minus, s_dot, s_slash      ; ()*+,-./
         .word   s_0, s_1, s_2, s_3, s_4, s_5, s_6, s_7                         ; 01234567
-        .word   s_8, s_9, s_qm, s_qm, s_qm, s_qm, s_qm, s_qm                   ; 89:;<=>?
+        .word   s_8, s_9, s_colon, s_qm, s_qm, s_qm, s_qm, s_qm                ; 89:;<=>?
         .word   s_qm, s_A, s_B, s_C, s_D, s_E, s_F, s_G                        ; @ABCDEFG
         .word   s_H, s_I, s_J, s_K, s_L, s_M, s_N, s_O                         ; HIJKLMNO
         .word   s_P, s_Q, s_R, s_S, s_T, s_U, s_V, s_W                         ; PQRSTUVW
@@ -681,6 +681,70 @@ s_minus:.byte   3, 5
         row     ...
         row     ###
         row     ...
+        row     ...
+
+        .balign 2
+s_excl: .byte   3, 5
+        row     .#.
+        row     .#.
+        row     .#.
+        row     ...
+        row     .#.
+
+        .balign 2
+s_pct:  .byte   3, 5
+        row     #.#
+        row     ..#
+        row     .#.
+        row     #..
+        row     #.#
+
+        .balign 2
+s_apos: .byte   3, 5
+        row     .#.
+        row     .#.
+        row     ...
+        row     ...
+        row     ...
+
+        .balign 2
+s_lpar: .byte   3, 5
+        row     ..#
+        row     .#.
+        row     .#.
+        row     .#.
+        row     ..#
+
+        .balign 2
+s_rpar: .byte   3, 5
+        row     #..
+        row     .#.
+        row     .#.
+        row     .#.
+        row     #..
+
+        .balign 2
+s_dot:  .byte   3, 5
+        row     ...
+        row     ...
+        row     ...
+        row     ...
+        row     .#.
+
+        .balign 2
+s_slash: .byte   3, 5
+        row     ..#
+        row     ..#
+        row     .#.
+        row     #..
+        row     #..
+
+        .balign 2
+s_colon: .byte   3, 5
+        row     ...
+        row     .#.
+        row     ...
+        row     .#.
         row     ...
 
         .balign 2
